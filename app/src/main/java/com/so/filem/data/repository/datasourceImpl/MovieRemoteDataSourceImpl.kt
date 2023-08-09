@@ -5,7 +5,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.so.filem.data.local.db.TMDBDatabase
-import com.so.filem.data.paging.MoviePagingSource
 import com.so.filem.data.paging.MovieRemoteMediator
 import com.so.filem.data.remote.network.ApiService
 import com.so.filem.data.repository.datasource.MovieRemoteDataSource
@@ -20,7 +19,7 @@ class MovieRemoteDataSourceImpl @Inject constructor(
 ) : MovieRemoteDataSource {
     private val movieDao = db.movieDao()
 
-    override fun getMovies(filter: MovieFilter): Flow<PagingData<Movie>> {
+    /*override fun getMovies(filter: MovieFilter): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = 50),
             pagingSourceFactory = {
@@ -30,9 +29,9 @@ class MovieRemoteDataSourceImpl @Inject constructor(
                 )
             }
         ).flow
-    }
+    }*/
 
-    /* @OptIn(ExperimentalPagingApi::class)
+     @OptIn(ExperimentalPagingApi::class)
      override fun getMovies(filter : MovieFilter): Flow<PagingData<Movie>> {
          val pagingSourceFactory = { movieDao.getAllMovies() }
          return Pager(
@@ -44,7 +43,7 @@ class MovieRemoteDataSourceImpl @Inject constructor(
              ),
              pagingSourceFactory = pagingSourceFactory,
          ).flow
-     }*/
+     }
 
 
 }

@@ -21,37 +21,28 @@ class MovieRemoteMediator(
     private val db: TMDBDatabase,
     private val filter: MovieFilter
 ) : RemoteMediator<Int, Movie>() {
-    private val movieDao = db.movieDao()
-    private val movieRemoteKeysDao = db.movieRemoteKeysDao()
 
     private companion object {
         const val INITIAL_PAGE_INDEX = 1
     }
 
-    override suspend fun initialize(): InitializeAction {
-        return InitializeAction.LAUNCH_INITIAL_REFRESH
-    }
-
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Movie>): MediatorResult {
         val page = when (loadType) {
-            LoadType.REFRESH -> {
+            LoadType.REFRESH ->{
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
                 remoteKeys?.nextPage?.minus(1) ?: INITIAL_PAGE_INDEX
             }
-
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state)
-                    ?: throw InvalidObjectException("Remote key and the prevKey should not be null")
-                val prevKey = remoteKeys.prevPage ?: return MediatorResult.Success(endOfPaginationReached = true)
-                remoteKeys.prevPage
+                val prevKey = remoteKeys?.prevPage
+                    ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
+                prevKey
             }
-
             LoadType.APPEND -> {
                 val remoteKeys = getRemoteKeyForLastItem(state)
-                if (remoteKeys?.nextPage == null) {
-                    throw InvalidObjectException("Remote key should not be null for $loadType")
-                }
-                remoteKeys.nextPage
+                val nextKey = remoteKeys?.prevPage
+                    ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
+                nextKey
             }
         }
 
@@ -62,7 +53,6 @@ class MovieRemoteMediator(
             }
 
             val repos = response.results
-            repos.sortedBy { it.id }
             val endOfPaginationReached = repos.isEmpty()
             db.withTransaction {
                 // clear all tables in the database
@@ -90,23 +80,19 @@ class MovieRemoteMediator(
             return MediatorResult.Error(exception)
         }
     }
-
-    private suspend fun getRemoteKeyClosestToCurrentPosition(
-        state: PagingState<Int, Movie>,
-    ): MovieRemoteKey? {
+    private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, Movie>): MovieRemoteKey? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { id ->
-                movieRemoteKeysDao.getMovieRemoteKeys(movieId = id)
+                db.movieRemoteKeysDao().getMovieRemoteKeys(id)
             }
         }
     }
-
     private suspend fun getRemoteKeyForFirstItem(
         state: PagingState<Int, Movie>,
     ): MovieRemoteKey? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let { movie ->
-                movieRemoteKeysDao.getMovieRemoteKeys(movieId = movie.id)
+                db.movieRemoteKeysDao().getMovieRemoteKeys(movieId = movie.id)
             }
     }
 
@@ -115,7 +101,7 @@ class MovieRemoteMediator(
     ): MovieRemoteKey? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let { movie ->
-                movieRemoteKeysDao.getMovieRemoteKeys(movieId = movie.id)
+                db.movieRemoteKeysDao().getMovieRemoteKeys(movieId = movie.id)
             }
     }
 }
