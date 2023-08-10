@@ -12,8 +12,8 @@ open class BaseFragment<B : ViewBinding>(
     val bindingFactory: (LayoutInflater, ViewGroup?, Boolean) -> B
 ) : Fragment() {
 
-    protected lateinit var binding: B
-
+    private lateinit var binding: B
+    fun viewBinding(): B = binding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -26,6 +26,10 @@ class MovieRemoteMediator(
         const val INITIAL_PAGE_INDEX = 1
     }
 
+    override suspend fun initialize(): InitializeAction {
+        return InitializeAction.LAUNCH_INITIAL_REFRESH
+    }
+
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Movie>): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH ->{
