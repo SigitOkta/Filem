@@ -9,6 +9,7 @@ import timber.log.Timber
 
 private const val STARTING_PAGE_INDEX = 1
 
+/*
 class MoviePagingSource(
     private val filter: MovieFilter,
     private val api: ApiService
@@ -38,4 +39,4 @@ class MoviePagingSource(
     override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
         return state.anchorPosition
     }
-}
+}*/

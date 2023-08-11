@@ -26,77 +26,89 @@ class MovieRemoteMediator(
         const val INITIAL_PAGE_INDEX = 1
     }
 
-    override suspend fun initialize(): InitializeAction {
-        return InitializeAction.LAUNCH_INITIAL_REFRESH
-    }
+    private val movieDao = db.movieDao()
+    private val movieRemoteKeysDao = db.movieRemoteKeysDao()
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Movie>): MediatorResult {
-        val page = when (loadType) {
-            LoadType.REFRESH ->{
-                val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                remoteKeys?.nextPage?.minus(1) ?: INITIAL_PAGE_INDEX
+        return try {
+            val page = when (loadType) {
+                LoadType.REFRESH -> {
+                    val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
+                    remoteKeys?.nextPage?.minus(1) ?: INITIAL_PAGE_INDEX
+                }
+                LoadType.PREPEND -> {
+                    val remoteKeys = getRemoteKeyForFirstItem(state)
+                    val prevPage = remoteKeys?.prevPage
+                        ?: return MediatorResult.Success(
+                            endOfPaginationReached = remoteKeys != null
+                        )
+                    prevPage
+                }
+                LoadType.APPEND -> {
+                    val remoteKeys = getRemoteKeyForLastItem(state)
+                    val nextPage = remoteKeys?.nextPage
+                        ?: return MediatorResult.Success(
+                            endOfPaginationReached = remoteKeys != null
+                        )
+                    nextPage
+                }
             }
-            LoadType.PREPEND -> {
-                val remoteKeys = getRemoteKeyForFirstItem(state)
-                val prevKey = remoteKeys?.prevPage
-                    ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
-                prevKey
-            }
-            LoadType.APPEND -> {
-                val remoteKeys = getRemoteKeyForLastItem(state)
-                val nextKey = remoteKeys?.prevPage
-                    ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
-                nextKey
-            }
-        }
-
-        try {
             val response = when (filter) {
                 MovieFilter.NOW_PLAYING -> api.getNowPlaying(page)
                 MovieFilter.UPCOMING -> api.getUpComing(page)
             }
+            var endOfPaginationReached = false
+            if (response.isSuccessful) {
+                val responseData = response.body()
+                endOfPaginationReached = responseData == null
+                responseData?.let {
+                    db.withTransaction {
+                        if (loadType == LoadType.REFRESH) {
+                            movieDao.deleteAllMovies()
+                            movieRemoteKeysDao.deleteAllMovieRemoteKeys()
+                        }
+                        var prevPage: Int?
+                        var nextPage: Int
 
-            val repos = response.results
-            val endOfPaginationReached = repos.isEmpty()
-            db.withTransaction {
-                // clear all tables in the database
-                if (loadType == LoadType.REFRESH) {
-                    db.movieRemoteKeysDao().deleteAllMovieRemoteKeys()
-                    db.movieDao().deleteAllMovies()
+                        responseData.page.let { pageNumber ->
+                            nextPage = pageNumber + 1
+                            prevPage = if (pageNumber <= 1) null else pageNumber - 1
+                        }
+
+                        val keys = responseData.results.map { movie ->
+                            MovieRemoteKey(
+                                id = movie.id,
+                                prevPage = prevPage,
+                                nextPage = nextPage,
+                                lastUpdated = System.currentTimeMillis()
+                            )
+                        }
+                        movieRemoteKeysDao.addAllMovieRemoteKeys(movieRemoteKeys = keys)
+                        movieDao.addMovies(movies = responseData.results)
+                    }
                 }
-                val prevKey = if (page == INITIAL_PAGE_INDEX) null else page - 1
-                val nextKey = if (endOfPaginationReached) null else page + 1
-                val keys = repos.map {
-                    MovieRemoteKey(
-                        id = it.id,
-                        prevPage = prevKey,
-                        nextPage = nextKey,
-                        lastUpdated = System.currentTimeMillis()
-                    )
-                }
-                db.movieRemoteKeysDao().addAllMovieRemoteKeys(keys)
-                db.movieDao().addMovies(repos)
+
             }
-            return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
-        } catch (exception: IOException) {
-            return MediatorResult.Error(exception)
-        } catch (exception: HttpException) {
-            return MediatorResult.Error(exception)
+            MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
+        } catch (e: Exception) {
+            return MediatorResult.Error(e)
         }
     }
+
     private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, Movie>): MovieRemoteKey? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { id ->
-                db.movieRemoteKeysDao().getMovieRemoteKeys(id)
+               movieRemoteKeysDao.getMovieRemoteKeys(id)
             }
         }
     }
+
     private suspend fun getRemoteKeyForFirstItem(
         state: PagingState<Int, Movie>,
     ): MovieRemoteKey? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let { movie ->
-                db.movieRemoteKeysDao().getMovieRemoteKeys(movieId = movie.id)
+                movieRemoteKeysDao.getMovieRemoteKeys(movieId = movie.id)
             }
     }
 
@@ -105,7 +117,7 @@ class MovieRemoteMediator(
     ): MovieRemoteKey? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let { movie ->
-                db.movieRemoteKeysDao().getMovieRemoteKeys(movieId = movie.id)
+                movieRemoteKeysDao.getMovieRemoteKeys(movieId = movie.id)
             }
     }
 }

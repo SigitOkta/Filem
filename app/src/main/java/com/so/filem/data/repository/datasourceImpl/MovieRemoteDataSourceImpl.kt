@@ -21,7 +21,7 @@ class MovieRemoteDataSourceImpl @Inject constructor(
 
     /*override fun getMovies(filter: MovieFilter): Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 50),
+            config = PagingConfig(enablePlaceholders = false, pageSize = 20),
             pagingSourceFactory = {
                 MoviePagingSource(
                     api = api,

@@ -11,11 +11,11 @@ interface ApiService {
     suspend fun getNowPlaying(
         @Query("page") page: Int,
         @Query("language") language: String = "en-US"
-    ): MovieResponse
+    ): Response<MovieResponse>
 
     @GET(Constants.UPCOMING)
     suspend fun getUpComing(
         @Query("page") page: Int,
         @Query("language") language: String = "en-US"
-    ): MovieResponse
+    ): Response<MovieResponse>
 }
