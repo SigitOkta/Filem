@@ -56,6 +56,8 @@ class MovieRemoteMediator(
             val response = when (filter) {
                 MovieFilter.NOW_PLAYING -> api.getNowPlaying(page)
                 MovieFilter.UPCOMING -> api.getUpComing(page)
+                MovieFilter.POPULAR -> api.getPopular(page)
+                MovieFilter.TOP_RATED -> api.getTopRated(page)
             }
             var endOfPaginationReached = false
             if (response.isSuccessful) {

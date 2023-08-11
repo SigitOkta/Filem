@@ -18,4 +18,16 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("language") language: String = "en-US"
     ): Response<MovieResponse>
+
+    @GET(Constants.POPULAR)
+    suspend fun getPopular(
+        @Query("page") page: Int,
+        @Query("language") language: String = "en-US"
+    ): Response<MovieResponse>
+
+    @GET(Constants.TOP_RATED)
+    suspend fun getTopRated(
+        @Query("page") page: Int,
+        @Query("language") language: String = "en-US"
+    ): Response<MovieResponse>
 }

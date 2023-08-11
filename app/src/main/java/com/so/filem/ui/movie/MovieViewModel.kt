@@ -57,6 +57,8 @@ class MovieViewModel @Inject constructor(
         return when (filter) {
             MovieFilter.NOW_PLAYING -> "Now Playing"
             MovieFilter.UPCOMING -> "Up Coming"
+            MovieFilter.POPULAR -> "Popular"
+            MovieFilter.TOP_RATED -> "Top Rated"
         }
     }
 }

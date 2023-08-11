@@ -9,18 +9,18 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetFilteredMovieUseCase @Inject constructor(
-    /*private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
-    private val getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase,*/
     private val getNowPlayingMoviesUseCase: GetNowPlayingMovieUseCase,
     private val getUpcomingMoviesUseCase: GetUpComingMovieUseCase,
+    private val getPopularMoviesUseCase: GetPopularMovieUseCase,
+   private val getTopRatedMoviesUseCase: GetTopRatedMovieUseCase,
 ) {
 
     operator fun invoke(filter: MovieFilter): Flow<PagingData<Movie>> {
         return when (filter) {
-            /* MovieFilter.POPULAR -> getPopularMoviesUseCase(page)
-             MovieFilter.TOP_RATED -> getTopRatedMoviesUseCase(page)*/
             MovieFilter.NOW_PLAYING -> getNowPlayingMoviesUseCase(filter)
             MovieFilter.UPCOMING -> getUpcomingMoviesUseCase(filter)
+            MovieFilter.POPULAR -> getPopularMoviesUseCase(filter)
+            MovieFilter.TOP_RATED -> getTopRatedMoviesUseCase(filter)
         }
     }
 }

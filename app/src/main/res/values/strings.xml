@@ -11,4 +11,6 @@
     <string name="en_text_filter_now_playing">Now Playing</string>
     <string name="en_text_filter_upcoming">Up Coming</string>
     <string name="en_text_loading">Loading..</string>
+    <string name="en_text_filter_popular">Popular</string>
+    <string name="en_text_filter_top_rated">Top Rated</string>
 </resources>

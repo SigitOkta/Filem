@@ -62,6 +62,18 @@ class MovieFragment :
                         true
                     }
 
+                    R.id.menu_popular -> {
+                        setActionBarTitle(viewModel.getFilterTitle(MovieFilter.POPULAR))
+                        initData(MovieFilter.POPULAR)
+                        true
+                    }
+
+                    R.id.menu_top_rated -> {
+                        setActionBarTitle(viewModel.getFilterTitle(MovieFilter.TOP_RATED))
+                        initData(MovieFilter.TOP_RATED)
+                        true
+                    }
+
                     else -> false
                 }
             }

@@ -10,4 +10,14 @@
         android:id="@+id/menu_upcoming"
         android:title="@string/en_text_filter_upcoming"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_popular"
+        android:title="@string/en_text_filter_popular"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_top_rated"
+        android:title="@string/en_text_filter_top_rated"
+        app:showAsAction="never" />
 </menu>
