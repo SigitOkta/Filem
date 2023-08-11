@@ -1,15 +1,12 @@
-package com.so.filem.ui.movie
+package com.so.filem.ui.movie.filter
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -19,18 +16,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.so.filem.R
 import com.so.filem.databinding.FragmentMovieBinding
-import com.so.filem.databinding.FragmentSearchBinding
 import com.so.filem.domain.model.MovieFilter
 import com.so.filem.domain.utils.Resource
 import com.so.filem.ui.adapter.LoadingStateAdapter
 import com.so.filem.ui.adapter.MovieListAdapter
-import com.so.filem.ui.base.BaseFragment
 import com.so.filem.ui.base.BaseViewModelFragment
 import com.so.filem.ui.custom.LoadingDialog
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MovieFragment :
