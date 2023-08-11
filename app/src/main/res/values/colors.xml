@@ -5,4 +5,14 @@
     <color name="dark_black">#21212B</color>
     <color name="dark_toolbar">#191920</color>
     <color name="dark_gray">#2A2A35</color>
+    <color name="dark_blue_600">#212529</color>
+    <color name="dark_blue_200">#363E45</color>
+    <color name="grey_600">#333533</color>
+    <color name="grey_400">#575656</color>
+    <color name="grey_200">#71777B</color>
+    <color name="off_white_400">#E8EDDF</color>
+    <color name="yellow_400">#FFAC33</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="red_400">#E5383B</color>
+    <color name="red_200">#E29798</color>
 </resources>
