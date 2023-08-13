@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
     fun getMovies(filter: MovieFilter): Flow<PagingData<Movie>>
+    fun getMoviesFromDB(movieId: Int): Flow<Movie>
 }

@@ -1,6 +1,7 @@
 package com.so.filem.di
 
 import com.so.filem.data.repository.MovieRepositoryImpl
+import com.so.filem.data.repository.datasource.MovieLocalDataSource
 import com.so.filem.data.repository.datasource.MovieRemoteDataSource
 import com.so.filem.domain.repository.MovieRepository
 import dagger.Module
@@ -15,6 +16,7 @@ object RepositoryModule {
     @Provides
     fun provideMoviesRepository(
         movieRemoteDataSource: MovieRemoteDataSource,
+        localDataSource: MovieLocalDataSource
     ): MovieRepository =
-        MovieRepositoryImpl(movieRemoteDataSource)
+        MovieRepositoryImpl(movieRemoteDataSource,localDataSource)
 }

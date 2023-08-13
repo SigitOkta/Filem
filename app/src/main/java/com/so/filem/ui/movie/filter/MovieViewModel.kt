@@ -8,7 +8,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.so.filem.domain.model.MovieFilter
 import com.so.filem.domain.model.movie.Movie
-import com.so.filem.domain.usecase.movie.GetFilteredMovieUseCase
+import com.so.filem.domain.usecase.movie.GetMovieUseCase
 import com.so.filem.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieViewModel @Inject constructor(
-    private val getFilteredMoviesUseCase: GetFilteredMovieUseCase,
+    private val getMovieUseCase: GetMovieUseCase,
 ) : ViewModel() {
 
     private val _MovieResult = MutableLiveData<Resource<PagingData<Movie>>>()
@@ -44,7 +44,7 @@ class MovieViewModel @Inject constructor(
         return flow {
             emit(Resource.Loading())
             try {
-                getFilteredMoviesUseCase(filter).cachedIn(viewModelScope)
+                getMovieUseCase.getFilterMovieUseCase.invoke(filter).cachedIn(viewModelScope)
                     .collect {
                         emit(Resource.Success(it))
                     }

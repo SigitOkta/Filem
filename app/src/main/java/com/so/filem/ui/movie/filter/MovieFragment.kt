@@ -22,6 +22,8 @@ import com.so.filem.ui.adapter.LoadingStateAdapter
 import com.so.filem.ui.adapter.MovieListAdapter
 import com.so.filem.ui.base.BaseViewModelFragment
 import com.so.filem.ui.custom.LoadingDialog
+import com.so.filem.ui.movie.detail.DetailMovieActivity
+import com.so.filem.ui.movie.detail.DetailMovieActivity.Companion.EXTRAS_ID
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -29,7 +31,11 @@ import kotlinx.coroutines.launch
 class MovieFragment :
     BaseViewModelFragment<FragmentMovieBinding, MovieViewModel>(FragmentMovieBinding::inflate) {
     override val viewModel: MovieViewModel by viewModels()
+
     private lateinit var movieAdapter: MovieListAdapter
+
+
+
     private lateinit var loadingStateAdapter: LoadingStateAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -98,13 +104,18 @@ class MovieFragment :
 
     private fun setupRecyclerView() {
         val recyclerView = viewBinding().rvGrid
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         movieAdapter = MovieListAdapter()
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         recyclerView.adapter = movieAdapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 movieAdapter.retry()
             }
         )
+
+    }
+
+    override fun observeData() {
+        super.observeData()
         viewModel.getMovieResult.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Empty -> {
@@ -122,11 +133,6 @@ class MovieFragment :
                 }
             }
         }
-    }
-
-    override fun observeData() {
-        super.observeData()
-
     }
 
     private fun setActionBarTitle(title: String) {
