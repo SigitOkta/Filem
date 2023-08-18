@@ -1,8 +1,10 @@
 package com.so.filem.data.remote.network
 
+import com.so.filem.data.remote.response.MovieDetailsResponse
 import com.so.filem.data.remote.response.MoviesResponse
 import com.so.filem.domain.utils.Constants
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -29,4 +31,10 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("language") language: String = "en-US"
     ): MoviesResponse
+
+    @GET(Constants.MOVIE_DETAIL)
+    suspend fun getMovieDetails(
+        @Path("id") id: Long
+    ): MovieDetailsResponse
+
 }

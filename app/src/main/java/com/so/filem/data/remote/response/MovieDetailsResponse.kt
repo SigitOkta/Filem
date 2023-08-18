@@ -1,9 +1,6 @@
 package com.so.filem.data.remote.response
 
-import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
-
-data class MoviesListResponse(
+data class MovieDetailsResponse(
     val id: Long,
     val adult: Boolean?,
     val backdrop_path: String?,
@@ -15,5 +12,8 @@ data class MoviesListResponse(
     val release_date: String,
     val title: String?,
     val vote_average: Double?,
-    val vote_count: Int?
+    val vote_count: Int?,
+    val genres: List<GenreResponse>?,
+    val creditsResponse: CreditsResponse,
+    val videosResponse: VideosResponse,
 )

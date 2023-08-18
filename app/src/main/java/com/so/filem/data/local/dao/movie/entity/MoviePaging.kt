@@ -9,7 +9,7 @@ data class MoviePaging(
     @PrimaryKey(autoGenerate = true)
     val pk: Long = 0,
     @field:SerializedName("id")
-    val id: Int,
+    val id: Long,
     @field:SerializedName("adult")
     val adult: Boolean?,
     @field:SerializedName("backdrop_path")

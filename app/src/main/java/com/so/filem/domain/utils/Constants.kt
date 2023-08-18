@@ -8,6 +8,8 @@ object Constants {
     const val POPULAR = "movie/popular"
     const val TOP_RATED = "movie/top_rated"
 
+    const val MOVIE_DETAIL = "movie/{id}?append_to_response=videos,credits"
+
 
 
     private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/"

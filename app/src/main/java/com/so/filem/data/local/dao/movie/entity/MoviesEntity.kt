@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "movies")
 data class MoviesEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Long,
     @field:SerializedName("adult")
     val adult: Boolean?,
     @field:SerializedName("backdrop_path")

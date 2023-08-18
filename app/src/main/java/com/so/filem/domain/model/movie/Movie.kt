@@ -3,7 +3,7 @@ package com.so.filem.domain.model.movie
 import com.so.filem.domain.utils.Constants
 
 data class Movie(
-    val id: Int,
+    val id: Long,
     val adult: Boolean?,
     val backdropPath: String?,
     val original_language: String?,
