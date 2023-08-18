@@ -1,12 +1,5 @@
 package com.so.filem.data.paging
 
-import androidx.paging.PagingSource
-import androidx.paging.PagingState
-import com.so.filem.data.remote.network.ApiService
-import com.so.filem.domain.model.MovieFilter
-import com.so.filem.domain.model.movie.Movie
-import timber.log.Timber
-
 private const val STARTING_PAGE_INDEX = 1
 
 /*

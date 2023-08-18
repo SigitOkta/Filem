@@ -9,7 +9,7 @@ import com.so.filem.data.paging.MovieRemoteMediator
 import com.so.filem.data.remote.network.ApiService
 import com.so.filem.data.repository.datasource.MovieRemoteDataSource
 import com.so.filem.domain.model.MovieFilter
-import com.so.filem.domain.model.movie.Movie
+import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -17,7 +17,7 @@ class MovieRemoteDataSourceImpl @Inject constructor(
     private val api: ApiService,
     private val db: TMDBDatabase,
 ) : MovieRemoteDataSource {
-    private val movieDao = db.movieDao()
+    private val movieDao = db.moviePagingDao()
 
     /*override fun getMovies(filter: MovieFilter): Flow<PagingData<Movie>> {
         return Pager(
@@ -32,7 +32,7 @@ class MovieRemoteDataSourceImpl @Inject constructor(
     }*/
 
      @OptIn(ExperimentalPagingApi::class)
-     override fun getMovies(filter : MovieFilter): Flow<PagingData<Movie>> {
+     override fun getMovies(filter : MovieFilter): Flow<PagingData<MoviePaging>> {
          val pagingSourceFactory = { movieDao.getAllMovies() }
          return Pager(
              config = PagingConfig(pageSize = 20),

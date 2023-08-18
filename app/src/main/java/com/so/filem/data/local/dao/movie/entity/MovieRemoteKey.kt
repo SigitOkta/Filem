@@ -1,4 +1,4 @@
-package com.so.filem.domain.model.movie
+package com.so.filem.data.local.dao.movie.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

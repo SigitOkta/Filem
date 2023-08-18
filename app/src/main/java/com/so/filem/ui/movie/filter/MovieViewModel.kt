@@ -5,23 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.paging.map
 import com.so.filem.domain.model.MovieFilter
-import com.so.filem.domain.model.movie.Movie
+import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.domain.usecase.movie.GetMovieUseCase
 import com.so.filem.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import timber.log.Timber
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,7 +20,7 @@ class MovieViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
 ) : ViewModel() {
 
-    private val _MovieResult = MutableLiveData<Resource<PagingData<Movie>>>()
+    private val _MovieResult = MutableLiveData<Resource<PagingData<MoviePaging>>>()
     val getMovieResult get() = _MovieResult
 
     fun getMovieList(filter: MovieFilter) {
@@ -40,7 +31,7 @@ class MovieViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getFilteredMovies(filter: MovieFilter): Flow<Resource<PagingData<Movie>>> {
+    private suspend fun getFilteredMovies(filter: MovieFilter): Flow<Resource<PagingData<MoviePaging>>> {
         return flow {
             emit(Resource.Loading())
             try {

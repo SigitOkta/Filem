@@ -2,7 +2,7 @@ package com.so.filem.di
 
 import android.app.Application
 import androidx.room.Room
-import com.so.filem.data.local.dao.movie.MovieDao
+import com.so.filem.data.local.dao.movie.MoviePagingDao
 import com.so.filem.data.local.dao.movie.MovieRemoteKeyDao
 import com.so.filem.data.local.db.TMDBDatabase
 import dagger.Module
@@ -22,7 +22,7 @@ object DatabaseModule {
             .build()
 
     @Provides
-    fun provideMovieDao(db: TMDBDatabase) : MovieDao = db.movieDao()
+    fun provideMovieDao(db: TMDBDatabase) : MoviePagingDao = db.moviePagingDao()
 
     @Provides
     fun provideMovieRemoteKeysDao(db: TMDBDatabase) : MovieRemoteKeyDao = db.movieRemoteKeysDao()

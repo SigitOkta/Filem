@@ -1,6 +1,7 @@
 package com.so.filem.di
 
-import com.so.filem.data.local.dao.movie.MovieDao
+import com.so.filem.data.local.db.TMDBDatabase
+import com.so.filem.data.remote.network.ApiService
 import com.so.filem.data.repository.datasource.MovieLocalDataSource
 import com.so.filem.data.repository.datasourceImpl.MovieLocalDataSourceImpl
 import dagger.Module
@@ -12,6 +13,6 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object LocalDataModule {
     @Provides
-    fun provideLocalDataSource(movieDao: MovieDao): MovieLocalDataSource =
-        MovieLocalDataSourceImpl(movieDao = movieDao)
+    fun provideLocalDataSource(api : ApiService, db : TMDBDatabase): MovieLocalDataSource =
+        MovieLocalDataSourceImpl(api, db)
 }

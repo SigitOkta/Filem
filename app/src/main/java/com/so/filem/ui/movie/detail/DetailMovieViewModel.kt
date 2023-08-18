@@ -1,12 +1,8 @@
 package com.so.filem.ui.movie.detail
 
-import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.so.filem.domain.model.MovieFilter
-import com.so.filem.domain.model.movie.Movie
+import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.domain.usecase.movie.GetMovieUseCase
 import com.so.filem.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,8 +19,8 @@ class DetailMovieViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
 ) : ViewModel() {
 
-    private val _selectedMovie = MutableStateFlow<Resource<Movie>?>(null)
-    val selectedMovie: StateFlow<Resource<Movie>?> = _selectedMovie
+    private val _selectedMovie = MutableStateFlow<Resource<MoviePaging>?>(null)
+    val selectedMovie: StateFlow<Resource<MoviePaging>?> = _selectedMovie
 
     fun getMovieDetails(id : Int) {
         viewModelScope.launch {
@@ -34,7 +30,7 @@ class DetailMovieViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getDetailsMovie(movieID: Int): Flow<Resource<Movie>> {
+    private suspend fun getDetailsMovie(movieID: Int): Flow<Resource<MoviePaging>> {
         return flow {
             emit(Resource.Loading())
             try {

@@ -2,20 +2,19 @@ package com.so.filem.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.so.filem.R
 import com.so.filem.databinding.ItemPosterMovieGridBinding
-import com.so.filem.domain.model.movie.Movie
+import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.domain.utils.Constants
 import com.so.filem.ui.movie.detail.DetailMovieActivity
 import timber.log.Timber
 
 class MovieListAdapter(
-) : PagingDataAdapter<Movie, MovieListAdapter.MyViewHolder>(DIFF_CALLBACK) {
+) : PagingDataAdapter<MoviePaging, MovieListAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
@@ -34,7 +33,7 @@ class MovieListAdapter(
         private val binding: ItemPosterMovieGridBinding,
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Movie) {
+        fun bind(data: MoviePaging) {
             val posterUrl =
                 if (data.poster_path != null) Constants.POSTER_URL + data.poster_path else null
             //val backdropUrl = if ( data.backdrop_path != null) Constants.BACKDROP_URL + data.backdrop_path else null
@@ -50,12 +49,12 @@ class MovieListAdapter(
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
-            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MoviePaging>() {
+            override fun areItemsTheSame(oldItem: MoviePaging, newItem: MoviePaging): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            override fun areContentsTheSame(oldItem: MoviePaging, newItem: MoviePaging): Boolean {
                 return oldItem.id == newItem.id
             }
         }
