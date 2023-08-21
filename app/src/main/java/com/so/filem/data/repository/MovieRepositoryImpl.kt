@@ -4,6 +4,7 @@ import com.so.filem.data.repository.datasource.MovieLocalDataSource
 import com.so.filem.data.repository.datasource.MovieRemoteDataSource
 import com.so.filem.domain.model.MovieFilter
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
+import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -15,6 +16,10 @@ class MovieRepositoryImpl @Inject constructor(
     override fun getMoviesForPaging(filter: MovieFilter) = localDataSource.getMoviesForPaging(filter)
     override fun getMoviesFromDB(movieId: Int): Flow<MoviePaging> {
         return localDataSource.getMoviesFromDB(movieId)
+    }
+
+    override suspend fun getMovieDetails(movieId: Long): MovieDetails {
+        return remoteDataSource.getMovieDetails(movieId)
     }
 
 

@@ -9,6 +9,7 @@ import coil.load
 import com.so.filem.R
 import com.so.filem.databinding.ActivityDetailMovieBinding
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
+import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.utils.Constants
 import com.so.filem.domain.utils.Resource
 import com.so.filem.ui.base.BaseViewModelActivity
@@ -29,7 +30,7 @@ class DetailMovieActivity :
 
     companion object {
         const val EXTRAS_ID = "EXTRAS_ID"
-        fun startActivity(context: Context, id: Int) {
+        fun startActivity(context: Context, id: Long) {
             context.startActivity(Intent(context, DetailMovieActivity::class.java).apply {
                 Timber.tag("co").d(id.toString())
                 putExtra(EXTRAS_ID, id)
@@ -45,41 +46,41 @@ class DetailMovieActivity :
 }
 
     private fun initView() {
-        val movieId = intent.getIntExtra(EXTRAS_ID,0)
+        val movieId = intent.getLongExtra(EXTRAS_ID,0)
         Timber.tag("activity").d(movieId.toString())
-        viewModel.getMovieDetails(movieId)
+        viewModel.getMovieId(movieId)
     }
 
-    private fun loadData(data: MoviePaging) {
-        val posterUrl =
-            if (data.poster_path != null) Constants.POSTER_URL + data.poster_path else null
+    private fun loadData(data: MovieDetails) {
+      /*  val posterUrl =
+            if (data.movie.posterPath != null) Constants.POSTER_URL + data.movie.posterPath  else null
         val backdropUrl =
-            if (data.backdrop_path != null) Constants.BACKDROP_URL + data.backdrop_path else null
+            if (data.movie.backdropPath  != null) Constants.BACKDROP_URL + data.movie.backdropPath  else null*/
         binding.apply {
-            ivPosterDetail.load(posterUrl) {
+            ivPosterDetail.load(data.movie.posterUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_placeholder_poster)
             }
-            ivPosterBackground.load(backdropUrl) {
+            ivPosterBackground.load(data.movie.backdropUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_placeholder_poster)
             }
-            tvTitle.text = data.title
-            if (data.overview != null) {
-                tvDesciption.text = data.overview
+            tvTitle.text = data.movie.title
+            if (data.movie.overview != null) {
+                tvDesciption.text = data.movie.overview
             } else {
                 tvDesciption.text = "No overview"
             }
             /*if (data.runtime != 0) {
                 tvDuration.text = data.runtime?.let { Converter.fromMinutesToHHmm(it) }
             }*/
-            tvRating.text = data.vote_average?.let { Converter.roundOffDecimal(it) }
+            tvRating.text = data.movie.vote_average?.let { Converter.roundOffDecimal(it) }
         }
     }
 
     private fun observeData() {
         lifecycleScope.launch {
-            viewModel.selectedMovie.collectLatest {
+            viewModel.movieDetails.collectLatest {
                 when (it) {
                     is Resource.Empty -> {
 

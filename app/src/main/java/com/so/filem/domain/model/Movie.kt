@@ -1,4 +1,4 @@
-package com.so.filem.domain.model.movie
+package com.so.filem.domain.model
 
 import com.so.filem.domain.utils.Constants
 

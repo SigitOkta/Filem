@@ -1,5 +1,7 @@
 package com.so.filem.data.remote.response
 
+import com.google.gson.annotations.SerializedName
+
 data class CreditsResponse(
-    val cast : List<CastResponse>
+    @SerializedName("cast") val cast: List<CastResponse>?
 )

@@ -1,6 +1,6 @@
 package com.so.filem.data.local.dao.movie.entity
 
-import com.so.filem.domain.model.movie.Movie
+import com.so.filem.domain.model.Movie
 
 
 fun MoviePaging.asMovie() = Movie(

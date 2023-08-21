@@ -15,6 +15,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RemoteDataModule {
     @Provides
-    fun provideMoviesRemoteDataSource(api: ApiService, db: TMDBDatabase ) : MovieRemoteDataSource =
-        MovieRemoteDataSourceImpl(api, db)
+    fun provideMoviesRemoteDataSource(api: ApiService) : MovieRemoteDataSource =
+        MovieRemoteDataSourceImpl(api)
 }

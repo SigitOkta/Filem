@@ -1,6 +1,4 @@
-package com.so.filem.domain.model.movie
-
-import com.so.filem.data.remote.response.MoviesListResponse
+package com.so.filem.domain.model
 
 data class Movies(
     val page: Int,

@@ -9,7 +9,7 @@ import com.so.filem.data.local.dao.movie.entity.MovieRemoteKey
 @Dao
 interface MovieRemoteKeyDao {
     @Query("SELECT * FROM movie_remote_key WHERE id = :movieId")
-    suspend fun getMovieRemoteKeys(movieId: Int): MovieRemoteKey?
+    suspend fun getMovieRemoteKeys(movieId: Long): MovieRemoteKey?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAllMovieRemoteKeys(movieRemoteKeys : List<MovieRemoteKey>)
