@@ -69,7 +69,7 @@ class DetailMovieViewModel @Inject constructor(
         viewModelScope.launch {
             _isFavorite.value = null // Setel null saat memulai pemanggilan
             try {
-                getFavoriteMovieUseCase(movieId).collect{
+                getFavoriteMovieUseCase.invoke(movieId).collect{
                     _isFavorite.value = it?.isFavorite
                     Timber.tag("viewModel-isFavorite").d(_isFavorite.value.toString())
                 }
