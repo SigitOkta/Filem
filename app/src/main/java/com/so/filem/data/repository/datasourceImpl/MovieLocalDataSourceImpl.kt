@@ -6,6 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.so.filem.data.repository.datasource.MovieLocalDataSource
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
+import com.so.filem.data.local.dao.movie.entity.MoviesEntity
 import com.so.filem.data.local.db.TMDBDatabase
 import com.so.filem.data.paging.MovieRemoteMediator
 import com.so.filem.data.remote.network.ApiService
@@ -17,8 +18,9 @@ class MovieLocalDataSourceImpl @Inject constructor(
     private val api: ApiService,
     private val db: TMDBDatabase,
 ) : MovieLocalDataSource {
-    private val movieDao = db.moviePagingDao()
-    override fun getMoviesFromDB(movieId: Int): Flow<MoviePaging> = movieDao.getMovie(movieId)
+    private val moviePagingDao = db.moviePagingDao()
+    private val movieDao = db.movieDao()
+    override fun getMoviesFromDB(movieId: Int): Flow<MoviePaging> = moviePagingDao.getMovie(movieId)
 
     /*override fun getMovies(filter: MovieFilter): Flow<PagingData<Movie>> {
         return Pager(
@@ -34,7 +36,7 @@ class MovieLocalDataSourceImpl @Inject constructor(
 
     @OptIn(ExperimentalPagingApi::class)
     override fun getMoviesForPaging(filter : MovieFilter): Flow<PagingData<MoviePaging>> {
-        val pagingSourceFactory = { movieDao.getAllMovies() }
+        val pagingSourceFactory = { moviePagingDao.getAllMovies() }
         return Pager(
             config = PagingConfig(pageSize = 10),
             remoteMediator = MovieRemoteMediator(
@@ -44,5 +46,37 @@ class MovieLocalDataSourceImpl @Inject constructor(
             ),
             pagingSourceFactory = pagingSourceFactory,
         ).flow
+    }
+
+    override suspend fun saveFavorite(movie: MoviesEntity): Long {
+        return movieDao.insertMovie(movie)
+    }
+
+    override fun getFavoriteMovie(movieId: Long): Flow<MoviesEntity?> {
+        return movieDao.getMovie(movieId)
+    }
+
+    override fun getAllFavoriteMovies(): Flow<List<MoviesEntity>> {
+        return movieDao.getAllFavoriteMovies()
+    }
+
+    override suspend fun updateFavorite(movieId: String, isFavorite: Boolean) {
+        return movieDao.updateFavorite(movieId, isFavorite)
+    }
+
+    override suspend fun deleteFavoriteMovie(movieId: Long): Int {
+        return movieDao.deleteMovieById(movieId)
+    }
+
+    override suspend fun deleteAllFavoriteMovie() {
+        return movieDao.deleteMovies()
+    }
+
+    override suspend fun deleteMoviesWithNoFav(): Int {
+        return movieDao.deleteMoviesWithNoFav()
+    }
+
+    override suspend fun movieExists(id: Long): Boolean {
+        return movieDao.movieExists(id)
     }
 }

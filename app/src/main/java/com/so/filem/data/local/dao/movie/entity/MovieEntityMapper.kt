@@ -3,7 +3,7 @@ package com.so.filem.data.local.dao.movie.entity
 import com.so.filem.domain.model.Movie
 
 
-fun MoviePaging.asMovie() = Movie(
+fun MoviesEntity.asMovie() = Movie(
     id = id,
     adult = adult,
     backdropPath = backdrop_path,
@@ -16,5 +16,7 @@ fun MoviePaging.asMovie() = Movie(
     title = title,
     vote_average = vote_average,
     vote_count = vote_count,
-    isFavorite = null
+    isFavorite = isFavorite
 )
+
+fun List<MoviesEntity>.asMovies() = this.map { it.asMovie() }

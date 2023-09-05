@@ -12,7 +12,7 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovie(movie: MoviesEntity): Long
 
-    @Query("SELECT * FROM movies WHERE movies.id = :movieId")
+    @Query("SELECT * FROM movies WHERE id = :movieId")
     fun getMovie(movieId: Long): Flow<MoviesEntity?>
 
     @Query("SELECT * FROM movies WHERE isFavorite = 1 ORDER BY title")
@@ -23,7 +23,10 @@ interface MovieDao {
 
     @Query("DELETE FROM movies WHERE id = :movieId")
     suspend fun deleteMovieById(movieId: Long): Int
-
+    @Query("DELETE FROM movies WHERE isFavorite = 0")
+    suspend fun deleteMoviesWithNoFav() : Int
+    @Query("SELECT EXISTS (SELECT * FROM movies WHERE id=:id AND isFavorite = 1)")
+    suspend fun movieExists(id: Long): Boolean
     @Query("DELETE FROM movies")
     suspend fun deleteMovies()
 }

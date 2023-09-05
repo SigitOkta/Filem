@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.so.filem.R
 import com.so.filem.databinding.ActivityDetailMovieBinding
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
+import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.utils.Constants
 import com.so.filem.domain.utils.Resource
@@ -43,6 +45,9 @@ class DetailMovieActivity :
         supportActionBar?.hide()
         initView()
         observeData()
+        binding.ivFavorite.setOnClickListener {
+            viewModel.onFavoriteClicked()
+        }
 }
 
     private fun initView() {
@@ -52,10 +57,7 @@ class DetailMovieActivity :
     }
 
     private fun loadData(data: MovieDetails) {
-      /*  val posterUrl =
-            if (data.movie.posterPath != null) Constants.POSTER_URL + data.movie.posterPath  else null
-        val backdropUrl =
-            if (data.movie.backdropPath  != null) Constants.BACKDROP_URL + data.movie.backdropPath  else null*/
+
         binding.apply {
             ivPosterDetail.load(data.movie.posterUrl) {
                 crossfade(true)
@@ -75,8 +77,11 @@ class DetailMovieActivity :
                 tvDuration.text = data.runtime?.let { Converter.fromMinutesToHHmm(it) }
             }*/
             tvRating.text = data.movie.vote_average?.let { Converter.roundOffDecimal(it) }
+
+
         }
     }
+
 
     private fun observeData() {
         lifecycleScope.launch {
@@ -102,5 +107,36 @@ class DetailMovieActivity :
                 }
             }
         }
+        lifecycleScope.launch(){
+            viewModel.isFavorite.collectLatest {
+                updateFavoriteUi(it)
+                Timber.tag("viewModel-detail").d(it.toString())
+            }
+        }
+    }
+
+    private fun updateFavoriteUi(isFavorite: Boolean?) {
+        //show icon if true /
+        when (isFavorite) {
+            true -> {
+                favoriteIcon(R.drawable.ic_favorite)
+                Timber.d("Film ini adalah favorit")
+            }
+            else -> {
+                favoriteIcon(R.drawable.ic_favorite_border)
+                Timber.d("Film ini adalah unfavorite")
+            }
+        }
+
+
+
+    }
+
+
+    private fun favoriteIcon(icFavorite: Int) {
+        val ivFavorite = binding.ivFavorite
+        ivFavorite.setImageResource(
+            icFavorite
+        )
     }
 }
