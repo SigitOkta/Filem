@@ -1,4 +1,4 @@
-package com.so.filem.ui.search
+package com.so.filem.ui.movie.search
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,5 +14,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.hide()
+    }
+
+    override fun initView() {
+        super.initView()
+        viewBinding().includeSearchBar.svMovie
     }
 }

@@ -3,7 +3,20 @@
     <style name="Base.Theme.Filem" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Customize the SearchView -->
     </style>
 
     <style name="Theme.Filem" parent="Base.Theme.Filem" />
+
+    <style name="MyTheme.SearchView" parent="">
+        <!-- Text color -->
+        <item name="android:editTextColor">@color/off_white_400</item>
+        <!-- Hint text color -->
+        <item name="android:textColorHint">@color/off_white_400</item>
+    </style>
+    <style name="CustomSearchView" parent="Widget.AppCompat.SearchView">
+        <!-- Customize SearchView attributes here -->
+        <item name="android:textColorHint">@color/off_white_400</item>
+        <!-- Add more customizations as needed -->
+    </style>
 </resources>

@@ -10,6 +10,8 @@ object Constants {
 
     const val MOVIE_DETAIL = "movie/{id}?append_to_response=videos,credits"
 
+    const val MOVIE_SEARCH = "search/movie"
+
 
 
     private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/"

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="20dp"
+    android:backgroundTint="@color/dark_gray">
+
+    <SearchView
+        android:id="@+id/sv_movie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/en_text_search_here"
+        android:theme="@style/MyTheme.SearchView"
+        android:iconifiedByDefault="false"
+        android:imeOptions="actionSearch"
+        android:inputType="text"/>
+
+</androidx.cardview.widget.CardView>

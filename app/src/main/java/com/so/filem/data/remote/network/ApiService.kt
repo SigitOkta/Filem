@@ -37,4 +37,10 @@ interface ApiService {
         @Path("id") id: Long
     ): MovieDetailsResponse
 
+    @GET(Constants.MOVIE_SEARCH)
+    suspend fun getMovieSearch(
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): MoviesResponse
+
 }
