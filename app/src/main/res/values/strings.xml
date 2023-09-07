@@ -16,4 +16,7 @@
     <string name="en_text_title_cast">Cast</string>
     <string name="en_text_title_video">Videos</string>
     <string name="en_text_search_here">Search Here</string>
+    <string name="en_text_not_found">Not Found</string>
+    <string name="en_text_title">Title</string>
+    <string name="en_text_year">2023</string>
 </resources>
