@@ -22,4 +22,6 @@ interface MovieRepository {
 
     suspend fun deleteMoviesWithNoFav() : Int
     suspend fun movieExists(movieId : Long) : Boolean
+
+    fun getSearchMoviesForPaging(query: String): Flow<PagingData<Movie>>
 }

@@ -1,5 +1,6 @@
 package com.so.filem.data.repository
 
+import androidx.paging.PagingData
 import com.so.filem.data.repository.datasource.MovieLocalDataSource
 import com.so.filem.data.repository.datasource.MovieRemoteDataSource
 import com.so.filem.domain.model.MovieFilter
@@ -73,6 +74,10 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun movieExists(movieId: Long): Boolean {
         return localDataSource.movieExists(movieId)
+    }
+
+    override fun getSearchMoviesForPaging(query: String): Flow<PagingData<Movie>> {
+        return remoteDataSource.getSearchMoviePaging(query)
     }
 
 

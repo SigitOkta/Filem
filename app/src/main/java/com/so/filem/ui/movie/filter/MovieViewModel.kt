@@ -11,7 +11,13 @@ import com.so.filem.domain.usecase.movie.GetMovieUseCase
 import com.so.filem.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,13 +26,13 @@ class MovieViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
 ) : ViewModel() {
 
-    private val _MovieResult = MutableLiveData<Resource<PagingData<MoviePaging>>>()
-    val getMovieResult get() = _MovieResult
+    private val _movieResult = MutableStateFlow<Resource<PagingData<MoviePaging>>?>(null)
+    val movieResult: StateFlow<Resource<PagingData<MoviePaging>>?> = _movieResult
 
     fun getMovieList(filter: MovieFilter) {
         viewModelScope.launch {
             getFilteredMovies(filter).collect {
-                _MovieResult.postValue(it)
+                _movieResult.value = it
             }
         }
     }
@@ -53,9 +59,3 @@ class MovieViewModel @Inject constructor(
         }
     }
 }
-
-/* fun setFilter(filter: MovieFilter) {
-     currentFilter = filter
-     Timber.tag("viewModel").d(currentFilter.toString())
- }*/
-

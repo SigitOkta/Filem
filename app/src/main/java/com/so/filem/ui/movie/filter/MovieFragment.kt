@@ -32,11 +32,7 @@ class MovieFragment :
     BaseViewModelFragment<FragmentMovieBinding, MovieViewModel>(FragmentMovieBinding::inflate) {
     override val viewModel: MovieViewModel by viewModels()
 
-    private lateinit var movieAdapter: MovieListAdapter
-
-
-
-    private lateinit var loadingStateAdapter: LoadingStateAdapter
+    private val movieAdapter by lazy { MovieListAdapter() }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity?)?.supportActionBar?.show()
@@ -84,16 +80,14 @@ class MovieFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if (savedInstanceState == null) {
-            // Save data state to handle screen orientation
-            initData(MovieFilter.NOW_PLAYING)
-        }
+
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun initView() {
         super.initView()
         setupRecyclerView()
+        initData(MovieFilter.NOW_PLAYING)
     }
 
     private fun initData(filter: MovieFilter) {
@@ -104,7 +98,6 @@ class MovieFragment :
 
     private fun setupRecyclerView() {
         val recyclerView = viewBinding().rvGrid
-        movieAdapter = MovieListAdapter()
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         recyclerView.adapter = movieAdapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
@@ -116,20 +109,24 @@ class MovieFragment :
 
     override fun observeData() {
         super.observeData()
-        viewModel.getMovieResult.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Empty -> {
+        lifecycleScope.launch{
+            viewModel.movieResult.collect {
+                when (it) {
+                    is Resource.Empty -> {
 
-                }
-                is Resource.Error -> {
-                    LoadingDialog.hideLoading()
-                }
-                is Resource.Loading -> LoadingDialog.startLoading(requireContext())
-                is Resource.Success -> {
-                    LoadingDialog.hideLoading()
-                    it.payload?.let { movie ->
-                        movieAdapter.submitData(lifecycle,movie)
                     }
+                    is Resource.Error -> {
+                        LoadingDialog.hideLoading()
+                    }
+                    is Resource.Loading -> LoadingDialog.startLoading(requireContext())
+                    is Resource.Success -> {
+                        LoadingDialog.hideLoading()
+                        it.payload?.let { movie ->
+                            movieAdapter.submitData(lifecycle,movie)
+                        }
+                    }
+
+                    else -> {}
                 }
             }
         }

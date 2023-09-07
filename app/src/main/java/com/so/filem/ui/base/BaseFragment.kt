@@ -36,6 +36,7 @@ open class BaseFragment<B : ViewBinding>(
     open fun observeData() {
 
     }
+
 }
 
 abstract class BaseViewModelFragment<B : ViewBinding, VM : ViewModel>(bindingFactory: (LayoutInflater, ViewGroup?, Boolean) -> B) :

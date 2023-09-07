@@ -17,13 +17,16 @@ class SearchMoviesPagingSource(
 
         return try {
             val response = api.getMovieSearch(query, page).asMovies()
-
-            LoadResult.Page(
-                data = response.results,
-                prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
-                // Avoid infinite loading when the search response total_pages is 0
-                nextKey = if (page == response.total_pages || response.total_pages == 0) null else page + 1
-            )
+            if (response.results.isEmpty()){
+                LoadResult.Error(Exception("No results found"))
+            } else {
+                LoadResult.Page(
+                    data = response.results,
+                    prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
+                    // Avoid infinite loading when the search response total_pages is 0
+                    nextKey = if (page == response.total_pages || response.total_pages == 0) null else page + 1
+                )
+            }
         } catch (e: Exception) {
             Timber.e(e)
             LoadResult.Error(e)
