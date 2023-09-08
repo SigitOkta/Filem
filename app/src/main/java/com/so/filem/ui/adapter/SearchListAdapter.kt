@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.so.filem.R
-import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.databinding.ItemMovieHorizontalBinding
 import com.so.filem.domain.model.Movie
-import com.so.filem.domain.utils.Constants
 import com.so.filem.ui.movie.detail.DetailMovieActivity
 import timber.log.Timber
 

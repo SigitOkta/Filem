@@ -3,9 +3,11 @@ package com.so.filem.ui.movie.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.so.filem.R
 import com.so.filem.databinding.ActivityDetailMovieBinding
@@ -14,6 +16,7 @@ import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.utils.Constants
 import com.so.filem.domain.utils.Resource
+import com.so.filem.ui.adapter.GenreAdapter
 import com.so.filem.ui.base.BaseViewModelActivity
 import com.so.filem.ui.custom.Converter
 import com.so.filem.ui.custom.LoadingDialog
@@ -78,7 +81,10 @@ class DetailMovieActivity :
             }*/
             tvRating.text = data.movie.vote_average?.let { Converter.roundOffDecimal(it) }
 
-
+            val rvGenre = binding.rvGenre
+            rvGenre.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
+            val genreAdapter = GenreAdapter(data.genres)
+            rvGenre.adapter = genreAdapter
         }
     }
 
