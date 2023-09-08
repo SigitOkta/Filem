@@ -51,7 +51,6 @@
                 android:numStars="5"
                 android:progressBackgroundTint="@color/grey_200"
                 android:progressTint="@color/yellow_400"
-                android:rating="4.5"
                 android:stepSize="0.1" />
         </LinearLayout>
     </LinearLayout>

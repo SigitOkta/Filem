@@ -9,7 +9,6 @@ import coil.load
 import com.so.filem.R
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.databinding.ItemMovieHorizontalBinding
-import com.so.filem.databinding.ItemPosterMovieGridBinding
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.utils.Constants
 import com.so.filem.ui.movie.detail.DetailMovieActivity
@@ -42,8 +41,21 @@ class SearchListAdapter(
                 crossfade(true)
                 placeholder(R.drawable.ic_placeholder_poster)
             }
+            //title
             binding.textViewTitle.text = data.title
-            binding.textViewYear.text = data.release_date
+            // date
+            val dateStr = data.release_date
+            val parts = dateStr?.split("-")
+            val year = parts?.get(0)
+            binding.textViewYear.text = year
+            //rating
+            val ratingValue = data.vote_average
+            val maxRating = 10.0
+            val scaledRating = (ratingValue?.div(maxRating))?.times(binding.ratingBar.numStars)
+            if (scaledRating != null) {
+                binding.ratingBar.rating = scaledRating.toFloat()
+            }
+
             itemView.setOnClickListener {
                 DetailMovieActivity.startActivity(itemView.context,data.id)
                 Timber.tag("adapter").d(data.title)

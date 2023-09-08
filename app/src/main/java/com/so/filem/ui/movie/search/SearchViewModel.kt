@@ -47,7 +47,7 @@ class SearchViewModel @Inject constructor(
                     currentJob = launch {
                         Timber.tag("viewModel-init").d(_searchQuery.value)
                         Timber.tag("viewModel-init-query").d(query)
-                        if (query.isNotBlank()) getSearch(query) else null
+                        if (query.isNotBlank()) getSearch(query.trim()) else null
                     }
                 }
 
