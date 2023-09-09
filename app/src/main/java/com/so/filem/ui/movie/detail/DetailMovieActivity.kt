@@ -16,6 +16,7 @@ import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.utils.Constants
 import com.so.filem.domain.utils.Resource
+import com.so.filem.ui.adapter.CastAdapter
 import com.so.filem.ui.adapter.GenreAdapter
 import com.so.filem.ui.base.BaseViewModelActivity
 import com.so.filem.ui.custom.Converter
@@ -62,29 +63,42 @@ class DetailMovieActivity :
     private fun loadData(data: MovieDetails) {
 
         binding.apply {
+            //poster
             ivPosterDetail.load(data.movie.posterUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_placeholder_poster)
             }
+            //background_poster
             ivPosterBackground.load(data.movie.backdropUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_placeholder_poster)
             }
+            //title
             tvTitle.text = data.movie.title
             if (data.movie.overview != null) {
                 tvDesciption.text = data.movie.overview
             } else {
                 tvDesciption.text = "No overview"
             }
+
             /*if (data.runtime != 0) {
                 tvDuration.text = data.runtime?.let { Converter.fromMinutesToHHmm(it) }
             }*/
-            tvRating.text = data.movie.vote_average?.let { Converter.roundOffDecimal(it) }
 
+            //rating
+            tvRating.text = data.movie.vote_average?.let { Converter.roundOffDecimal(it) }
+            //genre
             val rvGenre = binding.rvGenre
             rvGenre.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
             val genreAdapter = GenreAdapter(data.genres)
             rvGenre.adapter = genreAdapter
+            //cast
+            val rvCast = binding.includeCast.rvCast
+            rvCast.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
+            val castAdapter = CastAdapter(data.cast)
+            Timber.tag("activity-cast").d(data.cast.toString())
+            rvCast.adapter = castAdapter
+            //trailer
         }
     }
 
