@@ -1,5 +1,6 @@
 package com.so.filem.domain.model
 
+import com.so.filem.domain.utils.Constants.BASE_URL
 import com.so.filem.domain.utils.Constants.CAST_AVATAR_URL
 
 data class Cast(

@@ -1,7 +1,9 @@
 package com.so.filem.data.remote.response
 
+import com.google.gson.annotations.SerializedName
+
 data class CastResponse(
-    val id: Long,
-    val actorName: String?,
-    val profileImagePath: String?
+    @SerializedName("id") val id: Long,
+    @SerializedName("name") val actorName: String?,
+    @SerializedName("profile_path") val profileImagePath: String?
 )
