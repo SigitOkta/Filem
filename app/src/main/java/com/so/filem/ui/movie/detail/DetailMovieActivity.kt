@@ -61,6 +61,9 @@ class DetailMovieActivity :
         val movieId = intent.getLongExtra(EXTRAS_ID,0)
         Timber.tag("activity").d(movieId.toString())
         viewModel.getMovieId(movieId)
+        binding.ivArrowBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun loadData(data: MovieDetails) {
