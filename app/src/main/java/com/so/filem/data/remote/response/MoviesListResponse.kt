@@ -15,5 +15,6 @@ data class MoviesListResponse(
     val release_date: String,
     val title: String?,
     val vote_average: Double?,
-    val vote_count: Int?
+    val vote_count: Int?,
+    val runtime: Int?,
 )

@@ -43,6 +43,7 @@ class MovieRepositoryImpl @Inject constructor(
                 title = movie.title,
                 vote_average = movie.vote_average,
                 vote_count = movie.vote_count,
+                runtime = movie.runtime,
                 isFavorite = true
             )
         )

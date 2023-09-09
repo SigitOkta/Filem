@@ -87,9 +87,9 @@ class DetailMovieActivity :
                 tvDesciption.text = "No overview"
             }
 
-            /*if (data.runtime != 0) {
-                tvDuration.text = data.runtime?.let { Converter.fromMinutesToHHmm(it) }
-            }*/
+            if (data.movie.runtime != 0) {
+                tvDuration.text = data.movie.runtime?.let { Converter.fromMinutesToHHmm(it) }
+            }
 
             //rating
             tvRating.text = data.movie.vote_average?.let { Converter.roundOffDecimal(it) }

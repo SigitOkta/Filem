@@ -30,6 +30,8 @@ data class MoviesEntity(
     val vote_average: Double?,
     @field:SerializedName("vote_count")
     val vote_count: Int?,
+    @field:SerializedName("runtime")
+    val runtime: Int?,
     @field:SerializedName("is_favorite")
     val isFavorite: Boolean
 )

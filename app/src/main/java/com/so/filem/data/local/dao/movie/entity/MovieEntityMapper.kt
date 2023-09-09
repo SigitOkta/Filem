@@ -16,6 +16,7 @@ fun MoviesEntity.asMovie() = Movie(
     title = title,
     vote_average = vote_average,
     vote_count = vote_count,
+    runtime = runtime,
     isFavorite = isFavorite
 )
 

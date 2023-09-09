@@ -30,6 +30,7 @@ fun MoviesListResponse.asMovie() = Movie(
     title = title,
     vote_average = vote_average,
     vote_count = vote_count,
+    runtime = runtime,
     isFavorite = null
 )
 
@@ -49,6 +50,7 @@ fun MovieDetailsResponse.asMovie(): Movie {
         title = title,
         vote_average = vote_average,
         vote_count = vote_count,
+        runtime = runtime,
         isFavorite = null
     )
 }
