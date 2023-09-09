@@ -2,6 +2,7 @@ package com.so.filem.ui.movie.detail
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
@@ -14,10 +15,12 @@ import com.so.filem.databinding.ActivityDetailMovieBinding
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
+import com.so.filem.domain.model.Trailer
 import com.so.filem.domain.utils.Constants
 import com.so.filem.domain.utils.Resource
 import com.so.filem.ui.adapter.CastAdapter
 import com.so.filem.ui.adapter.GenreAdapter
+import com.so.filem.ui.adapter.TrailerAdapter
 import com.so.filem.ui.base.BaseViewModelActivity
 import com.so.filem.ui.custom.Converter
 import com.so.filem.ui.custom.LoadingDialog
@@ -96,9 +99,27 @@ class DetailMovieActivity :
             val rvCast = binding.includeCast.rvCast
             rvCast.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
             val castAdapter = CastAdapter(data.cast)
-            Timber.tag("activity-cast").d(data.cast.toString())
             rvCast.adapter = castAdapter
             //trailer
+            val rvTrailer = binding.includeVideo.rvTrailer
+            rvCast.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
+            val trailerAdapter = TrailerAdapter(data.trailers){ trailer ->  
+                playVideo(trailer, this@DetailMovieActivity)
+            }
+            rvTrailer.adapter = trailerAdapter
+        }
+    }
+
+    private fun playVideo(trailer: Trailer?, context: Context) {
+        if (trailer?.key != null) {
+            val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(trailer.youTubeAppUrl))
+            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(trailer.youTubeWebUrl))
+
+            if (appIntent.resolveActivity(context.packageManager) != null) {
+                context.startActivity(appIntent)
+            } else {
+                context.startActivity(webIntent)
+            }
         }
     }
 
