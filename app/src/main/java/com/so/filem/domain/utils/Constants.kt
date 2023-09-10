@@ -7,6 +7,8 @@ object Constants {
     const val UPCOMING = "movie/upcoming"
     const val POPULAR = "movie/popular"
     const val TOP_RATED = "movie/top_rated"
+    const val DISCOVER_MOVIE = "discover/movie"
+
 
     const val MOVIE_DETAIL = "movie/{id}?append_to_response=videos,credits"
 

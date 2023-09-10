@@ -43,4 +43,9 @@ interface ApiService {
         @Query("page") page: Int
     ): MoviesResponse
 
+    @GET(Constants.DISCOVER_MOVIE)
+    suspend fun getDiscoverMovie(
+        @Query("language") language: String = "en-US"
+    ): MoviesResponse
+
 }

@@ -10,6 +10,7 @@ import com.so.filem.data.local.dao.movie.entity.asMovie
 import com.so.filem.data.local.dao.movie.entity.asMovies
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
+import com.so.filem.domain.model.Movies
 import com.so.filem.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -79,6 +80,10 @@ class MovieRepositoryImpl @Inject constructor(
 
     override fun getSearchMoviesForPaging(query: String): Flow<PagingData<Movie>> {
         return remoteDataSource.getSearchMoviePaging(query)
+    }
+
+    override suspend fun discoverMovie(): Movies {
+        return remoteDataSource.getDiscoverMovie()
     }
 
 

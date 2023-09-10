@@ -6,6 +6,7 @@ import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.data.local.dao.movie.entity.MoviesEntity
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
+import com.so.filem.domain.model.Movies
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
@@ -24,4 +25,6 @@ interface MovieRepository {
     suspend fun movieExists(movieId : Long) : Boolean
 
     fun getSearchMoviesForPaging(query: String): Flow<PagingData<Movie>>
+
+    suspend fun discoverMovie() : Movies
 }

@@ -8,6 +8,7 @@ import androidx.paging.cachedIn
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieFilter
+import com.so.filem.domain.usecase.movie.GetDiscoverMovieUseCase
 import com.so.filem.domain.usecase.movie.GetMovieUseCase
 import com.so.filem.domain.usecase.movie.GetSearchMoviesUseCase
 import com.so.filem.domain.utils.Resource
@@ -28,6 +29,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getSearchMoviesUseCase: GetSearchMoviesUseCase,
+    private val getDiscoverMovieUseCase: GetDiscoverMovieUseCase
 ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
@@ -35,6 +37,9 @@ class SearchViewModel @Inject constructor(
 
     private val _searchResults = MutableStateFlow<Resource<PagingData<Movie>>?>(null)
     val searchResults: StateFlow<Resource<PagingData<Movie>>?> = _searchResults
+
+    private val _discoverMovie = MutableStateFlow<List<Movie>>(emptyList())
+    val discoverMovie: StateFlow<List<Movie>> = _discoverMovie
 
     private var currentJob: Job? = null
 
@@ -51,6 +56,18 @@ class SearchViewModel @Inject constructor(
                     }
                 }
 
+        }
+        getDiscoverMovie()
+    }
+
+    private fun getDiscoverMovie() {
+        viewModelScope.launch {
+            try {
+                val remote = getDiscoverMovieUseCase.invoke()
+                _discoverMovie.value = remote
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
         }
     }
 
