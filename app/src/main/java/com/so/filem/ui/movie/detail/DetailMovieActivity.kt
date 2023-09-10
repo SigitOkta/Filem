@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -67,7 +68,6 @@ class DetailMovieActivity :
     }
 
     private fun loadData(data: MovieDetails) {
-
         binding.apply {
             //poster
             ivPosterDetail.load(data.movie.posterUrl) {
@@ -94,22 +94,30 @@ class DetailMovieActivity :
             //rating
             tvRating.text = data.movie.vote_average?.let { Converter.roundOffDecimal(it) }
             //genre
-            val rvGenre = binding.rvGenre
             rvGenre.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
             val genreAdapter = GenreAdapter(data.genres)
             rvGenre.adapter = genreAdapter
+
             //cast
-            val rvCast = binding.includeCast.rvCast
-            rvCast.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
-            val castAdapter = CastAdapter(data.cast)
-            rvCast.adapter = castAdapter
-            //trailer
-            val rvTrailer = binding.includeVideo.rvTrailer
-            rvCast.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
-            val trailerAdapter = TrailerAdapter(data.trailers){ trailer ->  
-                playVideo(trailer, this@DetailMovieActivity)
+            if(data.cast.isEmpty()){
+                includeCast.root.visibility = View.GONE
+            }else{
+                val rvCast = includeCast.rvCast
+                rvCast.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
+                val castAdapter = CastAdapter(data.cast)
+                rvCast.adapter = castAdapter
             }
-            rvTrailer.adapter = trailerAdapter
+            //trailer
+            if(data.trailers.isEmpty()){
+                includeVideo.root.visibility = View.GONE
+            }else{
+                val rvTrailer = includeVideo.rvTrailer
+                rvTrailer.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
+                val trailerAdapter = TrailerAdapter(data.trailers){ trailer ->
+                    playVideo(trailer, this@DetailMovieActivity)
+                }
+                rvTrailer.adapter = trailerAdapter
+            }
         }
     }
 
