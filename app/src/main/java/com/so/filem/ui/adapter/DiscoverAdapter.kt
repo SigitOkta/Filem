@@ -18,7 +18,7 @@ class DiscoverAdapter(private val discover: ArrayList<Movie>, private val viewPa
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Movie){
             binding.ivPosterViewPager.load(item.posterUrl) {
-                //crossfade(true)
+                crossfade(true)
                 placeholder(R.drawable.ic_placeholder_poster)
             }
         }
