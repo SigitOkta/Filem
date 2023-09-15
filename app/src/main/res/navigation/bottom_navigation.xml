@@ -17,4 +17,10 @@
         android:label="@string/en_text_movie"
         tools:layout="@layout/fragment_movie" />
 
+    <fragment
+        android:id="@+id/navigation_favorite"
+        android:name="com.so.filem.ui.movie.favorite.FavoriteFragment"
+        android:label="@string/en_text_favorite"
+        tools:layout="@layout/fragment_favorite"/>
+
 </navigation>
