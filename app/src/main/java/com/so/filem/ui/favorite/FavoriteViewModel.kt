@@ -1,4 +1,4 @@
-package com.so.filem.ui.movie.favorite
+package com.so.filem.ui.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

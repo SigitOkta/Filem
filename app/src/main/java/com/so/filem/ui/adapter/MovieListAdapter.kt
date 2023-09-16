@@ -10,7 +10,7 @@ import com.so.filem.R
 import com.so.filem.databinding.ItemPosterMovieGridBinding
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.domain.utils.Constants
-import com.so.filem.ui.movie.detail.DetailMovieActivity
+import com.so.filem.ui.detail.movie.DetailMovieActivity
 import timber.log.Timber
 
 class MovieListAdapter(

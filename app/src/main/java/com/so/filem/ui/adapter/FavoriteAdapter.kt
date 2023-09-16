@@ -5,13 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.so.filem.R
-import com.so.filem.databinding.ItemGenreBinding
 import com.so.filem.databinding.ItemPosterMovieGridBinding
-import com.so.filem.domain.model.Genre
 import com.so.filem.domain.model.Movie
-import com.so.filem.domain.utils.Constants
-import com.so.filem.ui.movie.detail.DetailMovieActivity
-import timber.log.Timber
+import com.so.filem.ui.detail.movie.DetailMovieActivity
 
 class FavoriteAdapter(private val movies: List<Movie>) :
     RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {

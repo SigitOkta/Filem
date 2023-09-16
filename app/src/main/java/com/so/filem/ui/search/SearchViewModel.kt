@@ -1,4 +1,4 @@
-package com.so.filem.ui.movie.search
+package com.so.filem.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

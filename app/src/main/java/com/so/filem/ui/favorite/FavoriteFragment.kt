@@ -1,4 +1,4 @@
-package com.so.filem.ui.movie.favorite
+package com.so.filem.ui.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,7 +17,7 @@ import com.so.filem.domain.model.MovieFilter
 import com.so.filem.ui.adapter.FavoriteAdapter
 import com.so.filem.ui.adapter.LoadingStateAdapter
 import com.so.filem.ui.base.BaseViewModelFragment
-import com.so.filem.ui.movie.filter.MovieViewModel
+import com.so.filem.ui.filter.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

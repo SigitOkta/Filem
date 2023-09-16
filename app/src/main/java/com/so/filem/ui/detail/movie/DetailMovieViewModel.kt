@@ -1,24 +1,18 @@
-package com.so.filem.ui.movie.detail
+package com.so.filem.ui.detail.movie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.so.filem.data.local.dao.movie.entity.MoviePaging
-import com.so.filem.data.local.dao.movie.entity.MoviesEntity
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.usecase.movie.DeleteFavoriteMovieUseCase
 import com.so.filem.domain.usecase.movie.DeleteMoviesWithNoFavUseCase
 import com.so.filem.domain.usecase.movie.GetFavoriteMovieUseCase
 import com.so.filem.domain.usecase.movie.GetMovieDetailsUseCase
-import com.so.filem.domain.usecase.movie.GetMovieUseCase
 import com.so.filem.domain.usecase.movie.MovieExistsUseCase
 import com.so.filem.domain.usecase.movie.SaveFavoriteMovieUseCase
 import com.so.filem.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject

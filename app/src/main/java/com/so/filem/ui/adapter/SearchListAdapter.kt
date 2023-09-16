@@ -9,7 +9,7 @@ import coil.load
 import com.so.filem.R
 import com.so.filem.databinding.ItemPosterMovieHorizontalBinding
 import com.so.filem.domain.model.Movie
-import com.so.filem.ui.movie.detail.DetailMovieActivity
+import com.so.filem.ui.detail.movie.DetailMovieActivity
 import timber.log.Timber
 
 class SearchListAdapter(

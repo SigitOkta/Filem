@@ -1,23 +1,18 @@
-package com.so.filem.ui.movie.detail
+package com.so.filem.ui.detail.movie
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.so.filem.R
 import com.so.filem.databinding.ActivityDetailMovieBinding
-import com.so.filem.data.local.dao.movie.entity.MoviePaging
-import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Trailer
-import com.so.filem.domain.utils.Constants
 import com.so.filem.domain.utils.Resource
 import com.so.filem.ui.adapter.CastAdapter
 import com.so.filem.ui.adapter.GenreAdapter

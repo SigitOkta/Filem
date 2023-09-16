@@ -1,4 +1,4 @@
-package com.so.filem.ui.movie.search
+package com.so.filem.ui.search
 
 import android.os.Bundle
 import android.os.Handler

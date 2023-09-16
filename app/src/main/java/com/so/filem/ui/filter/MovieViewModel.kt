@@ -1,4 +1,4 @@
-package com.so.filem.ui.movie.filter
+package com.so.filem.ui.filter
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
