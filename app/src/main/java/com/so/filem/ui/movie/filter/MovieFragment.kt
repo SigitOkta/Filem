@@ -104,9 +104,9 @@ class MovieFragment :
         super.observeData()
         lifecycleScope.launch{
             viewModel.movies.collectLatest { movies ->
-               when(movies){
-
-               }
+                if (movies != null) {
+                    movieAdapter.submitData(lifecycle,movies)
+                }
             }
         }
     }
