@@ -53,7 +53,7 @@ class DetailMovieActivity :
         supportActionBar?.hide()
         initView()
         observeData()
-        binding.ivFavorite.setOnClickListener {
+        binding.includeHeaderPoster.ivFavorite.setOnClickListener {
             viewModel.onFavoriteClicked()
         }
 }
@@ -62,13 +62,13 @@ class DetailMovieActivity :
         val movieId = intent.getLongExtra(EXTRAS_ID,0)
         Timber.tag("activity").d(movieId.toString())
         viewModel.getMovieId(movieId)
-        binding.ivArrowBack.setOnClickListener {
+        binding.includeHeaderPoster.ivArrowBack.setOnClickListener {
             finish()
         }
     }
 
     private fun loadData(data: MovieDetails) {
-        binding.apply {
+        binding.includeHeaderPoster.apply {
             //poster
             ivPosterDetail.load(data.movie.posterUrl) {
                 crossfade(true)
@@ -81,18 +81,20 @@ class DetailMovieActivity :
             }
             //title
             tvTitle.text = data.movie.title
+            //runtime
+            if (data.movie.runtime != 0) {
+                tvDuration.text = data.movie.runtime?.let { Converter.fromMinutesToHHmm(it) }
+            }
+            //rating
+            tvRating.text = data.movie.vote_average?.let { Converter.roundOffDecimal(it) }
+        }
+        binding.apply {
+            //overview
             if (data.movie.overview != null) {
                 tvDesciption.text = data.movie.overview
             } else {
                 tvDesciption.text = "No overview"
             }
-
-            if (data.movie.runtime != 0) {
-                tvDuration.text = data.movie.runtime?.let { Converter.fromMinutesToHHmm(it) }
-            }
-
-            //rating
-            tvRating.text = data.movie.vote_average?.let { Converter.roundOffDecimal(it) }
             //genre
             rvGenre.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
             val genreAdapter = GenreAdapter(data.genres)
@@ -186,7 +188,7 @@ class DetailMovieActivity :
 
 
     private fun favoriteIcon(icFavorite: Int) {
-        val ivFavorite = binding.ivFavorite
+        val ivFavorite = binding.includeHeaderPoster.ivFavorite
         ivFavorite.setImageResource(
             icFavorite
         )

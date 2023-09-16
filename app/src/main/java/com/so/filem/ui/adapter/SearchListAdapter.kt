@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.so.filem.R
-import com.so.filem.databinding.ItemMovieHorizontalBinding
+import com.so.filem.databinding.ItemPosterMovieHorizontalBinding
 import com.so.filem.domain.model.Movie
 import com.so.filem.ui.movie.detail.DetailMovieActivity
 import timber.log.Timber
@@ -17,7 +17,7 @@ class SearchListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
-            ItemMovieHorizontalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemPosterMovieHorizontalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
@@ -29,7 +29,7 @@ class SearchListAdapter(
     }
 
     class MyViewHolder(
-        private val binding: ItemMovieHorizontalBinding,
+        private val binding: ItemPosterMovieHorizontalBinding,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Movie) {

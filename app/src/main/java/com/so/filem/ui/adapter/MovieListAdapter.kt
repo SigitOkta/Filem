@@ -37,9 +37,12 @@ class MovieListAdapter(
             val posterUrl =
                 if (data.poster_path != null) Constants.POSTER_URL + data.poster_path else null
             //val backdropUrl = if ( data.backdrop_path != null) Constants.BACKDROP_URL + data.backdrop_path else null
-            binding.ivPoster.load(posterUrl) {
-                crossfade(true)
-                placeholder(R.drawable.ic_placeholder_poster)
+            binding.apply{
+                ivPoster.load(posterUrl) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_placeholder_poster)
+                }
+                tvPoster.text = data.title
             }
             itemView.setOnClickListener {
                 DetailMovieActivity.startActivity(itemView.context,data.id)
