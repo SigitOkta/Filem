@@ -14,7 +14,7 @@
 
         <include
             android:id="@+id/includeHeaderPoster"
-            layout="@layout/comp_detail_header_movie"
+            layout="@layout/comp_detail_movie_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
 
         <include
             android:id="@+id/includeCast"
-            layout="@layout/comp_detail_cast"
+            layout="@layout/comp_detail_movie_cast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +63,7 @@
 
         <include
             android:id="@+id/includeVideo"
-            layout="@layout/comp_detail_video"
+            layout="@layout/comp_detail_movie_video"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
