@@ -25,6 +25,7 @@ import com.so.filem.ui.custom.LoadingDialog
 import com.so.filem.ui.movie.detail.DetailMovieActivity
 import com.so.filem.ui.movie.detail.DetailMovieActivity.Companion.EXTRAS_ID
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -75,14 +76,6 @@ class MovieFragment :
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
 
     override fun initView() {
         super.initView()
@@ -92,7 +85,7 @@ class MovieFragment :
 
     private fun initData(filter: MovieFilter) {
         lifecycleScope.launch {
-            viewModel.getMovieList(filter)
+            viewModel.setFilter(filter)
         }
     }
 
@@ -110,24 +103,10 @@ class MovieFragment :
     override fun observeData() {
         super.observeData()
         lifecycleScope.launch{
-            viewModel.movieResult.collect {
-                when (it) {
-                    is Resource.Empty -> {
+            viewModel.movies.collectLatest { movies ->
+               when(movies){
 
-                    }
-                    is Resource.Error -> {
-                        LoadingDialog.hideLoading()
-                    }
-                    is Resource.Loading -> LoadingDialog.startLoading(requireContext())
-                    is Resource.Success -> {
-                        LoadingDialog.hideLoading()
-                        it.payload?.let { movie ->
-                            movieAdapter.submitData(lifecycle,movie)
-                        }
-                    }
-
-                    else -> {}
-                }
+               }
             }
         }
     }
