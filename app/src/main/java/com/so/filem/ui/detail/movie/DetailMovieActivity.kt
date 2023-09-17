@@ -14,6 +14,7 @@ import com.so.filem.databinding.ActivityDetailMovieBinding
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Trailer
 import com.so.filem.domain.utils.Resource
+import com.so.filem.domain.utils.setResizableText
 import com.so.filem.ui.adapter.CastAdapter
 import com.so.filem.ui.adapter.GenreAdapter
 import com.so.filem.ui.adapter.TrailerAdapter
@@ -86,7 +87,7 @@ class DetailMovieActivity :
         binding.apply {
             //overview
             if (data.movie.overview != null) {
-                tvDesciption.text = data.movie.overview
+                tvDesciption.setResizableText(data.movie.overview, 4 , true)
             } else {
                 tvDesciption.text = "No overview"
             }
