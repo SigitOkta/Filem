@@ -15,9 +15,12 @@ class FavoriteAdapter(private val movies: List<Movie>) :
     class ViewHolder(private val binding: ItemPosterMovieGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Movie) {
-            binding.ivPoster.load(item.posterUrl) {
-                crossfade(true)
-                placeholder(R.drawable.ic_placeholder_poster)
+            binding.apply{
+                ivPoster.load(item.posterUrl) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_placeholder_poster)
+                }
+                tvPoster.text = item.title
             }
             itemView.setOnClickListener {
                 DetailMovieActivity.startActivity(itemView.context,item.id)
