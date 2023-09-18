@@ -11,8 +11,10 @@ import com.so.filem.data.repository.datasource.MovieRemoteDataSource
 import com.so.filem.domain.model.MovieFilter
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.data.paging.SearchMoviesPagingSource
+import com.so.filem.data.remote.asCastDetails
 import com.so.filem.data.remote.asMovieDetails
 import com.so.filem.data.remote.asMovies
+import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
@@ -40,6 +42,10 @@ class MovieRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getDiscoverMovie(): Movies {
         return api.getDiscoverMovie().asMovies()
+    }
+
+    override suspend fun getCastDetails(castId: Long): CastDetails {
+        return api.getCastDetail(castId).asCastDetails()
     }
 
 }

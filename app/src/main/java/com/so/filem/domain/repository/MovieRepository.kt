@@ -4,6 +4,7 @@ import androidx.paging.PagingData
 import com.so.filem.domain.model.MovieFilter
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.data.local.dao.movie.entity.MoviesEntity
+import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
@@ -27,4 +28,5 @@ interface MovieRepository {
     fun getSearchMoviesForPaging(query: String): Flow<PagingData<Movie>>
 
     suspend fun discoverMovie() : Movies
+    suspend fun getCastDetail(castId : Long) : CastDetails
 }

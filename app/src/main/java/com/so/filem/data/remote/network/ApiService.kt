@@ -1,5 +1,6 @@
 package com.so.filem.data.remote.network
 
+import com.so.filem.data.remote.response.CastDetailsResponse
 import com.so.filem.data.remote.response.MovieDetailsResponse
 import com.so.filem.data.remote.response.MoviesResponse
 import com.so.filem.domain.utils.Constants
@@ -48,4 +49,9 @@ interface ApiService {
         @Query("language") language: String = "en-US"
     ): MoviesResponse
 
+
+    @GET(Constants.CAST_DETAIL)
+    suspend fun getCastDetail(
+        @Path("person_id") id: Long
+    ): CastDetailsResponse
 }

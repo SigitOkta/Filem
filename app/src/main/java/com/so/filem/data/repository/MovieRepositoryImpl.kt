@@ -8,6 +8,7 @@ import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.data.local.dao.movie.entity.MoviesEntity
 import com.so.filem.data.local.dao.movie.entity.asMovie
 import com.so.filem.data.local.dao.movie.entity.asMovies
+import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
@@ -84,6 +85,10 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun discoverMovie(): Movies {
         return remoteDataSource.getDiscoverMovie()
+    }
+
+    override suspend fun getCastDetail(castId: Long): CastDetails {
+        return remoteDataSource.getCastDetails(castId)
     }
 
 
