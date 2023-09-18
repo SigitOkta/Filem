@@ -55,12 +55,25 @@ class DetailCastActivity : BaseViewModelActivity<ActivityDetailCastBinding, Deta
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.show()
         viewPager2 = binding.vpCastImage
         handler = Handler(Looper.myLooper()!!)
         bundle = Bundle()
         observeData()
         initView()
+    }
+
+    private fun setupToolbar(name : String){
+        binding.collapsingToolbar.isTitleEnabled = false
+        binding.tbCast.title = name
+        setSupportActionBar(binding.tbCast)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    // don't forget click listener for back button
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 
     private fun observeData() {
@@ -75,6 +88,7 @@ class DetailCastActivity : BaseViewModelActivity<ActivityDetailCastBinding, Deta
             viewPager2.clipChildren = false
             viewPager2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
             setupTabLayout()
+            setupToolbar(it.name)
         }
     }
 

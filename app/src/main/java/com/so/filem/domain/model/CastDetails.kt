@@ -16,7 +16,7 @@ data class CastDetails(
     val biography: String?,
     val deathDay: String?,
     val placeOfBirth: String?,
-    val name: String?,
+    val name: String,
     val id: Int,
     val adult: Boolean?,
     val images: List<ProfilesItem>,

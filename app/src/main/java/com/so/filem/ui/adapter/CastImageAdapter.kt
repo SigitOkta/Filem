@@ -18,7 +18,7 @@ class CastImageAdapter(private val castImage: ArrayList<ProfilesItem>, private v
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProfilesItem){
             binding.ivPosterViewPager.load(item.profileImageUrl) {
-                crossfade(false)
+                crossfade(true)
                 placeholder(R.drawable.ic_placeholder_poster)
             }
             Timber.tag("CastImageAdapter").d(item.profileImageUrl)

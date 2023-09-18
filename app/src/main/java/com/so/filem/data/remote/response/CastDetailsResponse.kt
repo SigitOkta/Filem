@@ -32,7 +32,7 @@ data class CastDetailsResponse(
     val placeOfBirth: String?,
 
     @SerializedName("name")
-    val name: String?,
+    val name: String,
 
     @SerializedName("combined_credits")
     val combinedCreditsResponse: CombinedCreditsResponse,
