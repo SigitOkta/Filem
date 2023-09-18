@@ -6,23 +6,22 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import coil.load
 import com.so.filem.R
-import com.so.filem.databinding.ItemPosterMovieGridBinding
 import com.so.filem.databinding.ItemPosterViewpagerBinding
-import com.so.filem.domain.model.Cast
 import com.so.filem.domain.model.Movie
+import com.so.filem.domain.model.ProfilesItem
 import timber.log.Timber
 
-class DiscoverAdapter(private val discover: ArrayList<Movie>, private val viewPager2: ViewPager2) :
-    RecyclerView.Adapter<DiscoverAdapter.ImageViewHolder>() {
+class CastImageAdapter(private val castImage: ArrayList<ProfilesItem>, private val viewPager2: ViewPager2) :
+    RecyclerView.Adapter<CastImageAdapter.ImageViewHolder>() {
 
     class ImageViewHolder(private val binding: ItemPosterViewpagerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Movie){
-            binding.ivPosterViewPager.load(item.posterUrl) {
-                crossfade(true)
+        fun bind(item: ProfilesItem){
+            binding.ivPosterViewPager.load(item.profileImageUrl) {
+                crossfade(false)
                 placeholder(R.drawable.ic_placeholder_poster)
             }
-            Timber.tag("DiscoveryAdapter").d(item.posterUrl)
+            Timber.tag("CastImageAdapter").d(item.profileImageUrl)
         }
     }
 
@@ -33,19 +32,19 @@ class DiscoverAdapter(private val discover: ArrayList<Movie>, private val viewPa
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        holder.bind(discover[position])
+        holder.bind(castImage[position])
 
-        if (position == discover.size - 1) {
+        if (position == castImage.size - 1) {
             viewPager2.post(runnable)
         }
     }
 
     override fun getItemCount(): Int {
-        return discover.size
+        return castImage.size
     }
 
     private val runnable = Runnable {
-        discover.addAll(discover)
+        castImage.addAll(castImage)
         notifyDataSetChanged()
     }
 }

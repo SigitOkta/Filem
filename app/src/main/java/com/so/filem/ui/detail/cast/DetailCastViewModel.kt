@@ -18,8 +18,8 @@ class DetailCastViewModel @Inject constructor(
 
     private var castId: Long = 0
 
-    private val _castDetails = MutableLiveData<CastDetails?>()
-    val castDetails: LiveData<CastDetails?> = _castDetails
+    private val _castDetails = MutableLiveData<CastDetails>()
+    val castDetails: LiveData<CastDetails> = _castDetails
 
 
     fun setCastId(id: Long) {
@@ -31,6 +31,8 @@ class DetailCastViewModel @Inject constructor(
             try {
                 val result = getCastDetailsUseCase(castId)
                 _castDetails.value = result
+                Timber.tag("viewModelCast").d(result.name)
+
             } catch (e: Exception) {
                 Timber.e(e)
             }

@@ -7,6 +7,8 @@ import coil.load
 import com.so.filem.R
 import com.so.filem.databinding.ItemCastPosterBinding
 import com.so.filem.domain.model.Cast
+import com.so.filem.ui.detail.cast.DetailCastActivity
+import com.so.filem.ui.detail.movie.DetailMovieActivity
 import timber.log.Timber
 
 class CastAdapter(private val casts: List<Cast>) : RecyclerView.Adapter<CastAdapter.ViewHolder>() {
@@ -18,6 +20,9 @@ class CastAdapter(private val casts: List<Cast>) : RecyclerView.Adapter<CastAdap
             binding.ivCastPoster.load(item.profileImageUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_placeholder_poster)
+            }
+            itemView.setOnClickListener {
+                DetailCastActivity.startActivity(itemView.context,item.id)
             }
         }
     }
