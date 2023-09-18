@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/dark_black">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/grey_200"
+        android:text="Text1"
+        android:textSize="@dimen/_11ssp"/>
+
+    <TextView
+        android:id="@+id/tv_cast_info_place_of_birth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/off_white_400"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:text="Text2"
+        android:textSize="@dimen/_10ssp"/>
+
+</LinearLayout>
