@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="bottom"
-                android:background="@color/dark_blue_600"
+                android:background="@color/dark_black"
                 app:tabIndicatorColor="@color/grey_200"
                 app:tabTextColor="@color/off_white_400"
                 app:tabGravity="fill"
