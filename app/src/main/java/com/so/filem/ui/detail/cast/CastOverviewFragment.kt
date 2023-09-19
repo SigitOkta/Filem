@@ -60,8 +60,7 @@ class CastOverviewFragment :
 
         val parentItemList = mutableListOf<MediaContent>()
 
-        val parentContentMovie =
-            MediaContent(R.drawable.ic_movie_off_white, "Movies", movieItem)
+        val parentContentMovie = MediaContent(R.drawable.ic_movie_off_white, "Movies", movieItem)
 
         val parentContentTv = MediaContent(R.drawable.ic_tv_off_white, "TV show", tvItem)
 
