@@ -34,7 +34,6 @@ class CastOverviewFragment :
 
     override fun observeData() {
         super.observeData()
-        CastOverviewFragment()
         val castDetail = arguments?.parcelable<CastDetails>("castDetail")
         Timber.tag("overview").d(castDetail.toString())
         if (castDetail != null) {
