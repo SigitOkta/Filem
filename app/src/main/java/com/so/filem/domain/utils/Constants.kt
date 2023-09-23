@@ -16,6 +16,8 @@ object Constants {
 
     const val CAST_DETAIL = "person/{person_id}?append_to_response=images,combined_credits"
 
+    const val TRENDING_MOVIE = "trending/movie/{time_window}"
+
 
     private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/"
     private const val IMAGE_SIZE_W185 = "w185"

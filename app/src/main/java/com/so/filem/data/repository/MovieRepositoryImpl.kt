@@ -91,5 +91,9 @@ class MovieRepositoryImpl @Inject constructor(
         return remoteDataSource.getCastDetails(castId)
     }
 
+    override suspend fun getTrendingMovie(timeWindow: String): Movies {
+        return remoteDataSource.getTrendingMovie(timeWindow)
+    }
+
 
 }

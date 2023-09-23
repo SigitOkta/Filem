@@ -29,4 +29,5 @@ interface MovieRepository {
 
     suspend fun discoverMovie() : Movies
     suspend fun getCastDetail(castId : Long) : CastDetails
+    suspend fun getTrendingMovie(timeWindow : String) : Movies
 }

@@ -48,4 +48,8 @@ class MovieRemoteDataSourceImpl @Inject constructor(
         return api.getCastDetail(castId).asCastDetails()
     }
 
+    override suspend fun getTrendingMovie(timeWindow: String): Movies {
+        return api.getTrendingMovie(timeWindow).asMovies()
+    }
+
 }

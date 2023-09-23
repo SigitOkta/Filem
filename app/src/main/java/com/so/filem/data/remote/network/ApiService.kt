@@ -54,4 +54,10 @@ interface ApiService {
     suspend fun getCastDetail(
         @Path("person_id") id: Long
     ): CastDetailsResponse
+
+    @GET(Constants.TRENDING_MOVIE)
+    suspend fun getTrendingMovie(
+        @Path("time_window") time: String,
+        @Query("language") language: String = "en-US"
+    ): MoviesResponse
 }

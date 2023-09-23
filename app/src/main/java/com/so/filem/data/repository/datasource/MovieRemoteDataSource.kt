@@ -15,4 +15,6 @@ interface MovieRemoteDataSource {
     fun getSearchMoviePaging(query: String): Flow<PagingData<Movie>>
     suspend fun getDiscoverMovie(): Movies
     suspend fun getCastDetails(castId: Long) : CastDetails
+
+    suspend fun getTrendingMovie(timeWindow: String) : Movies
 }
