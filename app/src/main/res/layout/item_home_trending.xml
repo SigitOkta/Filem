@@ -36,7 +36,7 @@
             android:text="@string/en_text_trending" />
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:cardCornerRadius="12dp"
             app:strokeColor="@color/grey_200"
