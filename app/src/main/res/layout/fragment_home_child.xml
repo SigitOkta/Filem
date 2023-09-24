@@ -7,7 +7,7 @@
     android:background="@color/dark_black">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_home"
+        android:id="@+id/rv_home_child"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
