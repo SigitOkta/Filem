@@ -14,10 +14,12 @@ import com.so.filem.data.paging.SearchMoviesPagingSource
 import com.so.filem.data.remote.asCastDetails
 import com.so.filem.data.remote.asMovieDetails
 import com.so.filem.data.remote.asMovies
+import com.so.filem.data.remote.asTvs
 import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
+import com.so.filem.domain.model.Tvs
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -50,6 +52,10 @@ class MovieRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getTrendingMovie(timeWindow: String): Movies {
         return api.getTrendingMovie(timeWindow).asMovies()
+    }
+
+    override suspend fun getTrendingTv(timeWindow: String): Tvs {
+        return api.getTrendingTv(timeWindow).asTvs()
     }
 
 }

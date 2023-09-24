@@ -8,6 +8,7 @@ import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
+import com.so.filem.domain.model.Tvs
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRemoteDataSource {
@@ -17,4 +18,5 @@ interface MovieRemoteDataSource {
     suspend fun getCastDetails(castId: Long) : CastDetails
 
     suspend fun getTrendingMovie(timeWindow: String) : Movies
+    suspend fun getTrendingTv(timeWindow: String) : Tvs
 }

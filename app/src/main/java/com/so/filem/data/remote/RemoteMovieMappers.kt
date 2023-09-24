@@ -4,6 +4,8 @@ import com.so.filem.data.remote.response.CastDetailsResponse
 import com.so.filem.data.remote.response.MovieDetailsResponse
 import com.so.filem.data.remote.response.MoviesListResponse
 import com.so.filem.data.remote.response.MoviesResponse
+import com.so.filem.data.remote.response.TvListResponse
+import com.so.filem.data.remote.response.TvResponse
 import com.so.filem.domain.model.Cast
 import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.model.Genre
@@ -13,6 +15,8 @@ import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
 import com.so.filem.domain.model.ProfilesItem
 import com.so.filem.domain.model.Trailer
+import com.so.filem.domain.model.Tv
+import com.so.filem.domain.model.Tvs
 
 fun MoviesResponse.asMovies() = Movies(
     page = page,
@@ -139,3 +143,24 @@ fun CastDetailsResponse.asImages(): List<ProfilesItem> {
     }?.toList() ?: emptyList()
 }
 
+fun TvResponse.asTvs() = Tvs(
+    page = page,
+    results = results.map { it.asTv() },
+    total_pages = total_pages,
+    total_results = total_results
+)
+
+fun TvListResponse.asTv() = Tv (
+    id = id,
+    adult = adult,
+    backdropPath = backdrop_path,
+    original_language = original_language,
+    original_name =  original_name,
+    overview = overview,
+    posterPath = poster_path,
+    first_air_date = first_air_date,
+    name = name,
+    vote_average = vote_average,
+    vote_count = vote_count,
+    isFavorite = null
+)

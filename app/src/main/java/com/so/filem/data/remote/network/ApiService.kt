@@ -3,6 +3,7 @@ package com.so.filem.data.remote.network
 import com.so.filem.data.remote.response.CastDetailsResponse
 import com.so.filem.data.remote.response.MovieDetailsResponse
 import com.so.filem.data.remote.response.MoviesResponse
+import com.so.filem.data.remote.response.TvResponse
 import com.so.filem.domain.utils.Constants
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -60,4 +61,10 @@ interface ApiService {
         @Path("time_window") time: String,
         @Query("language") language: String = "en-US"
     ): MoviesResponse
+
+    @GET(Constants.TRENDING_TV)
+    suspend fun getTrendingTv(
+        @Path("time_window") time: String,
+        @Query("language") language: String = "en-US"
+    ): TvResponse
 }

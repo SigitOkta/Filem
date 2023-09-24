@@ -12,6 +12,7 @@ import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
+import com.so.filem.domain.model.Tvs
 import com.so.filem.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -95,5 +96,7 @@ class MovieRepositoryImpl @Inject constructor(
         return remoteDataSource.getTrendingMovie(timeWindow)
     }
 
-
+    override suspend fun getTrendingTv(timeWindow: String): Tvs {
+        return remoteDataSource.getTrendingTv(timeWindow)
+    }
 }
