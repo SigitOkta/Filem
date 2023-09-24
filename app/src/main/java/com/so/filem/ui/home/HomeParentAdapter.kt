@@ -19,7 +19,8 @@ class HomeParentAdapter(private val homeItemList: List<HomeContent>, private val
             binding.ivTrending.setImageResource(parentItem.image)
             binding.tvHomeTitle.text = parentItem.title
             val titles = parentItem.titleTab
-            val sectionsPagerAdapter = HomeSectionsPagerAdapter( fragmentActivity, titles)
+            val mediaType = parentItem.mediaType
+            val sectionsPagerAdapter = HomeSectionsPagerAdapter( fragmentActivity, titles , mediaType )
             val viewPager = binding.vpHome
             viewPager.adapter = sectionsPagerAdapter
             viewPager.isUserInputEnabled = false

@@ -41,9 +41,11 @@ class HomeFragment : BaseViewModelFragment<FragmentHomeBinding, HomeViewModel>(
         val parentItemList = mutableListOf<HomeContent>()
 
         val titleTabTrendingMovie = listOf("day", "week")
-        val titleTabTrendingTv = listOf("day","week")
-        val parentContentTrendingMovie = HomeContent(R.drawable.ic_trending, "Trending Movies", titleTabTrendingMovie)
-        val parentContentTrendingTv = HomeContent(R.drawable.ic_trending, "Trending Tv", titleTabTrendingTv)
+        val titleTabTrendingTv = listOf("day", "week")
+        val parentContentTrendingMovie =
+            HomeContent(R.drawable.ic_trending, "Trending Movies", "movie", titleTabTrendingMovie)
+        val parentContentTrendingTv =
+            HomeContent(R.drawable.ic_tv_off_white, "Trending Tv", "tv", titleTabTrendingTv)
         parentItemList.add(parentContentTrendingMovie)
         parentItemList.add(parentContentTrendingTv)
 
