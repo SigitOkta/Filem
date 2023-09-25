@@ -5,25 +5,34 @@ import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.Tv
 
 
-data class HomeContent(
+/*data class HomeContent(
     val image : Int,
     val title : String,
     val mediaType : String,
     val titleTab : List<String>,
-    /*val childItemList : List<Movie>*/
-)
+    *//*val childItemList : List<Movie>*//*
+)*/
 
-const val HOME_TYPE_HEADER = 0
-const val HOME_TYPE_SECTION = 1
-
-
+const val HOME_TYPE_HEADER_MOVIE = 0
+const val HOME_TYPE_TRENDING_MOVIE = 1
+const val HOME_TYPE_TRENDING_TV = 2
 sealed class HomeItem(val type: Int) {
-    class HomeHeaderMovieItem(val data: Movie) : HomeItem(HOME_TYPE_HEADER)
-    class HomeSectionMovieItem(val data: List<Movie>) :
-        HomeItem(HOME_TYPE_SECTION)
+    class HomeHeaderMovieItem(val data: Movie) : HomeItem(HOME_TYPE_HEADER_MOVIE)
+    class HomeTrendingMovieItem(
+        val image : Int,
+        @StringRes val title : Int,
+        val mediaType : String,
+        val titleTab : List<String>,
+    ) :
+        HomeItem(HOME_TYPE_TRENDING_MOVIE)
 
-    class HomeHeaderTvShowItem(val data: Tv) : HomeItem(HOME_TYPE_HEADER)
-    class HomeSectionTvShowItem(val data: List<Tv>) :
-        HomeItem(HOME_TYPE_SECTION)
+    class HomeHeaderTvShowItem(val data: Tv) : HomeItem(HOME_TYPE_HEADER_MOVIE)
+    class HomeTrendingTvShowItem(
+        val image : Int,
+        @StringRes val title : Int,
+        val mediaType : String,
+        val titleTab : List<String>,
+    ) :
+        HomeItem(HOME_TYPE_TRENDING_TV)
 }
 

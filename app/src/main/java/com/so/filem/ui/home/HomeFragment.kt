@@ -25,7 +25,14 @@ class HomeFragment : BaseViewModelFragment<FragmentHomeBinding, HomeViewModel>(
     override fun observeData() {
         super.observeData()
         setupRv()
+        viewModel.parentData.observe(viewLifecycleOwner){
+            prepareDataHome(viewBinding(), it)
+        }
+    }
 
+    override fun initView() {
+        super.initView()
+        viewModel.getParentData()
     }
 
     private fun setupRv() {
@@ -34,22 +41,23 @@ class HomeFragment : BaseViewModelFragment<FragmentHomeBinding, HomeViewModel>(
             requireContext()
         )
 
-        prepareDataHome(viewBinding())
     }
 
-    private fun prepareDataHome(viewBinding: FragmentHomeBinding) {
-        val parentItemList = mutableListOf<HomeContent>()
+    private fun prepareDataHome(viewBinding: FragmentHomeBinding, homeItem: List<HomeItem>) {
+        /*val parentItemList = mutableListOf<HomeContent>()
 
         val titleTabTrendingMovie = listOf("day", "week")
         val titleTabTrendingTv = listOf("day", "week")
+
         val parentContentTrendingMovie =
             HomeContent(R.drawable.ic_trending, "Trending Movies", "movie", titleTabTrendingMovie)
+
         val parentContentTrendingTv =
             HomeContent(R.drawable.ic_tv_off_white, "Trending Tv", "tv", titleTabTrendingTv)
         parentItemList.add(parentContentTrendingMovie)
-        parentItemList.add(parentContentTrendingTv)
+        parentItemList.add(parentContentTrendingTv)*/
 
-        val adapter = HomeParentAdapter(parentItemList, requireActivity())
+        val adapter = HomeParentAdapter(homeItem, requireActivity())
         viewBinding.rvHome.adapter = adapter
     }
 }

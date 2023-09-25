@@ -33,4 +33,6 @@
     <string name="en_text_no_binary">Non binary</string>
     <string name="en_text_home">Home</string>
     <string name="en_text_trending">Trending</string>
+    <string name="en_text_trending_movies">Trending Movies</string>
+    <string name="en_text_trending_tvs">Trending Tv</string>
 </resources>

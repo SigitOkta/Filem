@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:cardCornerRadius="12dp"
-            app:strokeColor="@color/grey_200"
+            app:strokeColor="@color/light_blue"
             app:backgroundTint="@color/dark_black"
             app:strokeWidth="1dp">
             <com.google.android.material.tabs.TabLayout
@@ -48,13 +48,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:tabGravity="center"
-                app:tabIndicatorColor="?attr/colorPrimary"
+                app:tabIndicatorColor="@color/dark_blue"
                 app:tabIndicatorGravity="stretch"
                 app:tabMode="fixed"
                 app:tabIndicatorFullWidth="true"
-                app:tabSelectedTextColor="@color/dark_blue_600"
+                app:tabSelectedTextColor="@color/light_blue"
                 app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                app:tabTextColor="?attr/colorPrimary"/>
+                app:tabTextColor="@color/off_white_400"/>
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
