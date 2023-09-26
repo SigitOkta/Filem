@@ -12,6 +12,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.so.filem.R
 import com.so.filem.databinding.ItemHomeHeaderBinding
 import com.so.filem.databinding.ItemHomeTrendingBinding
+import com.so.filem.ui.detail.movie.DetailMovieActivity
+import timber.log.Timber
 
 class HomeParentAdapter(
     private val homeItemList: List<HomeItem>,
@@ -112,6 +114,9 @@ class HomeHeaderMovieItemViewHolder(private val binding: ItemHomeHeaderBinding) 
         }
         binding.tvHomeHeaderTitle.text = parentItem.data.title
         binding.tvHomeHeaderOverview.text = parentItem.data.overview
+        itemView.setOnClickListener {
+            DetailMovieActivity.startActivity(itemView.context,parentItem.data.id)
+        }
     }
 
 }

@@ -7,6 +7,8 @@ import coil.load
 import com.so.filem.R
 import com.so.filem.databinding.ItemHomePosterBinding
 import com.so.filem.domain.model.Movie
+import com.so.filem.ui.detail.movie.DetailMovieActivity
+import timber.log.Timber
 
 class HomeChildMovieAdapter(private val childList: List<Movie>) :
     RecyclerView.Adapter<HomeChildMovieAdapter.ChildViewHolder>() {
@@ -23,7 +25,9 @@ class HomeChildMovieAdapter(private val childList: List<Movie>) :
             } else {
                 binding.tvPoster.text = childItem.title
             }
-
+            itemView.setOnClickListener {
+                DetailMovieActivity.startActivity(itemView.context,childItem.id)
+            }
         }
     }
 
