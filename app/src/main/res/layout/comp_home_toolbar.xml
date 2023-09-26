@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/dark_black">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/_11sdp"
+    android:paddingStart="@dimen/_11sdp"
+    android:paddingEnd="@dimen/_11sdp"
+    android:paddingBottom="@dimen/_4sdp"
+    android:background="@color/dark_blue">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_43sdp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
@@ -16,6 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
+                android:textColor="@color/off_white_400"
                 android:text="@string/en_text_welcome"/>
 
             <TextView
@@ -23,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
+                android:textColor="@color/off_white_400"
                 android:text="@string/en_text_username"/>
         </LinearLayout>
 
@@ -30,7 +38,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:textColor="@color/light_blue"
             android:text="@string/en_text_greeting"/>
     </LinearLayout>
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <ImageView
+        android:layout_width="@dimen/_43sdp"
+        android:layout_height="@dimen/_43sdp"
+        android:src="@drawable/ic_logo"/>
+</LinearLayout>
