@@ -58,6 +58,15 @@ class HomeParentAdapter(
                     ), fragmentActivity
                 )
             }
+            HOME_TYPE_HEADER_TV -> {
+                HomeHeaderTvItemViewHolder(
+                    ItemHomeHeaderBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
             else -> {
                 HomeTrendingTvItemViewHolder(
                     ItemHomeTrendingBinding.inflate(
@@ -86,6 +95,8 @@ class HomeParentAdapter(
             holder.bind(homeItemList[position] as HomeItem.HomeHeaderMovieItem)
         else if (holder is HomeTrendingMovieItemViewHolder)
             holder.bind(homeItemList[position] as HomeItem.HomeTrendingMovieItem)
+        else if (holder is HomeHeaderTvItemViewHolder)
+            holder.bind(homeItemList[position] as HomeItem.HomeHeaderTvShowItem)
         else if (holder is HomeTrendingTvItemViewHolder)
             holder.bind(homeItemList[position] as HomeItem.HomeTrendingTvShowItem)
     }
@@ -124,6 +135,20 @@ class HomeTrendingMovieItemViewHolder(
             tab.text = titles[position]
         }.attach()
     }
+}
+
+class HomeHeaderTvItemViewHolder(private val binding: ItemHomeHeaderBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(parentItem: HomeItem.HomeHeaderTvShowItem) {
+        binding.ivHomeHeaderPoster.load(parentItem.data.posterUrl){
+            crossfade(true)
+            placeholder(R.drawable.ic_placeholder_poster)
+        }
+        binding.tvHomeHeaderTitle.text = parentItem.data.name
+        binding.tvHomeHeaderOverview.text = parentItem.data.overview
+    }
+
 }
 
 class HomeTrendingTvItemViewHolder(

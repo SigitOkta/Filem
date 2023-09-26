@@ -10,6 +10,7 @@ import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.Movies
 import com.so.filem.domain.model.Tvs
 import com.so.filem.domain.usecase.movie.GetDiscoverMovieUseCase
+import com.so.filem.domain.usecase.movie.GetDiscoverTvUseCase
 import com.so.filem.domain.usecase.movie.GetTrendingMovieUseCase
 import com.so.filem.domain.usecase.movie.GetTrendingTvUseCase
 import com.so.filem.domain.utils.Resource
@@ -22,7 +23,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getTrendingMovieUseCase: GetTrendingMovieUseCase,
     private val getTrendingTvUseCase: GetTrendingTvUseCase,
-    private val getDiscoverMovieUseCase: GetDiscoverMovieUseCase
+    private val getDiscoverMovieUseCase: GetDiscoverMovieUseCase,
+    private val getDiscoverTvUseCase: GetDiscoverTvUseCase
 ) : ViewModel() {
 
     private var time: String = "day"
@@ -74,6 +76,7 @@ class HomeViewModel @Inject constructor(
                 val titleTabTrendingMovie = listOf("day", "week")
                 val titleTabTrendingTv = listOf("day", "week")
                 val movie = getDiscoverMovieUseCase()
+                val tv = getDiscoverTvUseCase()
                 val homeItems = mutableListOf<HomeItem>()
                 homeItems.apply {
                     add(HomeItem.HomeTrendingMovieItem(R.drawable.ic_trending,
@@ -81,7 +84,7 @@ class HomeViewModel @Inject constructor(
                     add(HomeItem.HomeHeaderMovieItem(movie.random()))
                     add(HomeItem.HomeTrendingTvShowItem(R.drawable.ic_tv_off_white,
                         R.string.en_text_trending_tvs, "tv", titleTabTrendingTv))
-                    add(HomeItem.HomeHeaderMovieItem(movie.random()))
+                    add(HomeItem.HomeHeaderTvShowItem(tv.random()))
                 }
                 _parentData.value = homeItems
             } catch (e: Exception) {

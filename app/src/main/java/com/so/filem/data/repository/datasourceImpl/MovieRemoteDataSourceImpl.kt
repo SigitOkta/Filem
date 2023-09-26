@@ -46,6 +46,10 @@ class MovieRemoteDataSourceImpl @Inject constructor(
         return api.getDiscoverMovie().asMovies()
     }
 
+    override suspend fun getDiscoverTv(): Tvs {
+        return api.getDiscoverTv().asTvs()
+    }
+
     override suspend fun getCastDetails(castId: Long): CastDetails {
         return api.getCastDetail(castId).asCastDetails()
     }

@@ -50,6 +50,10 @@ interface ApiService {
         @Query("language") language: String = "en-US"
     ): MoviesResponse
 
+    @GET(Constants.DISCOVER_TV)
+    suspend fun getDiscoverTv(
+        @Query("language") language: String = "en-US"
+    ): TvResponse
 
     @GET(Constants.CAST_DETAIL)
     suspend fun getCastDetail(

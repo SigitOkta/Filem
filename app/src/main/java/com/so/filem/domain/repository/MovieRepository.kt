@@ -29,6 +29,7 @@ interface MovieRepository {
     fun getSearchMoviesForPaging(query: String): Flow<PagingData<Movie>>
 
     suspend fun discoverMovie() : Movies
+    suspend fun discoverTv() : Tvs
     suspend fun getCastDetail(castId : Long) : CastDetails
     suspend fun getTrendingMovie(timeWindow : String) : Movies
     suspend fun getTrendingTv(timeWindow : String) : Tvs

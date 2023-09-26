@@ -15,7 +15,9 @@ import com.so.filem.domain.model.Tv
 
 const val HOME_TYPE_HEADER_MOVIE = 0
 const val HOME_TYPE_TRENDING_MOVIE = 1
-const val HOME_TYPE_TRENDING_TV = 2
+const val HOME_TYPE_HEADER_TV = 2
+const val HOME_TYPE_TRENDING_TV = 3
+
 sealed class HomeItem(val type: Int) {
     class HomeHeaderMovieItem(val data: Movie) : HomeItem(HOME_TYPE_HEADER_MOVIE)
     class HomeTrendingMovieItem(
@@ -26,7 +28,7 @@ sealed class HomeItem(val type: Int) {
     ) :
         HomeItem(HOME_TYPE_TRENDING_MOVIE)
 
-    class HomeHeaderTvShowItem(val data: Tv) : HomeItem(HOME_TYPE_HEADER_MOVIE)
+    class HomeHeaderTvShowItem(val data: Tv) : HomeItem(HOME_TYPE_HEADER_TV)
     class HomeTrendingTvShowItem(
         val image : Int,
         @StringRes val title : Int,
