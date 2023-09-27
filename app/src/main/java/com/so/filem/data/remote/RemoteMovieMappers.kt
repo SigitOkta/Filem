@@ -1,6 +1,8 @@
 package com.so.filem.data.remote
 
 import com.so.filem.data.remote.response.CastDetailsResponse
+import com.so.filem.data.remote.response.CastResponse
+import com.so.filem.data.remote.response.CastsResponse
 import com.so.filem.data.remote.response.MovieDetailsResponse
 import com.so.filem.data.remote.response.MoviesListResponse
 import com.so.filem.data.remote.response.MoviesResponse
@@ -8,6 +10,7 @@ import com.so.filem.data.remote.response.TvListResponse
 import com.so.filem.data.remote.response.TvResponse
 import com.so.filem.domain.model.Cast
 import com.so.filem.domain.model.CastDetails
+import com.so.filem.domain.model.Casts
 import com.so.filem.domain.model.Genre
 import com.so.filem.domain.model.MediaItem
 import com.so.filem.domain.model.Movie
@@ -163,4 +166,18 @@ fun TvListResponse.asTv() = Tv (
     vote_average = vote_average,
     vote_count = vote_count,
     isFavorite = null
+)
+
+fun CastsResponse.asCasts() = Casts(
+    page = page,
+    results = results.map { it.asCast() },
+    total_pages = total_pages,
+    total_results = total_results
+)
+
+fun CastResponse.asCast() = Cast (
+    id = id,
+    movieId = 0,
+    actorName = actorName,
+    profileImagePath = profileImagePath,
 )

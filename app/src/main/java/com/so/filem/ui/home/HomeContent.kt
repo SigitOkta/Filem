@@ -1,6 +1,7 @@
 package com.so.filem.ui.home
 
 import androidx.annotation.StringRes
+import com.so.filem.domain.model.Cast
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.Tv
 
@@ -17,6 +18,7 @@ const val HOME_TYPE_HEADER_MOVIE = 0
 const val HOME_TYPE_TRENDING_MOVIE = 1
 const val HOME_TYPE_HEADER_TV = 2
 const val HOME_TYPE_TRENDING_TV = 3
+const val HOME_TYPE_POPULAR_PEOPLE = 4
 
 sealed class HomeItem(val type: Int) {
     class HomeHeaderMovieItem(val data: Movie) : HomeItem(HOME_TYPE_HEADER_MOVIE)
@@ -36,5 +38,12 @@ sealed class HomeItem(val type: Int) {
         val titleTab : List<String>,
     ) :
         HomeItem(HOME_TYPE_TRENDING_TV)
+
+    class HomePopularPeopleItem(
+        val image : Int,
+        @StringRes val title : Int,
+        val castList : List<Cast>,
+    ) :
+        HomeItem(HOME_TYPE_POPULAR_PEOPLE)
 }
 

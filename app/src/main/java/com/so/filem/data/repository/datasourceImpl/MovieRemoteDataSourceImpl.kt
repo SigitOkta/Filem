@@ -12,10 +12,12 @@ import com.so.filem.domain.model.MovieFilter
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.data.paging.SearchMoviesPagingSource
 import com.so.filem.data.remote.asCastDetails
+import com.so.filem.data.remote.asCasts
 import com.so.filem.data.remote.asMovieDetails
 import com.so.filem.data.remote.asMovies
 import com.so.filem.data.remote.asTvs
 import com.so.filem.domain.model.CastDetails
+import com.so.filem.domain.model.Casts
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
@@ -60,6 +62,10 @@ class MovieRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getTrendingTv(timeWindow: String): Tvs {
         return api.getTrendingTv(timeWindow).asTvs()
+    }
+
+    override suspend fun getPopularPeople(): Casts {
+        return api.getPopularPeople().asCasts()
     }
 
 }

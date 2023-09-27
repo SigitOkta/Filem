@@ -5,6 +5,7 @@ import com.so.filem.domain.model.MovieFilter
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.data.local.dao.movie.entity.MoviesEntity
 import com.so.filem.domain.model.CastDetails
+import com.so.filem.domain.model.Casts
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
@@ -33,4 +34,5 @@ interface MovieRepository {
     suspend fun getCastDetail(castId : Long) : CastDetails
     suspend fun getTrendingMovie(timeWindow : String) : Movies
     suspend fun getTrendingTv(timeWindow : String) : Tvs
+    suspend fun getPopularPeople() : Casts
 }

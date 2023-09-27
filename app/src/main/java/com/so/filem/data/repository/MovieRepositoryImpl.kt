@@ -9,6 +9,7 @@ import com.so.filem.data.local.dao.movie.entity.MoviesEntity
 import com.so.filem.data.local.dao.movie.entity.asMovie
 import com.so.filem.data.local.dao.movie.entity.asMovies
 import com.so.filem.domain.model.CastDetails
+import com.so.filem.domain.model.Casts
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
@@ -102,5 +103,9 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun getTrendingTv(timeWindow: String): Tvs {
         return remoteDataSource.getTrendingTv(timeWindow)
+    }
+
+    override suspend fun getPopularPeople(): Casts {
+        return remoteDataSource.getPopularPeople()
     }
 }

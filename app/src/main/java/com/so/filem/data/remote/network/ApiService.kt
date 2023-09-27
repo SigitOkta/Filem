@@ -1,6 +1,7 @@
 package com.so.filem.data.remote.network
 
 import com.so.filem.data.remote.response.CastDetailsResponse
+import com.so.filem.data.remote.response.CastsResponse
 import com.so.filem.data.remote.response.MovieDetailsResponse
 import com.so.filem.data.remote.response.MoviesResponse
 import com.so.filem.data.remote.response.TvResponse
@@ -71,4 +72,9 @@ interface ApiService {
         @Path("time_window") time: String,
         @Query("language") language: String = "en-US"
     ): TvResponse
+
+    @GET(Constants.PEOPLE_POPULAR)
+    suspend fun getPopularPeople(
+        @Query("language") language: String = "en-US"
+    ): CastsResponse
 }

@@ -35,4 +35,5 @@
     <string name="en_text_trending">Trending</string>
     <string name="en_text_trending_movies">Trending Movies</string>
     <string name="en_text_trending_tvs">Trending Tv</string>
+    <string name="en_text_popular_people">Popular People</string>
 </resources>
