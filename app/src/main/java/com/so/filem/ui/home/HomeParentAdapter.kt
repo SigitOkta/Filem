@@ -2,6 +2,7 @@ package com.so.filem.ui.home
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -12,6 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.so.filem.R
 import com.so.filem.databinding.ItemHomeHeaderBinding
 import com.so.filem.databinding.ItemHomeTrendingBinding
+import com.so.filem.ui.custom.Converter
 import com.so.filem.ui.detail.movie.DetailMovieActivity
 import timber.log.Timber
 
@@ -93,14 +95,12 @@ class HomeParentAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is HomeHeaderMovieItemViewHolder)
-            holder.bind(homeItemList[position] as HomeItem.HomeHeaderMovieItem)
-        else if (holder is HomeTrendingMovieItemViewHolder)
-            holder.bind(homeItemList[position] as HomeItem.HomeTrendingMovieItem)
-        else if (holder is HomeHeaderTvItemViewHolder)
-            holder.bind(homeItemList[position] as HomeItem.HomeHeaderTvShowItem)
-        else if (holder is HomeTrendingTvItemViewHolder)
-            holder.bind(homeItemList[position] as HomeItem.HomeTrendingTvShowItem)
+        when (holder) {
+            is HomeHeaderMovieItemViewHolder -> holder.bind(homeItemList[position] as HomeItem.HomeHeaderMovieItem)
+            is HomeTrendingMovieItemViewHolder -> holder.bind(homeItemList[position] as HomeItem.HomeTrendingMovieItem)
+            is HomeHeaderTvItemViewHolder -> holder.bind(homeItemList[position] as HomeItem.HomeHeaderTvShowItem)
+            is HomeTrendingTvItemViewHolder -> holder.bind(homeItemList[position] as HomeItem.HomeTrendingTvShowItem)
+        }
     }
 }
 
@@ -114,6 +114,7 @@ class HomeHeaderMovieItemViewHolder(private val binding: ItemHomeHeaderBinding) 
         }
         binding.tvHomeHeaderTitle.text = parentItem.data.title
         binding.tvHomeHeaderOverview.text = parentItem.data.overview
+        binding.tvHomeHeaderRating.text = parentItem.data.vote_average?.let { Converter.roundOffDecimal(it) }
         itemView.setOnClickListener {
             DetailMovieActivity.startActivity(itemView.context,parentItem.data.id)
         }
@@ -152,6 +153,8 @@ class HomeHeaderTvItemViewHolder(private val binding: ItemHomeHeaderBinding) :
         }
         binding.tvHomeHeaderTitle.text = parentItem.data.name
         binding.tvHomeHeaderOverview.text = parentItem.data.overview
+        binding.tvHomeHeaderRating.text = parentItem.data.vote_average?.let { Converter.roundOffDecimal(it) }
+
     }
 
 }
