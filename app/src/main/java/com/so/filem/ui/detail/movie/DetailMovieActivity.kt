@@ -9,6 +9,9 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.so.filem.R
 import com.so.filem.databinding.ActivityDetailMovieBinding
 import com.so.filem.domain.model.MovieDetails
@@ -92,7 +95,12 @@ class DetailMovieActivity :
                 tvDesciption.text = "No overview"
             }
             //genre
-            rvGenre.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
+            val flexboxLayoutManager = FlexboxLayoutManager(this@DetailMovieActivity)
+            flexboxLayoutManager.apply {
+                flexDirection = FlexDirection.ROW
+                flexWrap = FlexWrap.WRAP
+            }
+            rvGenre.layoutManager = flexboxLayoutManager
             val genreAdapter = GenreAdapter(data.genres)
             rvGenre.adapter = genreAdapter
 
