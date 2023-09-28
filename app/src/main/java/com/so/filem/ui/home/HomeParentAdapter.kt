@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.so.filem.R
 import com.so.filem.databinding.ItemHomeHeaderBinding
+import com.so.filem.databinding.ItemHomePopularPeopleBinding
 import com.so.filem.databinding.ItemHomeTrendingBinding
 import com.so.filem.ui.custom.Converter
+import com.so.filem.ui.detail.cast.DetailCastActivity
 import com.so.filem.ui.detail.movie.DetailMovieActivity
 import timber.log.Timber
 
@@ -71,13 +74,22 @@ class HomeParentAdapter(
                     )
                 )
             }
-            else -> {
+            HOME_TYPE_TRENDING_TV -> {
                 HomeTrendingTvItemViewHolder(
                     ItemHomeTrendingBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
                     ), fragmentActivity
+                )
+            }
+            else -> {
+                HomePopularPeopleItemViewHolder(
+                    ItemHomePopularPeopleBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
                 )
             }
         }
@@ -100,6 +112,7 @@ class HomeParentAdapter(
             is HomeTrendingMovieItemViewHolder -> holder.bind(homeItemList[position] as HomeItem.HomeTrendingMovieItem)
             is HomeHeaderTvItemViewHolder -> holder.bind(homeItemList[position] as HomeItem.HomeHeaderTvShowItem)
             is HomeTrendingTvItemViewHolder -> holder.bind(homeItemList[position] as HomeItem.HomeTrendingTvShowItem)
+            is HomePopularPeopleItemViewHolder -> holder.bind(homeItemList[position] as HomeItem.HomePopularPeopleItem)
         }
     }
 }
@@ -177,5 +190,26 @@ class HomeTrendingTvItemViewHolder(
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = titles[position]
         }.attach()
+    }
+}
+
+class HomePopularPeopleItemViewHolder(
+    private val binding: ItemHomePopularPeopleBinding,
+) :  RecyclerView.ViewHolder(binding.root) {
+
+    private val adapter: HomeChildPopularPeopleAdapter by lazy {
+        HomeChildPopularPeopleAdapter {
+            DetailCastActivity.startActivity(itemView.context, it.id )
+        }
+    }
+
+    fun bind(parentItem: HomeItem.HomePopularPeopleItem) {
+        binding.ivPeople.setImageResource(parentItem.image)
+        binding.tvHomeTitle.text =  itemView.context.getText(parentItem.title)
+        Timber.tag("AdapterPoeple").d(parentItem.castList.toString())
+        binding.rvHomePeople.layoutManager =
+            LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvHomePeople.adapter = adapter
+        adapter.setItems(parentItem.castList)
     }
 }

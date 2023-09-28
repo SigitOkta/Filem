@@ -8,12 +8,12 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.so.filem.R
-import com.so.filem.databinding.ItemMediaParentBinding
+import com.so.filem.databinding.ItemCastMediaParentBinding
 
 class MediaParentAdapter(private val mediaItemList: List<MediaContent>) :
     RecyclerView.Adapter<MediaParentAdapter.ParentViewHolder>() {
 
-    inner class ParentViewHolder(private val binding: ItemMediaParentBinding) :
+    inner class ParentViewHolder(private val binding: ItemCastMediaParentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(parentItem: MediaContent) {
 
@@ -92,7 +92,7 @@ class MediaParentAdapter(private val mediaItemList: List<MediaContent>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentViewHolder {
         val binding =
-            ItemMediaParentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemCastMediaParentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ParentViewHolder(binding)
     }
 
