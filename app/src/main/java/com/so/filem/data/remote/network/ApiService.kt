@@ -4,6 +4,7 @@ import com.so.filem.data.remote.response.CastDetailsResponse
 import com.so.filem.data.remote.response.CastsResponse
 import com.so.filem.data.remote.response.MovieDetailsResponse
 import com.so.filem.data.remote.response.MoviesResponse
+import com.so.filem.data.remote.response.TvDetailsResponse
 import com.so.filem.data.remote.response.TvResponse
 import com.so.filem.domain.utils.Constants
 import retrofit2.http.GET
@@ -77,4 +78,9 @@ interface ApiService {
     suspend fun getPopularPeople(
         @Query("language") language: String = "en-US"
     ): CastsResponse
+
+    @GET(Constants.TV_DETAIL)
+    suspend fun getTvDetails(
+        @Path("id") id: Long
+    ): TvDetailsResponse
 }

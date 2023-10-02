@@ -6,6 +6,7 @@ import com.so.filem.data.remote.response.CastsResponse
 import com.so.filem.data.remote.response.MovieDetailsResponse
 import com.so.filem.data.remote.response.MoviesListResponse
 import com.so.filem.data.remote.response.MoviesResponse
+import com.so.filem.data.remote.response.TvDetailsResponse
 import com.so.filem.data.remote.response.TvListResponse
 import com.so.filem.data.remote.response.TvResponse
 import com.so.filem.domain.model.Cast
@@ -18,7 +19,8 @@ import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
 import com.so.filem.domain.model.ProfilesItem
 import com.so.filem.domain.model.Trailer
-import com.so.filem.domain.model.Tv
+import com.so.filem.domain.model.TvDetails
+import com.so.filem.domain.model.TvShow
 import com.so.filem.domain.model.Tvs
 
 fun MoviesResponse.asMovies() = Movies(
@@ -153,7 +155,7 @@ fun TvResponse.asTvs() = Tvs(
     total_results = total_results
 )
 
-fun TvListResponse.asTv() = Tv (
+fun TvListResponse.asTv() = TvShow (
     id = id,
     adult = adult,
     backdropPath = backdrop_path,
@@ -181,3 +183,61 @@ fun CastResponse.asCast() = Cast (
     actorName = actorName,
     profileImagePath = profileImagePath,
 )
+
+fun TvDetailsResponse.asTv(): TvShow {
+    return TvShow(
+        id = id,
+        adult = adult,
+        backdropPath = backdropPath,
+        original_language = originalLanguage,
+        original_name = originalName,
+        overview = overview,
+        posterPath = posterPath,
+        first_air_date = firstAirDate,
+        name = name,
+        vote_average = voteAverage,
+        vote_count = voteCount,
+        isFavorite = null
+    )
+}
+
+fun TvDetailsResponse.asGenres(): List<Genre> {
+    return genres?.map {
+        Genre(
+            id = it.id,
+            movieId = id,
+            name = it.name,
+        )
+    }?.toList() ?: emptyList()
+}
+
+fun TvDetailsResponse.asCast(): List<Cast> {
+    return creditsResponse.cast?.map {
+        Cast(
+            id = it.id,
+            movieId = id,
+            actorName = it.actorName,
+            profileImagePath = it.profileImagePath,
+        )
+    }?.toList() ?: emptyList()
+}
+
+fun TvDetailsResponse.asVideos(): List<Trailer> {
+    return videosResponse.videos?.map {
+        Trailer(
+            id = it.id,
+            movieId = id,
+            key = it.key,
+            name = it.name,
+        )
+    }?.toList() ?: emptyList()
+}
+
+fun TvDetailsResponse.asTvDetails(): TvDetails {
+    return TvDetails(
+        tvShow = asTv(),
+        genres = asGenres(),
+        cast = asCast(),
+        trailers = asVideos(),
+    )
+}

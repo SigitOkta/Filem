@@ -13,6 +13,7 @@ object Constants {
     const val PEOPLE_POPULAR = "person/popular"
 
     const val MOVIE_DETAIL = "movie/{id}?append_to_response=videos,credits"
+    const val TV_DETAIL = "tv/{id}?append_to_response=videos,credits"
 
     const val MOVIE_SEARCH = "search/movie"
 

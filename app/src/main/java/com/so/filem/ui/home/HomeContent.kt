@@ -3,7 +3,7 @@ package com.so.filem.ui.home
 import androidx.annotation.StringRes
 import com.so.filem.domain.model.Cast
 import com.so.filem.domain.model.Movie
-import com.so.filem.domain.model.Tv
+import com.so.filem.domain.model.TvShow
 
 
 /*data class HomeContent(
@@ -30,7 +30,7 @@ sealed class HomeItem(val type: Int) {
     ) :
         HomeItem(HOME_TYPE_TRENDING_MOVIE)
 
-    class HomeHeaderTvShowItem(val data: Tv) : HomeItem(HOME_TYPE_HEADER_TV)
+    class HomeHeaderTvShowItem(val data: TvShow) : HomeItem(HOME_TYPE_HEADER_TV)
     class HomeTrendingTvShowItem(
         val image : Int,
         @StringRes val title : Int,

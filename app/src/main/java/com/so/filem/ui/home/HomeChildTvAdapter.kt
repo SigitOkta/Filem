@@ -5,14 +5,14 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.so.filem.R
 import com.so.filem.databinding.ItemHomePosterBinding
-import com.so.filem.domain.model.Tv
+import com.so.filem.domain.model.TvShow
 
-class HomeChildTvAdapter(private val childList: List<Tv>) :
+class HomeChildTvAdapter(private val childList: List<TvShow>) :
     RecyclerView.Adapter<HomeChildTvAdapter.ChildViewHolder>() {
 
     inner class ChildViewHolder(private val binding: ItemHomePosterBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(childItem: Tv) {
+        fun bind(childItem: TvShow) {
             binding.ivPoster.load(childItem.posterUrl){
                 crossfade(true)
                 placeholder(R.drawable.ic_placeholder_poster)

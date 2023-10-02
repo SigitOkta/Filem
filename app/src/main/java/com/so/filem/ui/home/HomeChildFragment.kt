@@ -4,8 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.so.filem.databinding.FragmentHomeChildBinding
 import com.so.filem.domain.model.Movie
-import com.so.filem.domain.model.Tv
-import com.so.filem.domain.utils.Resource
+import com.so.filem.domain.model.TvShow
 import com.so.filem.ui.base.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -60,7 +59,7 @@ class HomeChildFragment : BaseViewModelFragment<FragmentHomeChildBinding, HomeVi
         viewBinding().rvHomeChild.adapter = adapter
     }
 
-    private fun setupRvHomeTv(results: List<Tv>) {
+    private fun setupRvHomeTv(results: List<TvShow>) {
         viewBinding().rvHomeChild.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         val adapter = HomeChildTvAdapter(results)

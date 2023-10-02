@@ -24,15 +24,14 @@ interface MovieRepository {
     fun getFavoriteMovie(movieId: Long): Flow<Movie?>
     fun getAllFavoriteMovies(): Flow<List<Movie>>
 
-    suspend fun deleteMoviesWithNoFav() : Int
-    suspend fun movieExists(movieId : Long) : Boolean
+    suspend fun deleteMoviesWithNoFav(): Int
+    suspend fun movieExists(movieId: Long): Boolean
 
     fun getSearchMoviesForPaging(query: String): Flow<PagingData<Movie>>
 
-    suspend fun discoverMovie() : Movies
-    suspend fun discoverTv() : Tvs
-    suspend fun getCastDetail(castId : Long) : CastDetails
-    suspend fun getTrendingMovie(timeWindow : String) : Movies
-    suspend fun getTrendingTv(timeWindow : String) : Tvs
-    suspend fun getPopularPeople() : Casts
+    suspend fun discoverMovie(): Movies
+
+    suspend fun getCastDetail(castId: Long): CastDetails
+    suspend fun getTrendingMovie(timeWindow: String): Movies
+    suspend fun getPopularPeople(): Casts
 }

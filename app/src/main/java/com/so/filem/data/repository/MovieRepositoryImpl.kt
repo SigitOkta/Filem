@@ -8,6 +8,9 @@ import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.data.local.dao.movie.entity.MoviesEntity
 import com.so.filem.data.local.dao.movie.entity.asMovie
 import com.so.filem.data.local.dao.movie.entity.asMovies
+import com.so.filem.data.local.dao.tvShow.entity.TvsEntity
+import com.so.filem.data.repository.datasource.TvLocalDataSource
+import com.so.filem.data.repository.datasource.TvRemoteDataSource
 import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.model.Casts
 import com.so.filem.domain.model.Movie
@@ -15,25 +18,26 @@ import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
 import com.so.filem.domain.model.Tvs
 import com.so.filem.domain.repository.MovieRepository
+import com.so.filem.domain.repository.TvRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
-    private val remoteDataSource: MovieRemoteDataSource,
-    private val localDataSource: MovieLocalDataSource
+    private val movieRemoteDataSource: MovieRemoteDataSource,
+    private val movieLocalDataSource: MovieLocalDataSource,
 ) : MovieRepository {
-    override fun getMoviesForPaging(filter: MovieFilter) = localDataSource.getMoviesForPaging(filter)
+    override fun getMoviesForPaging(filter: MovieFilter) = movieLocalDataSource.getMoviesForPaging(filter)
     override fun getMoviesFromDB(movieId: Int): Flow<MoviePaging> {
-        return localDataSource.getMoviesFromDB(movieId)
+        return movieLocalDataSource.getMoviesFromDB(movieId)
     }
 
     override suspend fun getMovieDetails(movieId: Long): MovieDetails {
-        return remoteDataSource.getMovieDetails(movieId)
+        return movieRemoteDataSource.getMovieDetails(movieId)
     }
 
     override suspend fun saveFavoriteMovie(movie: Movie): Long {
-        return localDataSource.saveFavorite(
+        return movieLocalDataSource.saveFavorite(
             MoviesEntity(
                 id = movie.id,
                 adult = movie.adult,
@@ -54,58 +58,51 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateFavorite(movieId: String, isFavorite: Boolean) {
-        return localDataSource.updateFavorite(movieId, isFavorite)
+        return movieLocalDataSource.updateFavorite(movieId, isFavorite)
     }
 
     override suspend fun deleteFavoriteMovie(movieId: Long): Int {
-        return localDataSource.deleteFavoriteMovie(movieId)
+        return movieLocalDataSource.deleteFavoriteMovie(movieId)
     }
 
     override suspend fun deleteAllFavoriteMovies() {
-        return localDataSource.deleteAllFavoriteMovie()
+        return movieLocalDataSource.deleteAllFavoriteMovie()
     }
 
     override fun getFavoriteMovie(movieId: Long): Flow<Movie?> {
-        return localDataSource.getFavoriteMovie(movieId).map { it?.asMovie() }
+        return movieLocalDataSource.getFavoriteMovie(movieId).map { it?.asMovie() }
     }
 
     override fun getAllFavoriteMovies(): Flow<List<Movie>> {
-        return localDataSource.getAllFavoriteMovies().map { it.asMovies() }
+        return movieLocalDataSource.getAllFavoriteMovies().map { it.asMovies() }
     }
 
     override suspend fun deleteMoviesWithNoFav(): Int {
-        return localDataSource.deleteMoviesWithNoFav()
+        return movieLocalDataSource.deleteMoviesWithNoFav()
     }
 
     override suspend fun movieExists(movieId: Long): Boolean {
-        return localDataSource.movieExists(movieId)
+        return movieLocalDataSource.movieExists(movieId)
     }
 
     override fun getSearchMoviesForPaging(query: String): Flow<PagingData<Movie>> {
-        return remoteDataSource.getSearchMoviePaging(query)
+        return movieRemoteDataSource.getSearchMoviePaging(query)
     }
 
     override suspend fun discoverMovie(): Movies {
-        return remoteDataSource.getDiscoverMovie()
+        return movieRemoteDataSource.getDiscoverMovie()
     }
 
-    override suspend fun discoverTv(): Tvs {
-        return remoteDataSource.getDiscoverTv()
-    }
 
     override suspend fun getCastDetail(castId: Long): CastDetails {
-        return remoteDataSource.getCastDetails(castId)
+        return movieRemoteDataSource.getCastDetails(castId)
     }
 
     override suspend fun getTrendingMovie(timeWindow: String): Movies {
-        return remoteDataSource.getTrendingMovie(timeWindow)
-    }
-
-    override suspend fun getTrendingTv(timeWindow: String): Tvs {
-        return remoteDataSource.getTrendingTv(timeWindow)
+        return movieRemoteDataSource.getTrendingMovie(timeWindow)
     }
 
     override suspend fun getPopularPeople(): Casts {
-        return remoteDataSource.getPopularPeople()
+        return movieRemoteDataSource.getPopularPeople()
     }
 }

@@ -23,8 +23,6 @@ class DetailMovieViewModel @Inject constructor(
     private val getFavoriteMovieUseCase: GetFavoriteMovieUseCase,
     private val saveFavoriteMovieUseCase: SaveFavoriteMovieUseCase,
     private val deleteFavoriteMovieUseCase: DeleteFavoriteMovieUseCase,
-    private val movieExistsUseCase: MovieExistsUseCase,
-    private val deleteMoviesWithNoFavUseCase: DeleteMoviesWithNoFavUseCase
 ) : ViewModel() {
 
     private val _movieId = MutableStateFlow<Long?>(null)
@@ -78,13 +76,7 @@ class DetailMovieViewModel @Inject constructor(
         viewModelScope.launch {
             _movieDetails.value = Resource.Loading()
             try {
-               val isFavorite: Boolean
                 val remote = getMovieDetailsUseCase(movieId)
-              /* val fav = movieExistsUseCase(remote.movie.id)
-                isFavorite = fav
-                deleteMoviesWithNoFavUseCase()
-                saveFavoriteMovieUseCase(remote.movie, isFavorite)*/
-
                 _movieDetails.value = Resource.Success(remote)
                 Timber.tag("viewModel").d(remote.movie.id.toString())
             } catch (e: Exception) {

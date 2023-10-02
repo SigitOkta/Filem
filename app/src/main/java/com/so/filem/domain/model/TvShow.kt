@@ -2,7 +2,7 @@ package com.so.filem.domain.model
 
 import com.so.filem.domain.utils.Constants
 
-data class Tv(
+data class TvShow(
     val id: Long,
     val adult: Boolean?,
     val backdropPath: String?,
