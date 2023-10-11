@@ -18,6 +18,7 @@ import com.so.filem.databinding.ItemHomeTrendingBinding
 import com.so.filem.ui.custom.Converter
 import com.so.filem.ui.detail.cast.DetailCastActivity
 import com.so.filem.ui.detail.movie.DetailMovieActivity
+import com.so.filem.ui.detail.tv.DetailTvShowActivity
 import timber.log.Timber
 
 class HomeParentAdapter(
@@ -167,7 +168,9 @@ class HomeHeaderTvItemViewHolder(private val binding: ItemHomeHeaderBinding) :
         binding.tvHomeHeaderTitle.text = parentItem.data.name
         binding.tvHomeHeaderOverview.text = parentItem.data.overview
         binding.tvHomeHeaderRating.text = parentItem.data.vote_average?.let { Converter.roundOffDecimal(it) }
-
+        itemView.setOnClickListener {
+            DetailTvShowActivity.startActivity(itemView.context,parentItem.data.id)
+        }
     }
 
 }

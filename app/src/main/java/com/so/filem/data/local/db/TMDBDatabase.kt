@@ -13,7 +13,7 @@ import com.so.filem.data.local.dao.tvShow.entity.TvsEntity
 
 @Database(
     entities = [MoviePaging::class, MovieRemoteKey::class, MoviesEntity::class, TvsEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class TMDBDatabase : RoomDatabase() {

@@ -100,9 +100,9 @@ class DetailMovieActivity :
                 flexDirection = FlexDirection.ROW
                 flexWrap = FlexWrap.WRAP
             }
-            rvGenre.layoutManager = flexboxLayoutManager
+            includeHeaderPoster.rvGenre.layoutManager = flexboxLayoutManager
             val genreAdapter = GenreAdapter(data.genres)
-            rvGenre.adapter = genreAdapter
+            includeHeaderPoster.rvGenre.adapter = genreAdapter
 
             //cast
             if(data.cast.isEmpty()){

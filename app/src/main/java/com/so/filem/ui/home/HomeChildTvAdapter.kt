@@ -6,6 +6,8 @@ import coil.load
 import com.so.filem.R
 import com.so.filem.databinding.ItemHomePosterBinding
 import com.so.filem.domain.model.TvShow
+import com.so.filem.ui.detail.movie.DetailMovieActivity
+import com.so.filem.ui.detail.tv.DetailTvShowActivity
 
 class HomeChildTvAdapter(private val childList: List<TvShow>) :
     RecyclerView.Adapter<HomeChildTvAdapter.ChildViewHolder>() {
@@ -22,7 +24,9 @@ class HomeChildTvAdapter(private val childList: List<TvShow>) :
             } else {
                 binding.tvPoster.text = childItem.name
             }
-
+            itemView.setOnClickListener {
+                DetailTvShowActivity.startActivity(itemView.context,childItem.id)
+            }
         }
     }
 
