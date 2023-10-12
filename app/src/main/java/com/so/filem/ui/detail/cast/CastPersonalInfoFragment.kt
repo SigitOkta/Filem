@@ -65,7 +65,7 @@ class CastPersonalInfoFragment :  BaseViewModelFragment<FragmentCastPersonalInfo
 
         data.add(InfoCastContent("Also Known As", alsoKnownAsString))
 
-        val adapter = CastAdapter(requireContext(), data)
+        val adapter = CastInfoAdapter(requireContext(), data)
         viewBinding().lvCastInfo.adapter = adapter
     }
 

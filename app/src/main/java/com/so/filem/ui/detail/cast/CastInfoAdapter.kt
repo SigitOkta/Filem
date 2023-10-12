@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.so.filem.databinding.ItemListCastInfoBinding
 
-class CastAdapter(private val context: Context, private val data: List<InfoCastContent>) : BaseAdapter() {
+class CastInfoAdapter(private val context: Context, private val data: List<InfoCastContent>) : BaseAdapter() {
     override fun getCount(): Int {
         return data.size
     }

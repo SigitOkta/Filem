@@ -2,28 +2,23 @@ package com.so.filem.ui.detail.tv
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
+import androidx.annotation.StringRes
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import coil.load
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.so.filem.R
-import com.so.filem.databinding.ActivityDetailMovieBinding
 import com.so.filem.databinding.ActivityDetailTvShowBinding
-import com.so.filem.domain.model.MovieDetails
-import com.so.filem.domain.model.Trailer
 import com.so.filem.domain.model.TvDetails
 import com.so.filem.domain.utils.Resource
 import com.so.filem.domain.utils.setResizableText
-import com.so.filem.ui.adapter.CastAdapter
 import com.so.filem.ui.adapter.GenreAdapter
-import com.so.filem.ui.adapter.TrailerAdapter
 import com.so.filem.ui.base.BaseViewModelActivity
 import com.so.filem.ui.custom.Converter
 import com.so.filem.ui.custom.LoadingDialog
@@ -41,6 +36,9 @@ class DetailTvShowActivity :
     ) {
     override val viewModel: DetailTvViewModel by viewModels()
 
+    private lateinit var bundle : Bundle
+    private lateinit var viewPager2: ViewPager2
+
     companion object {
         const val EXTRAS_ID = "EXTRAS_ID"
         fun startActivity(context: Context, id: Long) {
@@ -49,11 +47,18 @@ class DetailTvShowActivity :
                 putExtra(EXTRAS_ID, id)
             })
         }
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_detail_tv_1,
+            R.string.tab_detail_tv_2,
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
+        viewPager2 = binding.vpDetailTvShow
+        bundle = Bundle()
         initView()
         observeData()
         binding.includeHeaderPoster.ivFavorite.setOnClickListener {
@@ -68,6 +73,17 @@ class DetailTvShowActivity :
         binding.includeHeaderPoster.ivArrowBack.setOnClickListener {
             finish()
         }
+
+    }
+
+    private fun setupTabLayout(tv: TvDetails) {
+        val sectionsPagerAdapter = DetailTvSectionPagerAdapter(this, tv)
+        viewPager2.adapter = sectionsPagerAdapter
+        val tabs: TabLayout = binding.tlCast
+        TabLayoutMediator(tabs, viewPager2) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+        supportActionBar?.elevation = 0f
     }
 
     private fun loadData(data: TvDetails) {
@@ -104,42 +120,9 @@ class DetailTvShowActivity :
             includeHeaderPoster.rvGenre.layoutManager = flexboxLayoutManager
             val genreAdapter = GenreAdapter(data.genres)
             includeHeaderPoster.rvGenre.adapter = genreAdapter
-
-            //cast
-          /*  if(data.cast.isEmpty()){
-                includeCast.root.visibility = View.GONE
-            }else{
-                val rvCast = includeCast.rvCast
-                rvCast.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
-                val castAdapter = CastAdapter(data.cast)
-                rvCast.adapter = castAdapter
-            }
-            //trailer
-            if(data.trailers.isEmpty()){
-                includeVideo.root.visibility = View.GONE
-            }else{
-                val rvTrailer = includeVideo.rvTrailer
-                rvTrailer.layoutManager = LinearLayoutManager(this@DetailMovieActivity, LinearLayoutManager.HORIZONTAL, false)
-                val trailerAdapter = TrailerAdapter(data.trailers){ trailer ->
-                    playVideo(trailer, this@DetailMovieActivity)
-                }
-                rvTrailer.adapter = trailerAdapter
-            }*/
         }
     }
 
-    private fun playVideo(trailer: Trailer?, context: Context) {
-        if (trailer?.key != null) {
-            val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(trailer.youTubeAppUrl))
-            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(trailer.youTubeWebUrl))
-
-            if (appIntent.resolveActivity(context.packageManager) != null) {
-                context.startActivity(appIntent)
-            } else {
-                context.startActivity(webIntent)
-            }
-        }
-    }
 
 
     private fun observeData() {
@@ -159,7 +142,9 @@ class DetailTvShowActivity :
                         LoadingDialog.hideLoading()
                         it.payload?.let { tv ->
                             loadData(tv)
+                            setupTabLayout(tv)
                         }
+
                     }
 
                     else -> false

@@ -24,6 +24,4 @@ class CastSectionsPagerAdapter(activity: AppCompatActivity,  private val bundle:
         }
         return fragment as Fragment
     }
-
-
 }
