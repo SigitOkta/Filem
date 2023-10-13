@@ -83,6 +83,7 @@ class DetailTvShowActivity :
         TabLayoutMediator(tabs, viewPager2) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
+        viewPager2.isUserInputEnabled = false
         supportActionBar?.elevation = 0f
     }
 

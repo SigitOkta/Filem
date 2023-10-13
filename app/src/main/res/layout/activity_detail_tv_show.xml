@@ -19,11 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:expandedTitleMarginStart="@dimen/_34sdp"
-            app:expandedTitleMarginEnd="@dimen/_46sdp"
             android:fitsSystemWindows="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -50,24 +49,33 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/includeHeaderPoster"
                     tools:text="In the 1930s, three friends witness a murder, are framed for it, and uncover one of the most outrageous plots in American history." />
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tl_cast"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_gravity="bottom"
-                    android:background="@color/dark_black"
-                    app:tabIndicatorColor="@color/grey_200"
-                    app:tabTextColor="@color/off_white_400"
-                    app:tabGravity="fill"
-                    app:tabMode="fixed"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_desciption"/>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:strokeColor="@color/light_blue"
+            app:backgroundTint="@color/dark_black"
+            android:layout_marginTop="@dimen/_11sdp"
+            android:layout_marginStart="@dimen/_13sdp"
+            android:layout_marginEnd="@dimen/_13sdp"
+            app:strokeWidth="1dp">
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_cast"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:backgroundTint="@color/dark_gray"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/dark_blue"
+                app:tabIndicatorGravity="stretch"
+                app:tabMode="fixed"
+                app:tabIndicatorFullWidth="true"
+                app:tabSelectedTextColor="@color/light_blue"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabTextColor="@color/off_white_400" />
+        </com.google.android.material.card.MaterialCardView>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
