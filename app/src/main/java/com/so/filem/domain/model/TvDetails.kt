@@ -8,5 +8,6 @@ data class TvDetails(
     val tvShow: TvShow,
     val genres: List<Genre>,
     val cast: List<Cast>,
-    val trailers: List<Trailer>
+    val trailers: List<Trailer>,
+    val seasons: List<Season>
 ): Parcelable

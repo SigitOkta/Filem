@@ -18,6 +18,7 @@ import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
 import com.so.filem.domain.model.ProfilesItem
+import com.so.filem.domain.model.Season
 import com.so.filem.domain.model.Trailer
 import com.so.filem.domain.model.TvDetails
 import com.so.filem.domain.model.TvShow
@@ -239,5 +240,21 @@ fun TvDetailsResponse.asTvDetails(): TvDetails {
         genres = asGenres(),
         cast = asCast(),
         trailers = asVideos(),
+        seasons = asSeasons(),
     )
+}
+
+fun TvDetailsResponse.asSeasons(): List<Season> {
+    return seasonsResponse.seasons?.map {
+        Season(
+            id = it.id,
+            airDate = it.airDate,
+            episodeCount = it.episodeCount,
+            name = it.name,
+            overview = it.overview,
+            posterPath = it.posterPath,
+            seasonNumber = it.seasonNumber,
+            voteAverage = it.voteAverage,
+        )
+    }?.toList() ?: emptyList()
 }
