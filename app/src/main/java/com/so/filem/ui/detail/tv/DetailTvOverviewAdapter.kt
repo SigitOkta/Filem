@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -61,13 +62,17 @@ class DetailTvOverviewAdapter(
 class DetailTvCastViewHolder(private val binding: CompDetailMovieCastBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(parentItem: OverViewDetailTvItem.DetailTvCast) {
-        binding.tvCast.text = itemView.context.getText(parentItem.title)
-        val rvCast = binding.rvCast
-        rvCast.layoutManager =
-            LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
-        val castAdapter = CastAdapter(parentItem.castList)
-        rvCast.adapter = castAdapter
+    fun bind(parentItem: OverViewDetailTvItem.DetailTvCast){
+        if (parentItem.castList.isNotEmpty()){
+            binding.tvCast.text = itemView.context.getText(parentItem.title)
+            val rvCast = binding.rvCast
+            rvCast.layoutManager =
+                LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
+            val castAdapter = CastAdapter(parentItem.castList)
+            rvCast.adapter = castAdapter
+        } else {
+            binding.tvCast.visibility = View.GONE
+        }
     }
 
 }
@@ -76,14 +81,18 @@ class DetailTvVideoViewHolder(private val binding: CompDetailMovieVideoBinding) 
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(parentItem: OverViewDetailTvItem.DetailTvTrailer) {
-        binding.tvTrailer.text = itemView.context.getText(parentItem.title)
-        val rvTrailer = binding.rvTrailer
-        rvTrailer.layoutManager =
-            LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
-        val trailerAdapter = TrailerAdapter(parentItem.trailer){ trailer ->
-            playVideo(trailer, itemView.context)
+        if (parentItem.trailer.isNotEmpty()){
+            binding.tvTrailer.text = itemView.context.getText(parentItem.title)
+            val rvTrailer = binding.rvTrailer
+            rvTrailer.layoutManager =
+                LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
+            val trailerAdapter = TrailerAdapter(parentItem.trailer){ trailer ->
+                playVideo(trailer, itemView.context)
+            }
+            rvTrailer.adapter = trailerAdapter
+        } else {
+            binding.tvTrailer.visibility = View.GONE
         }
-        rvTrailer.adapter = trailerAdapter
     }
 
     private fun playVideo(trailer: Trailer?, context: Context) {
