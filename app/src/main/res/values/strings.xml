@@ -38,4 +38,7 @@
     <string name="en_text_popular_people">Popular People</string>
     <string name="tab_detail_tv_1">Overview</string>
     <string name="tab_detail_tv_2">Seasons Info</string>
+    <string name="en_text_symbol">•</string>
+    <string name="en_text_number">8</string>
+    <string name="en_text_episodes">Episodes</string>
 </resources>
