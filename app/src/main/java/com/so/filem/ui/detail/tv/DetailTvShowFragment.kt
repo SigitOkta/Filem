@@ -38,8 +38,12 @@ class DetailTvShowFragment : BaseViewModelFragment<FragmentDetailTvShowBinding, 
         }
     }
 
-    private fun setupRvSeasons(tvShowDetailItem: TvDetails?) {
-
+    private fun setupRvSeasons(tvShowDetailItem: TvDetails) {
+        val rvOverView = viewBinding().rvOverviewTv
+        rvOverView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val adapter = DetailTvSeasonAdapter(tvShowDetailItem.seasons)
+        rvOverView.adapter = adapter
     }
 
     private fun setupRvOverview(tvShowDetailItem: TvDetails) {

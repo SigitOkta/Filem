@@ -18,5 +18,5 @@ data class TvDetailsResponse(
     @SerializedName("runtime") val runtime: Int?,
     @SerializedName("credits") val creditsResponse: CreditsResponse,
     @SerializedName("videos") val videosResponse: VideosResponse,
-    @SerializedName("seasons") val seasonsResponse: SeasonsResponse,
+    @SerializedName("seasons") val seasonsResponse: List<SeasonResponse>?,
 )

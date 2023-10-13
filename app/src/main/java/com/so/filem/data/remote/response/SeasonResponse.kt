@@ -4,27 +4,27 @@ import com.google.gson.annotations.SerializedName
 
 data class SeasonResponse(
 
-	@field:SerializedName("air_date")
+	@SerializedName("air_date")
 	val airDate: String,
 
-	@field:SerializedName("overview")
+	@SerializedName("overview")
 	val overview: String,
 
-	@field:SerializedName("episode_count")
+	@SerializedName("episode_count")
 	val episodeCount: Int,
 
-	@field:SerializedName("vote_average")
+	@SerializedName("vote_average")
 	val voteAverage: Double,
 
-	@field:SerializedName("name")
+	@SerializedName("name")
 	val name: String,
 
-	@field:SerializedName("season_number")
+	@SerializedName("season_number")
 	val seasonNumber: Int,
 
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id: Int,
 
-	@field:SerializedName("poster_path")
+	@SerializedName("poster_path")
 	val posterPath: String
 )

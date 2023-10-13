@@ -245,7 +245,7 @@ fun TvDetailsResponse.asTvDetails(): TvDetails {
 }
 
 fun TvDetailsResponse.asSeasons(): List<Season> {
-    return seasonsResponse.seasons?.map {
+    return seasonsResponse?.map {
         Season(
             id = it.id,
             airDate = it.airDate,
