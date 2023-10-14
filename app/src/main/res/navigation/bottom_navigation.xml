@@ -19,9 +19,15 @@
 
     <fragment
         android:id="@+id/navigation_movie"
-        android:name="com.so.filem.ui.filter.MovieFragment"
+        android:name="com.so.filem.ui.filter.movie.MovieFragment"
         android:label="@string/en_text_movie"
         tools:layout="@layout/fragment_movie" />
+
+    <fragment
+        android:id="@+id/navigation_tv"
+        android:name="com.so.filem.ui.filter.tv.TvShowFragment"
+        android:label="@string/en_text_tv"
+        tools:layout="@layout/fragment_tv_show" />
 
     <fragment
         android:id="@+id/navigation_favorite"

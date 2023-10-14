@@ -1,4 +1,4 @@
-package com.so.filem.ui.filter
+package com.so.filem.ui.filter.movie
 
 import android.os.Bundle
 import android.view.Menu

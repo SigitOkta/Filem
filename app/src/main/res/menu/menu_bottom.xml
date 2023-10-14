@@ -17,6 +17,11 @@
         android:title="@string/en_text_movie" />
 
     <item
+        android:id="@+id/navigation_tv"
+        android:icon="@drawable/ic_tv"
+        android:title="@string/en_text_tv" />
+
+    <item
         android:id="@+id/navigation_favorite"
         android:icon="@drawable/ic_favorite"
         android:title="@string/en_text_favorite" />
