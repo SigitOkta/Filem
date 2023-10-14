@@ -1,11 +1,14 @@
 package com.so.filem.data.repository
 
+import androidx.paging.PagingData
+import com.so.filem.data.local.dao.tvShow.entity.TvPaging
 import com.so.filem.data.local.dao.tvShow.entity.TvsEntity
 import com.so.filem.data.local.dao.tvShow.entity.asTv
 import com.so.filem.data.local.dao.tvShow.entity.asTvs
 import com.so.filem.data.repository.datasource.TvLocalDataSource
 import com.so.filem.data.repository.datasource.TvRemoteDataSource
 import com.so.filem.domain.model.TvDetails
+import com.so.filem.domain.model.TvFilter
 import com.so.filem.domain.model.TvShow
 import com.so.filem.domain.model.Tvs
 import com.so.filem.domain.repository.TvRepository
@@ -17,6 +20,10 @@ class TvRepositoryImpl @Inject constructor(
     private val tvRemoteDataSource: TvRemoteDataSource,
     private val tvLocalDataSource: TvLocalDataSource
 ) : TvRepository {
+    override fun getTvShowsForPaging(filter: TvFilter): Flow<PagingData<TvPaging>> {
+        return tvLocalDataSource.getTvShowsForPaging(filter)
+    }
+
     override suspend fun getTvDetails(tvId: Long): TvDetails {
         return tvRemoteDataSource.getTvDetails(tvId)
     }

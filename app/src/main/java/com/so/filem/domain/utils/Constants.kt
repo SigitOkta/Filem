@@ -7,6 +7,13 @@ object Constants {
     const val UPCOMING = "movie/upcoming"
     const val POPULAR = "movie/popular"
     const val TOP_RATED = "movie/top_rated"
+
+    const val AIRING_TODAY = "tv/airing_today"
+    const val ON_THE_AIR = "tv/on_the_air"
+    const val POPULAR_TV = "tv/popular"
+    const val TOP_RATED_TV = "tv/top_rated"
+
+
     const val DISCOVER_MOVIE = "discover/movie"
     const val DISCOVER_TV = "discover/tv"
 

@@ -6,6 +6,8 @@ import com.so.filem.data.local.dao.movie.MovieDao
 import com.so.filem.data.local.dao.movie.MoviePagingDao
 import com.so.filem.data.local.dao.movie.MovieRemoteKeyDao
 import com.so.filem.data.local.dao.tvShow.TvDao
+import com.so.filem.data.local.dao.tvShow.TvPagingDao
+import com.so.filem.data.local.dao.tvShow.TvRemoteKeyDao
 import com.so.filem.data.local.db.TMDBDatabase
 import dagger.Module
 import dagger.Provides
@@ -35,4 +37,11 @@ object DatabaseModule {
 
     @Provides
     fun provideTvDao(db: TMDBDatabase): TvDao = db.tvDao()
+
+    @Provides
+    fun provideTvPagingDao(db: TMDBDatabase): TvPagingDao = db.tvPagingDao()
+
+    @Provides
+    fun provideTvRemoteKeysDao(db: TMDBDatabase): TvRemoteKeyDao = db.tvRemoteKeyDao()
+
 }

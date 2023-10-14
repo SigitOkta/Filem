@@ -1,12 +1,15 @@
 package com.so.filem.domain.repository
 
-import com.so.filem.domain.model.MovieDetails
+import androidx.paging.PagingData
+import com.so.filem.data.local.dao.tvShow.entity.TvPaging
 import com.so.filem.domain.model.TvDetails
+import com.so.filem.domain.model.TvFilter
 import com.so.filem.domain.model.TvShow
 import com.so.filem.domain.model.Tvs
 import kotlinx.coroutines.flow.Flow
 
 interface TvRepository {
+    fun getTvShowsForPaging(filter: TvFilter): Flow<PagingData<TvPaging>>
     suspend fun getTvDetails(tvId: Long): TvDetails
     suspend fun discoverTv(): Tvs
     suspend fun getTrendingTv(timeWindow: String): Tvs

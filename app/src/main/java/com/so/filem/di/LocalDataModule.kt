@@ -19,6 +19,6 @@ object LocalDataModule {
         MovieLocalDataSourceImpl(api, db)
 
     @Provides
-    fun provideTvLocalDataSource(db: TMDBDatabase): TvLocalDataSource =
-        TvLocalDataSourceImpl(db)
+    fun provideTvLocalDataSource(api: ApiService, db: TMDBDatabase): TvLocalDataSource =
+        TvLocalDataSourceImpl(api,db)
 }

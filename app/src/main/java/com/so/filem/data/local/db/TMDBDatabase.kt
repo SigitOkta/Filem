@@ -9,10 +9,14 @@ import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.data.local.dao.movie.entity.MovieRemoteKey
 import com.so.filem.data.local.dao.movie.entity.MoviesEntity
 import com.so.filem.data.local.dao.tvShow.TvDao
+import com.so.filem.data.local.dao.tvShow.TvPagingDao
+import com.so.filem.data.local.dao.tvShow.TvRemoteKeyDao
+import com.so.filem.data.local.dao.tvShow.entity.TvPaging
+import com.so.filem.data.local.dao.tvShow.entity.TvRemoteKey
 import com.so.filem.data.local.dao.tvShow.entity.TvsEntity
 
 @Database(
-    entities = [MoviePaging::class, MovieRemoteKey::class, MoviesEntity::class, TvsEntity::class],
+    entities = [MoviePaging::class, MovieRemoteKey::class, MoviesEntity::class, TvsEntity::class, TvPaging::class, TvRemoteKey::class],
     version = 2,
     exportSchema = false
 )
@@ -20,8 +24,10 @@ abstract class TMDBDatabase : RoomDatabase() {
     abstract fun moviePagingDao(): MoviePagingDao
     abstract fun movieRemoteKeysDao(): MovieRemoteKeyDao
 
-    abstract fun movieDao() : MovieDao
+    abstract fun movieDao(): MovieDao
 
     abstract fun tvDao(): TvDao
+    abstract fun tvPagingDao(): TvPagingDao
+    abstract fun tvRemoteKeyDao(): TvRemoteKeyDao
 
 }

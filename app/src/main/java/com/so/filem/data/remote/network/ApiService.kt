@@ -36,6 +36,30 @@ interface ApiService {
         @Query("language") language: String = "en-US"
     ): MoviesResponse
 
+    @GET(Constants.AIRING_TODAY)
+    suspend fun getAiringToday(
+        @Query("page") page: Int,
+        @Query("language") language: String = "en-US"
+    ): TvResponse
+
+    @GET(Constants.ON_THE_AIR)
+    suspend fun getOnTheAir(
+        @Query("page") page: Int,
+        @Query("language") language: String = "en-US"
+    ): TvResponse
+
+    @GET(Constants.POPULAR_TV)
+    suspend fun getPopularTv(
+        @Query("page") page: Int,
+        @Query("language") language: String = "en-US"
+    ): TvResponse
+
+    @GET(Constants.TOP_RATED_TV)
+    suspend fun getTopRatedTv(
+        @Query("page") page: Int,
+        @Query("language") language: String = "en-US"
+    ): TvResponse
+
     @GET(Constants.MOVIE_DETAIL)
     suspend fun getMovieDetails(
         @Path("id") id: Long

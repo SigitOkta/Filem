@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.usecase.movie.GetAllFavoriteMoviesUseCase
-import com.so.filem.domain.usecase.movie.GetMovieUseCase
-import com.so.filem.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
