@@ -4,7 +4,12 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <!-- Customize the SearchView -->
+       <!-- <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>-->
     </style>
+
+    <!--<style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_filter</item>
+    </style>-->
 
     <style name="Theme.Filem" parent="Base.Theme.Filem" />
 
@@ -14,6 +19,7 @@
         <!-- Hint text color -->
         <item name="android:textColorHint">@color/off_white_400</item>
     </style>
+
     <style name="CustomSearchView" parent="Widget.AppCompat.SearchView">
         <!-- Customize SearchView attributes here -->
         <item name="android:textColorHint">@color/off_white_400</item>

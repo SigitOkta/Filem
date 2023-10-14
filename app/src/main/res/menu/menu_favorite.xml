@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:icon="@drawable/ic_filter">
+    <item
+        android:id="@+id/menu_favorite_movie"
+        android:title="@string/en_text_fav_movie"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/menu_favorite_tv"
+        android:title="@string/en_text_fav_tv"
+        app:showAsAction="never" />
+
+</menu>
