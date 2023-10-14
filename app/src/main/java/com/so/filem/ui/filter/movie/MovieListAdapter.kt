@@ -1,4 +1,4 @@
-package com.so.filem.ui.adapter
+package com.so.filem.ui.filter.movie
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -10,6 +10,8 @@
     <string name="en_text_retry">Retry\n</string>
     <string name="en_text_filter_now_playing">Now Playing</string>
     <string name="en_text_filter_upcoming">Up Coming</string>
+    <string name="en_text_filter_airing_today">Airing Today</string>
+    <string name="en_text_filter_on_the_air">On The Air</string>
     <string name="en_text_loading">Loading..</string>
     <string name="en_text_filter_popular">Popular</string>
     <string name="en_text_filter_top_rated">Top Rated</string>
@@ -41,4 +43,6 @@
     <string name="en_text_symbol">•</string>
     <string name="en_text_number">8</string>
     <string name="en_text_episodes">Episodes</string>
+    <string name="en_text_fav_movie">Favorite Movies</string>
+    <string name="en_text_fav_tv">Favorite Tv</string>
 </resources>
