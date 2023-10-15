@@ -1,15 +1,14 @@
 package com.so.filem.domain.repository
 
 import androidx.paging.PagingData
-import com.so.filem.domain.model.MovieFilter
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
-import com.so.filem.data.local.dao.movie.entity.MoviesEntity
 import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.model.Casts
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
+import com.so.filem.domain.model.MovieFilter
 import com.so.filem.domain.model.Movies
-import com.so.filem.domain.model.Tvs
+import com.so.filem.domain.model.Search
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
@@ -27,7 +26,7 @@ interface MovieRepository {
     suspend fun deleteMoviesWithNoFav(): Int
     suspend fun movieExists(movieId: Long): Boolean
 
-    fun getSearchMoviesForPaging(query: String): Flow<PagingData<Movie>>
+    fun getSearchMultiForPaging(query: String): Flow<PagingData<Search>>
 
     suspend fun discoverMovie(): Movies
 

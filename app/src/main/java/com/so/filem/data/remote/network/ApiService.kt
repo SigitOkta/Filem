@@ -4,6 +4,7 @@ import com.so.filem.data.remote.response.CastDetailsResponse
 import com.so.filem.data.remote.response.CastsResponse
 import com.so.filem.data.remote.response.MovieDetailsResponse
 import com.so.filem.data.remote.response.MoviesResponse
+import com.so.filem.data.remote.response.SearchMultiResponse
 import com.so.filem.data.remote.response.TvDetailsResponse
 import com.so.filem.data.remote.response.TvResponse
 import com.so.filem.domain.utils.Constants
@@ -65,11 +66,11 @@ interface ApiService {
         @Path("id") id: Long
     ): MovieDetailsResponse
 
-    @GET(Constants.MOVIE_SEARCH)
-    suspend fun getMovieSearch(
+    @GET(Constants.SEARCH_MULTI)
+    suspend fun getSearchMulti(
         @Query("query") query: String,
         @Query("page") page: Int
-    ): MoviesResponse
+    ): SearchMultiResponse
 
     @GET(Constants.DISCOVER_MOVIE)
     suspend fun getDiscoverMovie(

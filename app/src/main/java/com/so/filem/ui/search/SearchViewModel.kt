@@ -2,15 +2,12 @@ package com.so.filem.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.domain.model.Movie
-import com.so.filem.domain.model.MovieFilter
+import com.so.filem.domain.model.Search
 import com.so.filem.domain.usecase.movie.GetDiscoverMovieUseCase
-import com.so.filem.domain.usecase.movie.GetMovieUseCase
-import com.so.filem.domain.usecase.movie.GetSearchMoviesUseCase
+import com.so.filem.domain.usecase.movie.GetSearchMultiUseCase
 import com.so.filem.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
@@ -28,15 +25,15 @@ import javax.inject.Inject
 @OptIn(FlowPreview::class)
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val getSearchMoviesUseCase: GetSearchMoviesUseCase,
+    private val getSearchMultiUseCase: GetSearchMultiUseCase,
     private val getDiscoverMovieUseCase: GetDiscoverMovieUseCase
 ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
-    val searchQuery: StateFlow<String> = _searchQuery
+    /*val searchQuery: StateFlow<String> = _searchQuery*/
 
-    private val _searchResults = MutableStateFlow<Resource<PagingData<Movie>>?>(null)
-    val searchResults: StateFlow<Resource<PagingData<Movie>>?> = _searchResults
+    private val _searchResults = MutableStateFlow<Resource<PagingData<Search>>?>(null)
+    val searchResults: StateFlow<Resource<PagingData<Search>>?> = _searchResults
 
     private val _discoverMovie = MutableStateFlow<List<Movie>>(emptyList())
     val discoverMovie: StateFlow<List<Movie>> = _discoverMovie
@@ -80,11 +77,11 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    private suspend fun search(query: String): Flow<Resource<PagingData<Movie>>> {
+    private suspend fun search(query: String): Flow<Resource<PagingData<Search>>> {
         return flow {
             emit(Resource.Loading())
             try {
-                getSearchMoviesUseCase.invoke(query).cachedIn(viewModelScope)
+                getSearchMultiUseCase.invoke(query).cachedIn(viewModelScope)
                     .collect {
                         emit(Resource.Success(it))
                         Timber.tag("viewModel-search").d( it.toString())

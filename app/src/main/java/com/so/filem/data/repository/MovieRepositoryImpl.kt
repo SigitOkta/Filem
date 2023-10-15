@@ -1,24 +1,20 @@
 package com.so.filem.data.repository
 
 import androidx.paging.PagingData
-import com.so.filem.data.repository.datasource.MovieLocalDataSource
-import com.so.filem.data.repository.datasource.MovieRemoteDataSource
-import com.so.filem.domain.model.MovieFilter
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.data.local.dao.movie.entity.MoviesEntity
 import com.so.filem.data.local.dao.movie.entity.asMovie
 import com.so.filem.data.local.dao.movie.entity.asMovies
-import com.so.filem.data.local.dao.tvShow.entity.TvsEntity
-import com.so.filem.data.repository.datasource.TvLocalDataSource
-import com.so.filem.data.repository.datasource.TvRemoteDataSource
+import com.so.filem.data.repository.datasource.MovieLocalDataSource
+import com.so.filem.data.repository.datasource.MovieRemoteDataSource
 import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.model.Casts
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
+import com.so.filem.domain.model.MovieFilter
 import com.so.filem.domain.model.Movies
-import com.so.filem.domain.model.Tvs
+import com.so.filem.domain.model.Search
 import com.so.filem.domain.repository.MovieRepository
-import com.so.filem.domain.repository.TvRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -85,8 +81,8 @@ class MovieRepositoryImpl @Inject constructor(
         return movieLocalDataSource.movieExists(movieId)
     }
 
-    override fun getSearchMoviesForPaging(query: String): Flow<PagingData<Movie>> {
-        return movieRemoteDataSource.getSearchMoviePaging(query)
+    override fun getSearchMultiForPaging(query: String): Flow<PagingData<Search>> {
+        return movieRemoteDataSource.getSearchMultiPaging(query)
     }
 
     override suspend fun discoverMovie(): Movies {

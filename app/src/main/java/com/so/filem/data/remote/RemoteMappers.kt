@@ -6,6 +6,8 @@ import com.so.filem.data.remote.response.CastsResponse
 import com.so.filem.data.remote.response.MovieDetailsResponse
 import com.so.filem.data.remote.response.MoviesListResponse
 import com.so.filem.data.remote.response.MoviesResponse
+import com.so.filem.data.remote.response.SearchMultiResponse
+import com.so.filem.data.remote.response.SearchResponse
 import com.so.filem.data.remote.response.TvDetailsResponse
 import com.so.filem.data.remote.response.TvListResponse
 import com.so.filem.data.remote.response.TvResponse
@@ -18,6 +20,8 @@ import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.MovieDetails
 import com.so.filem.domain.model.Movies
 import com.so.filem.domain.model.ProfilesItem
+import com.so.filem.domain.model.Search
+import com.so.filem.domain.model.SearchMulti
 import com.so.filem.domain.model.Season
 import com.so.filem.domain.model.Trailer
 import com.so.filem.domain.model.TvDetails
@@ -258,3 +262,23 @@ fun TvDetailsResponse.asSeasons(): List<Season> {
         )
     }?.toList() ?: emptyList()
 }
+
+fun SearchMultiResponse.asSearchMulti() = SearchMulti(
+    page = page,
+    results = results.map { it.asSearch() },
+    totalPages = totalPages,
+    totalResults = totalResults
+)
+
+fun SearchResponse.asSearch() = Search(
+    id = id,
+    adult = adult,
+    originalLanguage = originalLanguage,
+    originalTitle = originalTitle,
+    posterPath = posterPath,
+    title = title,
+    mediaType = mediaType,
+    originalName = originalName,
+    name = name,
+    profilePath = profilePath,
+)

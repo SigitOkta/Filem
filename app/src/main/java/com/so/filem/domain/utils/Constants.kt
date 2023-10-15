@@ -22,7 +22,7 @@ object Constants {
     const val MOVIE_DETAIL = "movie/{id}?append_to_response=videos,credits"
     const val TV_DETAIL = "tv/{id}?append_to_response=videos,credits"
 
-    const val MOVIE_SEARCH = "search/movie"
+    const val SEARCH_MULTI = "search/multi"
 
     const val CAST_DETAIL = "person/{person_id}?append_to_response=images,combined_credits"
 
@@ -35,7 +35,7 @@ object Constants {
     private const val IMAGE_SIZE_W780 = "w780"
 
     const val CAST_AVATAR_URL = IMAGE_BASE_URL + IMAGE_SIZE_W185
-    const val CAST_IMDB_URL = "https://www.imdb.com/name/"
+    /*const val CAST_IMDB_URL = "https://www.imdb.com/name/"*/
     const val POSTER_URL = IMAGE_BASE_URL + IMAGE_SIZE_W185
     const val BACKDROP_URL = IMAGE_BASE_URL + IMAGE_SIZE_W780
 }
