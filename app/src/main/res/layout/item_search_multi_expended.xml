@@ -104,7 +104,7 @@
             android:id="@+id/expandable_layout">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_media_child"
+                android:id="@+id/rv_search_child"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </RelativeLayout>

@@ -4,9 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.so.filem.domain.model.Movie
+import androidx.paging.filter
 import com.so.filem.domain.model.Search
-import com.so.filem.domain.usecase.movie.GetDiscoverMovieUseCase
 import com.so.filem.domain.usecase.movie.GetSearchMultiUseCase
 import com.so.filem.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,8 +14,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -26,65 +23,41 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getSearchMultiUseCase: GetSearchMultiUseCase,
-    private val getDiscoverMovieUseCase: GetDiscoverMovieUseCase
 ) : ViewModel() {
-
-    private val _searchQuery = MutableStateFlow("")
-    /*val searchQuery: StateFlow<String> = _searchQuery*/
 
     private val _searchResults = MutableStateFlow<Resource<PagingData<Search>>?>(null)
     val searchResults: StateFlow<Resource<PagingData<Search>>?> = _searchResults
-
-    private val _discoverMovie = MutableStateFlow<List<Movie>>(emptyList())
-    val discoverMovie: StateFlow<List<Movie>> = _discoverMovie
-
-    private var currentJob: Job? = null
-
-    init {
+    fun fetchSearch(query: String, spinner: String) {
         viewModelScope.launch {
-            _searchQuery
-                .debounce(300)
-                .collectLatest { query ->
-                    currentJob?.cancel()
-                    currentJob = launch {
-                        Timber.tag("viewModel-init").d(_searchQuery.value)
-                        Timber.tag("viewModel-init-query").d(query)
-                        if (query.isNotBlank()) getSearch(query.trim()) else null
-                    }
-                }
-
-        }
-        getDiscoverMovie()
-    }
-
-    private fun getDiscoverMovie() {
-        viewModelScope.launch {
-            try {
-                val remote = getDiscoverMovieUseCase.invoke()
-                _discoverMovie.value = remote
-            } catch (e: Exception) {
-                Timber.e(e)
-            }
-        }
-    }
-
-    private fun getSearch(query: String) {
-        viewModelScope.launch {
-            search(query).collect {
-                _searchResults.value = it
+            search(query, spinner.trim().lowercase()).collect {
+                if (query.isNotBlank()) _searchResults.value = it else null
                 Timber.tag("viewModel-getSearch").d( _searchResults.value.toString())
             }
+
         }
+       Timber.tag("viewModel-query,spinner").d("$query,$spinner")
     }
 
-    private suspend fun search(query: String): Flow<Resource<PagingData<Search>>> {
+    private suspend fun search(query: String, spinnerValue: String): Flow<Resource<PagingData<Search>>> {
         return flow {
             emit(Resource.Loading())
             try {
                 getSearchMultiUseCase.invoke(query).cachedIn(viewModelScope)
-                    .collect {
-                        emit(Resource.Success(it))
-                        Timber.tag("viewModel-search").d( it.toString())
+                    .collect { search ->
+                        when(spinnerValue){
+                            "movie" -> {
+                                val movieItem = search.filter { it.mediaType == "movie" }
+                                emit(Resource.Success(movieItem))
+                            }
+                            "tv" -> {
+                                val tvItem = search.filter { it.mediaType == "tv" }
+                                emit(Resource.Success(tvItem))
+                            }
+                            "person" -> {
+                                val personItem = search.filter { it.mediaType == "person" }
+                                emit(Resource.Success(personItem))
+                            }
+                        }
                     }
             } catch (e: Exception) {
                 emit(Resource.Error(e))
@@ -93,8 +66,9 @@ class SearchViewModel @Inject constructor(
     }
 
 
-    fun updateQuery(query: String) {
+    /*fun updateQuery(query: String, spinnerValue: String) {
         _searchQuery.value = query
+        selectedValue.value = spinnerValue
         Timber.tag("viewModel-query").d(_searchQuery.value)
-    }
+    }*/
 }

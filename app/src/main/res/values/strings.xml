@@ -45,4 +45,9 @@
     <string name="en_text_episodes">Episodes</string>
     <string name="en_text_fav_movie">Favorite Movies</string>
     <string name="en_text_fav_tv">Favorite Tv</string>
+    <string-array name="spinner_values">
+        <item>Movie</item>
+        <item>Tv 2</item>
+        <item>Person</item>
+    </string-array>
 </resources>

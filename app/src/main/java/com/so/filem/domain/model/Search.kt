@@ -3,7 +3,7 @@ package com.so.filem.domain.model
 import com.so.filem.domain.utils.Constants
 
 data class Search(
-    val id: Int,
+    val id: Long,
     val adult: Boolean?,
     val originalLanguage: String?,
     val originalTitle: String?,

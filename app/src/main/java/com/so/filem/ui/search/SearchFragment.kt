@@ -1,46 +1,30 @@
 package com.so.filem.ui.search
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.TypedValue
-
 import android.view.View
-import android.view.ViewGroup
-import android.widget.SearchView
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
+import androidx.recyclerview.widget.GridLayoutManager
+import com.so.filem.R
 import com.so.filem.databinding.FragmentSearchBinding
 import com.so.filem.domain.utils.Resource
-import com.so.filem.ui.adapter.DiscoverAdapter
 import com.so.filem.ui.adapter.LoadingStateAdapter
-import com.so.filem.ui.adapter.SearchListAdapter
 import com.so.filem.ui.base.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.lang.Math.abs
 
 @AndroidEntryPoint
 class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewModel>(
     FragmentSearchBinding::inflate
 ) {
     override val viewModel: SearchViewModel by viewModels()
-
     private val searchAdapter by lazy { SearchListAdapter() }
-    private var searchJob: Job? = null
-    private lateinit var handler : Handler
-    private lateinit var viewPager2: ViewPager2
-    private lateinit var discoverAdapter: DiscoverAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.hide()
@@ -48,66 +32,38 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
 
     override fun initView() {
         super.initView()
+        setupSpinner()
         setupRecyclerView()
         inputSearch()
-        setupViewPager()
     }
 
-    private val runnable = Runnable {
-        viewPager2.currentItem = viewPager2.currentItem + 1
-    }
+    private fun setupSpinner() {
+        val spinnerValues = listOf("Movie", "Tv", "Person")
+        val spinner = viewBinding().includeSearchBar.spinner
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_custom_spinner, spinnerValues)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-    private fun setupViewPager() {
-        setUpTransformer()
+        spinner.adapter = adapter
 
-        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                handler.removeCallbacks(runnable)
-                handler.postDelayed(runnable , 2000)
-            }
-        })
-    }
-
-    private fun setUpTransformer(){
-        val transformer = CompositePageTransformer()
-        transformer.addTransformer(MarginPageTransformer(25))
-        transformer.addTransformer { page, position ->
-            val r = 1 - abs(position)
-            page.scaleY = 0.75f + r * 0.14f
-
-
-          /*  val curvature = 10f // Atur tingkat kurva sesuai keinginan Anda
-            val angle = position * curvature
-
-            // Terapkan efek kurva pada halaman
-            page.pivotX = page.width / 2f
-            page.pivotY = page.height.toFloat()
-            page.rotation = angle*/
-
-            // Cek apakah posisi adalah -1 atau 1
-            if (position == -1f || position == 1f) {
-                //page.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.transparent))
-                page.alpha = 0.3f // Ubah tingkat transparansi sesuai keinginan Anda
-            } else {
-                // Reset latar belakang dan transparansi jika tidak pada posisi -1 atau 1
-                //page.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.white)) // Ubah warna latar belakang sesuai keinginan Anda
-                page.alpha = 1.0f
+        spinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>,
+                                        view: View?, position: Int, id: Long) {
+                fetchData()
             }
 
-         /*   val rotation = if (position < 0) {
-                15f * position // Poster 3 miring ke kiri saat digulirkan ke samping kiri
-            } else if (position > 0) {
-                15f * position // Poster 1 miring ke kanan saat digulirkan ke samping kanan
-            } else {
-                0f // Poster 2 tidak dimiringkan saat aktif
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
             }
-            page.rotation = rotation*/
         }
-
-        viewPager2.setPageTransformer(transformer)
     }
 
+    private fun fetchData() {
+        val query = viewBinding().includeSearchBar.svMovie.query.toString()
+        val selectedSpinnerItem = viewBinding().includeSearchBar.spinner.selectedItem.toString()
+        Timber.tag("Search, SearchFragment").d("$query, $selectedSpinnerItem")
+        viewModel.fetchSearch(query, selectedSpinnerItem)
+    }
 
     private fun inputSearch() {
         val searchView = viewBinding().includeSearchBar.svMovie
@@ -116,7 +72,7 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
-                    viewModel.updateQuery(it)
+                    fetchData()
                 }
                 searchView.clearFocus()
                 return true
@@ -134,7 +90,6 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
         searchView.setOnCloseListener {
             Timber.tag("search-init-query").d("click")
             viewBinding().includeNotFound.root.visibility = View.GONE
-            viewBinding().includeViewPager.root.visibility = View.VISIBLE
             viewBinding().includeRecyclerView.root.visibility = View.GONE
             true
         }
@@ -142,7 +97,7 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
 
     private fun setupRecyclerView() {
         val recyclerView = viewBinding().includeRecyclerView.rvSearchItem
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         recyclerView.adapter = searchAdapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 searchAdapter.retry()
@@ -152,11 +107,9 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
             val isListEmpty = loadState.refresh is LoadState.Error
             if (isListEmpty) {
                 viewBinding().includeNotFound.root.visibility = View.VISIBLE
-                viewBinding().includeViewPager.root.visibility = View.GONE
                 viewBinding().includeRecyclerView.root.visibility = View.GONE
             } else {
                 viewBinding().includeNotFound.root.visibility = View.GONE
-                viewBinding().includeViewPager.root.visibility = View.GONE
                 viewBinding().includeRecyclerView.root.visibility = View.VISIBLE
             }
         }
@@ -164,72 +117,43 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
 
     override fun observeData() {
         super.observeData()
-        searchJob?.cancel()
-        searchJob = lifecycleScope.launch {
-                viewModel.searchResults.collect { result ->
-                    when (result) {
-                        //...
-                        is Resource.Loading -> {
-                            // Menampilkan ProgressBar saat pencarian sedang berlangsung
-                            viewBinding().loadingProgressBar.visibility = View.VISIBLE
-                        }
-
-                        is Resource.Success -> {
-                            // Menampilkan hasil pencarian jika berhasil
-                            viewBinding().loadingProgressBar.visibility = View.GONE
-                            result.payload?.let {
-                                searchAdapter.submitData(lifecycle, it)
-                            }
-                            viewBinding().includeNotFound.root.visibility = View.GONE
-                            viewBinding().includeViewPager.root.visibility = View.GONE
-                            viewBinding().includeRecyclerView.root.visibility = View.VISIBLE
-                        }
-
-                        is Resource.Error -> {
-                            // Menampilkan pesan kesalahan jika terjadi kesalahan
-                            viewBinding().loadingProgressBar.visibility = View.GONE
-                        }
-
-                        is Resource.Empty -> {
-                            /* viewBinding().loadingProgressBar.visibility = View.GONE*/
-                        }
-
-                        else -> {
-                            /* viewBinding().loadingProgressBar.visibility = View.GONE*/
-                        }
+        lifecycleScope.launch {
+            viewModel.searchResults.collectLatest { result ->
+                when (result) {
+                    //...
+                    is Resource.Loading -> {
+                        // Menampilkan ProgressBar saat pencarian sedang berlangsung
+                        viewBinding().loadingProgressBar.visibility = View.VISIBLE
                     }
 
-                }
-            }
+                    is Resource.Success -> {
+                        // Menampilkan hasil pencarian jika berhasil
+                        viewBinding().loadingProgressBar.visibility = View.GONE
+                        result.payload?.let { search ->
+                            val rv = viewBinding().includeRecyclerView.rvSearchItem
+                            rv.adapter = searchAdapter
+                            searchAdapter.submitData(search)
+                            rv.setHasFixedSize(true)
+                        }
+                        viewBinding().includeNotFound.root.visibility = View.GONE
+                        viewBinding().includeRecyclerView.root.visibility = View.VISIBLE
+                    }
 
-        lifecycleScope.launch {
-            viewModel.discoverMovie.collect{
-                viewPager2 = viewBinding().includeViewPager.vpMovieDiscover
-                handler = Handler(Looper.myLooper()!!)
-                discoverAdapter = DiscoverAdapter(ArrayList(it), viewPager2)
-                viewPager2.adapter = discoverAdapter
-                viewPager2.offscreenPageLimit = 3
-                viewPager2.clipToPadding = false
-                viewPager2.clipChildren = false
-                viewPager2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+                    is Resource.Error -> {
+                        // Menampilkan pesan kesalahan jika terjadi kesalahan
+                        viewBinding().loadingProgressBar.visibility = View.GONE
+                    }
+
+                    is Resource.Empty -> {
+                        /* viewBinding().loadingProgressBar.visibility = View.GONE*/
+                    }
+
+                    else -> {
+                        /* viewBinding().loadingProgressBar.visibility = View.GONE*/
+                    }
+                }
+
             }
         }
-    }
-
-    override fun onDestroy() {
-        searchJob?.cancel()
-        super.onDestroy()
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        handler.removeCallbacks(runnable)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        handler.postDelayed(runnable , 2000)
     }
 }

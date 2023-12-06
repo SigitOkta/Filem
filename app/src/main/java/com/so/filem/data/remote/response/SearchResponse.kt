@@ -20,7 +20,7 @@ data class SearchResponse(
 	val mediaType: String,
 
 	@field:SerializedName("id")
-	val id: Int,
+	val id: Long,
 
 	@field:SerializedName("adult")
 	val adult: Boolean,
