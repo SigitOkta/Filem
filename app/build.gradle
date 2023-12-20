@@ -92,6 +92,9 @@ dependencies {
     //lottie
     implementation 'com.airbnb.android:lottie:5.2.0'
 
+    //intro
+    implementation 'com.github.AppIntro:AppIntro:6.2.0'
+
     //navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
