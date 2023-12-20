@@ -111,6 +111,9 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     //flexbox
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    //datastore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
 }
 
 kapt {
