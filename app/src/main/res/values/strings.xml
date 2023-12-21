@@ -50,4 +50,8 @@
         <item>Tv 2</item>
         <item>Person</item>
     </string-array>
+
+    <!-- || SPLASH & ONBOARDING ACTIVITY || -->
+    <string name="text_onboard_desc_1">One click away from your favorite movies and tv shows</string>
+    <string name="text_onboard_desc_2">Entertain yourself like never before in your life</string>
 </resources>
