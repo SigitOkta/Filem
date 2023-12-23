@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.so.filem.R
+import com.so.filem.data.firebase.User
+import com.so.filem.data.repository.UserRepository
 import com.so.filem.domain.model.Movies
 import com.so.filem.domain.model.Tvs
 import com.so.filem.domain.usecase.movie.GetDiscoverMovieUseCase
@@ -23,7 +25,8 @@ class HomeViewModel @Inject constructor(
     private val getTrendingTvUseCase: GetTrendingTvUseCase,
     private val getDiscoverMovieUseCase: GetDiscoverMovieUseCase,
     private val getDiscoverTvUseCase: GetDiscoverTvUseCase,
-    private val getPopularPeopleUseCase: GetPopularPeopleUseCase
+    private val getPopularPeopleUseCase: GetPopularPeopleUseCase,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private var time: String = "day"
@@ -37,6 +40,14 @@ class HomeViewModel @Inject constructor(
     private val _parentData = MutableLiveData<List<HomeItem>>()
     val parentData: LiveData<List<HomeItem>> = _parentData
 
+    val currentUserLiveData = MutableLiveData<User?>()
+
+    fun getCurrentUser() {
+        currentUserLiveData.postValue(userRepository.getCurrentUser())
+    }
+    fun doLogout() {
+        userRepository.logoutUser()
+    }
     fun setTrendingMovie(timeWindow: String) {
         time = timeWindow
         getTrendingMovie()

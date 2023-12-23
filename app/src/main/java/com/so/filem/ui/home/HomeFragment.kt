@@ -1,26 +1,44 @@
 package com.so.filem.ui.home
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.so.filem.R
-import com.so.filem.databinding.FragmentFavoriteBinding
 import com.so.filem.databinding.FragmentHomeBinding
+import com.so.filem.ui.auth.AuthActivity
 import com.so.filem.ui.base.BaseViewModelFragment
-import com.so.filem.ui.detail.cast.MediaContent
-import com.so.filem.ui.detail.cast.MediaParentAdapter
-import com.so.filem.ui.favorite.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BaseViewModelFragment<FragmentHomeBinding, HomeViewModel>(
     FragmentHomeBinding::inflate
 ) {
+    private val TAG = HomeFragment::class.java.simpleName
     override val viewModel: HomeViewModel by viewModels()
+    private val dialogLogout by lazy {
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage(getString(R.string.logout_text))
+            .setNegativeButton(getString(R.string.lbl_no)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(R.string.lbl_yes) { dialog, _ ->
+                logout()
+                dialog.dismiss()
+            }
+    }
+
+    private fun logout() {
+        viewModel.doLogout()
+        navigateToLogin()
+
+    }
+
+    private fun navigateToLogin() {
+        startActivity(Intent(requireContext(), AuthActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        })
+    }
 
     override fun observeData() {
         super.observeData()
@@ -28,11 +46,22 @@ class HomeFragment : BaseViewModelFragment<FragmentHomeBinding, HomeViewModel>(
         viewModel.parentData.observe(viewLifecycleOwner){
             prepareDataHome(viewBinding(), it)
         }
+        viewModel.currentUserLiveData.observe(this) { user ->
+            if (user != null) {
+                viewBinding().includeToolbar.txtUsername.text = user.displayName
+            }
+        }
     }
 
     override fun initView() {
         super.initView()
         viewModel.getParentData()
+        viewBinding().includeToolbar.apply {
+            ivLogout.setOnClickListener {
+                dialogLogout.show()
+            }
+        }
+        viewModel.getCurrentUser()
     }
 
     private fun setupRv() {

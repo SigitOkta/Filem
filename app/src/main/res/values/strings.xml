@@ -54,4 +54,10 @@
     <!-- || SPLASH & ONBOARDING ACTIVITY || -->
     <string name="text_onboard_desc_1">One click away from your favorite movies and tv shows</string>
     <string name="text_onboard_desc_2">Entertain yourself like never before in your life</string>
+
+    <!-- || HOME FRAGMENT || -->
+    <string name="logout_text">Are you sure you want to log out ?</string>
+    <string name="lbl_yes">Yes</string>
+    <string name="lbl_no">No</string>
+
 </resources>
