@@ -8,7 +8,7 @@ import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
 import com.so.filem.R
 import com.so.filem.data.local.storepref.UserPreference
-import com.so.filem.ui.MainActivity
+import com.so.filem.ui.auth.AuthActivity
 
 class OnBoardingActivity : AppIntro2(){
     companion object{
@@ -55,7 +55,7 @@ class OnBoardingActivity : AppIntro2(){
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
         preference.setSkipIntro(true)
-        Intent(this@OnBoardingActivity, MainActivity::class.java).also {
+        Intent(this@OnBoardingActivity, AuthActivity::class.java).also {
             startActivity(it)
         }
     }
