@@ -38,4 +38,5 @@ object Constants {
     /*const val CAST_IMDB_URL = "https://www.imdb.com/name/"*/
     const val POSTER_URL = IMAGE_BASE_URL + IMAGE_SIZE_W185
     const val BACKDROP_URL = IMAGE_BASE_URL + IMAGE_SIZE_W780
+
 }
