@@ -1,4 +1,4 @@
-package com.so.filem.ui.base
+package com.so.filem.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
