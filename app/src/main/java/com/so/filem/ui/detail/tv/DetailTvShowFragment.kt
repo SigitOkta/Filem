@@ -1,18 +1,12 @@
 package com.so.filem.ui.detail.tv
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.so.filem.R
 import com.so.filem.databinding.FragmentDetailTvShowBinding
-import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.model.TvDetails
 import com.so.filem.domain.utils.parcelable
-import com.so.filem.ui.adapter.TrailerAdapter
-import com.so.filem.ui.base.BaseViewModelFragment
-import com.so.filem.ui.home.HomeItem
-import com.so.filem.ui.home.HomeParentAdapter
+import com.so.filem.base.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

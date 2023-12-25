@@ -2,13 +2,11 @@ package com.so.filem.ui.detail.cast
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -17,14 +15,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.so.filem.R
 import com.so.filem.databinding.ActivityDetailCastBinding
-import com.so.filem.databinding.ActivityDetailMovieBinding
 import com.so.filem.ui.adapter.CastImageAdapter
-import com.so.filem.ui.adapter.DiscoverAdapter
-import com.so.filem.ui.base.BaseViewModelActivity
-import com.so.filem.ui.detail.movie.DetailMovieActivity
-import com.so.filem.ui.detail.movie.DetailMovieViewModel
+import com.so.filem.base.BaseViewModelActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint

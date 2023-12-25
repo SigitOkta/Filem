@@ -14,10 +14,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.so.filem.R
 import com.so.filem.databinding.FragmentTvShowBinding
-import com.so.filem.domain.model.MovieFilter
 import com.so.filem.domain.model.TvFilter
 import com.so.filem.ui.adapter.LoadingStateAdapter
-import com.so.filem.ui.base.BaseViewModelFragment
+import com.so.filem.base.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

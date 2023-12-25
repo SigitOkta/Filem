@@ -1,18 +1,11 @@
 package com.so.filem.ui.detail.cast
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.so.filem.R
-import com.so.filem.databinding.FragmentCastOverviewBinding
 import com.so.filem.databinding.FragmentCastPersonalInfoBinding
 import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.utils.parcelable
-import com.so.filem.ui.adapter.CastAdapter
-import com.so.filem.ui.base.BaseViewModelFragment
+import com.so.filem.base.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

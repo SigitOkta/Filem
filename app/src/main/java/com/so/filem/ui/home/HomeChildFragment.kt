@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.so.filem.databinding.FragmentHomeChildBinding
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.TvShow
-import com.so.filem.ui.base.BaseViewModelFragment
+import com.so.filem.base.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

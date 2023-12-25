@@ -8,7 +8,7 @@ import com.so.filem.data.local.storepref.UserPreference
 import com.so.filem.databinding.ActivitySplashScreenBinding
 import com.so.filem.ui.MainActivity
 import com.so.filem.ui.auth.AuthActivity
-import com.so.filem.ui.base.BaseViewModelActivity
+import com.so.filem.base.BaseViewModelActivity
 import com.so.filem.ui.onboarding.OnBoardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay

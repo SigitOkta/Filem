@@ -20,7 +20,7 @@ import com.so.filem.databinding.FragmentFavoriteBinding
 import com.so.filem.databinding.ItemPosterMovieGridBinding
 import com.so.filem.domain.model.Movie
 import com.so.filem.domain.model.TvShow
-import com.so.filem.ui.base.BaseViewModelFragment
+import com.so.filem.base.BaseViewModelFragment
 import com.so.filem.ui.detail.movie.DetailMovieActivity
 import com.so.filem.ui.detail.tv.DetailTvShowActivity
 import dagger.hilt.android.AndroidEntryPoint

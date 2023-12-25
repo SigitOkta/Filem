@@ -19,11 +19,10 @@ import com.so.filem.domain.model.TvDetails
 import com.so.filem.domain.utils.Resource
 import com.so.filem.domain.utils.setResizableText
 import com.so.filem.ui.adapter.GenreAdapter
-import com.so.filem.ui.base.BaseViewModelActivity
+import com.so.filem.base.BaseViewModelActivity
 import com.so.filem.ui.custom.Converter
 import com.so.filem.ui.custom.LoadingDialog
 import com.so.filem.ui.detail.movie.DetailMovieActivity
-import com.so.filem.ui.detail.movie.DetailMovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

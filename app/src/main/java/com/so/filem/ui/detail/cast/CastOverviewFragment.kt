@@ -7,7 +7,7 @@ import com.so.filem.databinding.FragmentCastOverviewBinding
 import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.utils.parcelable
 import com.so.filem.domain.utils.setResizableText
-import com.so.filem.ui.base.BaseViewModelFragment
+import com.so.filem.base.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

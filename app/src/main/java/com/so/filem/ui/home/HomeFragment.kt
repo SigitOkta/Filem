@@ -7,7 +7,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.so.filem.R
 import com.so.filem.databinding.FragmentHomeBinding
 import com.so.filem.ui.auth.AuthActivity
-import com.so.filem.ui.base.BaseViewModelFragment
+import com.so.filem.base.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -13,7 +13,7 @@ import com.google.android.gms.common.api.ApiException
 import com.so.filem.databinding.ActivityAuthBinding
 import com.so.filem.domain.utils.Resource
 import com.so.filem.ui.MainActivity
-import com.so.filem.ui.base.BaseViewModelActivity
+import com.so.filem.base.BaseViewModelActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject

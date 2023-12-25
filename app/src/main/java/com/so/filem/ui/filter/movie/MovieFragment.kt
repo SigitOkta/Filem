@@ -16,8 +16,7 @@ import com.so.filem.R
 import com.so.filem.databinding.FragmentMovieBinding
 import com.so.filem.domain.model.MovieFilter
 import com.so.filem.ui.adapter.LoadingStateAdapter
-import com.so.filem.ui.filter.movie.MovieListAdapter
-import com.so.filem.ui.base.BaseViewModelFragment
+import com.so.filem.base.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
