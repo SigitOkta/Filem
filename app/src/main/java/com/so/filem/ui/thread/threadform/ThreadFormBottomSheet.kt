@@ -60,6 +60,7 @@ class ThreadFormBottomSheet :
             val title = binding.etThreadTitle.text.toString()
             val body = binding.etThreadBody.text.toString()
             viewModel.createThread(movieId,title,body)
+            dismiss()
         }
     }
 }

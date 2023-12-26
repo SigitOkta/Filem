@@ -19,8 +19,8 @@ class ThreadRepositoryImpl(private val dataSource: ThreadDataSource) :
         return dataSource.createSubThread(parentThreadId, subThreadItem)
     }
 
-    override fun getThread(): FirebaseRecyclerOptions<ThreadItem> {
-        return dataSource.getThread()
+    override fun getThreadByMovieId(movieId: String): FirebaseRecyclerOptions<ThreadItem> {
+        return dataSource.getThreadByMovieId(movieId)
     }
 
     override fun getSubThread(parentThreadId: String): FirebaseRecyclerOptions<SubThreadItem> {

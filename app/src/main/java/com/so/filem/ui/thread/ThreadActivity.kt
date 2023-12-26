@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.so.filem.R
@@ -12,12 +13,20 @@ import com.so.filem.databinding.ActivityThreadBinding
 import com.so.filem.ui.adapter.ThreadListAdapter
 import com.so.filem.ui.thread.threadform.ThreadFormBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ThreadActivity :
     BaseViewModelActivity<ActivityThreadBinding, ThreadViewModel>(ActivityThreadBinding::inflate) {
-    override val viewModel: ThreadViewModel by viewModels()
 
+    @Inject
+    lateinit var threadViewModelFactory: ThreadViewModel.ThreadViewModelFactory
+    override val viewModel: ThreadViewModel by viewModels {
+        ThreadViewModel.Factory(
+            threadViewModelFactory,
+            intent.extras ?: bundleOf()
+        )
+    }
 
     private val adapter: ThreadListAdapter by lazy {
         ThreadListAdapter(viewModel.getThreadStreamData(),
