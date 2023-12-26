@@ -61,5 +61,9 @@
     <string name="lbl_no">No</string>
     <string name="en_text_thread_title">Thread Title</string>
     <string name="what_do_you_want_to_discuss">What do you want to discuss</string>
+    <string name="text_container_display_creator_thread">Created by %s</string>
+    <string name="text_empty_data">No Data</string>
+    <string name="text_error_empty_title">Please input thread title !</string>
+    <string name="text_error_empty_body">Please Input Thread !</string>
 
 </resources>

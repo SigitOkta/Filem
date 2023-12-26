@@ -21,11 +21,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/btn_thread"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:textColor="@color/light_blue"
+            app:icon="@drawable/ic_thread"
+            app:iconGravity="textStart"
+            app:iconTint="@color/light_blue"
+            android:backgroundTint="@color/dark_blue"
+            android:text="Thread"
+            app:layout_constraintTop_toBottomOf="@id/includeHeaderPoster" />
+
         <TextView
             android:id="@+id/tv_desciption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:fontFamily="@font/inter_regular"
@@ -33,7 +48,7 @@
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/includeHeaderPoster"
+            app:layout_constraintTop_toBottomOf="@+id/btn_thread"
             tools:text="In the 1930s, three friends witness a murder, are framed for it, and uncover one of the most outrageous plots in American history." />
 
         <include

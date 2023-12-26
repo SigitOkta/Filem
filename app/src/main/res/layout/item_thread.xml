@@ -14,7 +14,7 @@
         android:background="@color/dark_black"
         android:padding="16dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/iv_profile_pict"
             android:layout_width="50dp"
             android:layout_height="50dp"

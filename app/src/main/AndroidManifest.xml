@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Filem"
         tools:targetApi="31">
         <activity
+            android:name=".ui.thread.ThreadActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="false" />
         <activity
@@ -41,7 +44,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

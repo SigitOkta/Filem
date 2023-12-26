@@ -24,6 +24,7 @@ import com.so.filem.ui.adapter.TrailerAdapter
 import com.so.filem.base.BaseViewModelActivity
 import com.so.filem.ui.custom.Converter
 import com.so.filem.ui.custom.LoadingDialog
+import com.so.filem.ui.thread.ThreadActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -54,6 +55,10 @@ class DetailMovieActivity :
         observeData()
         binding.includeHeaderPoster.ivFavorite.setOnClickListener {
             viewModel.onFavoriteClicked()
+        }
+        binding.btnThread.setOnClickListener {
+            val movieId = intent.getLongExtra(EXTRAS_ID,0)
+            ThreadActivity.startActivity(this@DetailMovieActivity,movieId.toString())
         }
 }
 
