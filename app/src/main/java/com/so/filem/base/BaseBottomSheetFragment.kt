@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.so.filem.R
 
 open class BaseBottomSheetFragment<B : ViewBinding>(
     val bindingFactory: (LayoutInflater, ViewGroup?, Boolean) -> B

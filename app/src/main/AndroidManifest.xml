@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Filem"
         tools:targetApi="31">
         <activity
+            android:name=".ui.thread.threaddetail.ThreadDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.thread.ThreadActivity"
             android:exported="false" />
         <activity
