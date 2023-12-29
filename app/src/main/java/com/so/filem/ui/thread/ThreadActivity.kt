@@ -6,10 +6,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.so.filem.R
 import com.so.filem.base.BaseViewModelActivity
 import com.so.filem.databinding.ActivityThreadBinding
+import com.so.filem.domain.utils.WrapContentLinearLayoutManager
 import com.so.filem.ui.adapter.ThreadListAdapter
 import com.so.filem.ui.thread.threadform.ThreadFormBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,7 +51,7 @@ class ThreadActivity :
             openCreateThreadBottomSheet()
         }
         binding.rvThread.layoutManager =
-            LinearLayoutManager(this@ThreadActivity, LinearLayoutManager.VERTICAL, false)
+            WrapContentLinearLayoutManager(this@ThreadActivity)
         binding.rvThread.adapter = this.adapter
     }
 

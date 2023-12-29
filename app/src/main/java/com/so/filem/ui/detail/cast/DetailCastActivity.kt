@@ -51,8 +51,6 @@ class DetailCastActivity : BaseViewModelActivity<ActivityDetailCastBinding, Deta
         viewPager2 = binding.vpCastImage
         handler = Handler(Looper.myLooper()!!)
         bundle = Bundle()
-        observeData()
-        initView()
     }
 
     private fun setupToolbar(name : String){
@@ -69,7 +67,8 @@ class DetailCastActivity : BaseViewModelActivity<ActivityDetailCastBinding, Deta
         return true
     }
 
-    private fun observeData() {
+    override fun observeData() {
+        super.observeData()
         viewModel.castDetails.observe(this) {
             castImageAdapter = CastImageAdapter(ArrayList(it.images), viewPager2)
             Timber.tag("viewModelCast").d(it.images.toString())
@@ -85,7 +84,8 @@ class DetailCastActivity : BaseViewModelActivity<ActivityDetailCastBinding, Deta
         }
     }
 
-    private fun initView() {
+    override fun initView() {
+        super.initView()
         val castId = intent.getLongExtra(EXTRAS_ID, 0)
         viewModel.setCastId(castId)
 

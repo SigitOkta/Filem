@@ -2,7 +2,6 @@ package com.so.filem.ui.auth
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -10,10 +9,10 @@ import androidx.core.view.isVisible
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
+import com.so.filem.base.BaseViewModelActivity
 import com.so.filem.databinding.ActivityAuthBinding
 import com.so.filem.domain.utils.Resource
 import com.so.filem.ui.MainActivity
-import com.so.filem.base.BaseViewModelActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -31,12 +30,6 @@ class AuthActivity :
     @Inject
     lateinit var googleSignInClient: GoogleSignInClient
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initView()
-        observeData()
-    }
-
     // Google SSO with Firebase
     // Google Auth -> Token Session -> Register To Firebase -> Firebase User
     private val launcher =
@@ -53,7 +46,8 @@ class AuthActivity :
             }
         }
 
-    private fun observeData() {
+    override fun observeData() {
+        super.observeData()
         viewModel.loginResult.observe(this) {
             when (it) {
                 is Resource.Empty -> {
@@ -94,7 +88,8 @@ class AuthActivity :
         viewModel.authenticateGoogleLogin(idToken)
     }
 
-    private fun initView() {
+    override fun initView() {
+        super.initView()
         supportActionBar?.hide()
         setLoginAction()
     }

@@ -51,8 +51,6 @@ class DetailMovieActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        initView()
-        observeData()
         binding.includeHeaderPoster.ivFavorite.setOnClickListener {
             viewModel.onFavoriteClicked()
         }
@@ -62,7 +60,8 @@ class DetailMovieActivity :
         }
 }
 
-    private fun initView() {
+    override fun initView() {
+        super.initView()
         val movieId = intent.getLongExtra(EXTRAS_ID,0)
         Timber.tag("activity").d(movieId.toString())
         viewModel.getMovieId(movieId)
@@ -146,7 +145,8 @@ class DetailMovieActivity :
     }
 
 
-    private fun observeData() {
+    override fun observeData() {
+        super.observeData()
         lifecycleScope.launch {
             viewModel.movieDetails.collectLatest {
                 when (it) {

@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseError
 import com.so.filem.R
 import com.so.filem.data.firebase.ThreadItem
 import com.so.filem.databinding.ItemThreadBinding
+import com.so.filem.ui.thread.threaddetail.ThreadDetailActivity
 
 class ThreadListAdapter(
     dataStream: FirebaseRecyclerOptions<ThreadItem>,
@@ -39,6 +40,9 @@ class ThreadListAdapter(
                 R.string.text_container_display_creator_thread,
                 item.creator?.displayName
             )
+            itemView.setOnClickListener {
+                ThreadDetailActivity.startActivity(itemView.context, item)
+            }
         }
 
     }

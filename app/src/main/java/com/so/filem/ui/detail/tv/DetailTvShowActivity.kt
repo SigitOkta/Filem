@@ -58,21 +58,19 @@ class DetailTvShowActivity :
         supportActionBar?.hide()
         viewPager2 = binding.vpDetailTvShow
         bundle = Bundle()
-        initView()
-        observeData()
         binding.includeHeaderPoster.ivFavorite.setOnClickListener {
             viewModel.onFavoriteClicked()
         }
     }
 
-    private fun initView() {
+    override fun initView() {
+        super.initView()
         val movieId = intent.getLongExtra(DetailMovieActivity.EXTRAS_ID,0)
         Timber.tag("activity").d(movieId.toString())
         viewModel.getMovieId(movieId)
         binding.includeHeaderPoster.ivArrowBack.setOnClickListener {
             finish()
         }
-
     }
 
     private fun setupTabLayout(tv: TvDetails) {
@@ -124,8 +122,8 @@ class DetailTvShowActivity :
     }
 
 
-
-    private fun observeData() {
+    override fun observeData() {
+        super.observeData()
         lifecycleScope.launch {
             viewModel.tvDetails.collectLatest {
                 when (it) {

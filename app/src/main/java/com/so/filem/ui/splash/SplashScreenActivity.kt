@@ -1,14 +1,13 @@
 package com.so.filem.ui.splash
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.so.filem.base.BaseViewModelActivity
 import com.so.filem.data.local.storepref.UserPreference
 import com.so.filem.databinding.ActivitySplashScreenBinding
 import com.so.filem.ui.MainActivity
 import com.so.filem.ui.auth.AuthActivity
-import com.so.filem.base.BaseViewModelActivity
 import com.so.filem.ui.onboarding.OnBoardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -25,19 +24,14 @@ class SplashScreenActivity :
     }
     override val viewModel: SplashViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initView()
-        observeData()
-    }
-
-
-    private fun initView() {
+    override fun initView() {
+        super.initView()
         supportActionBar?.hide()
         viewModel.getCurrentUser()
     }
 
-    private fun observeData() {
+    override fun observeData() {
+        super.observeData()
         viewModel.currentUserLiveData.observe(this) { user ->
             if (preference.isSkipIntro()) {
                 if (user == null) {
