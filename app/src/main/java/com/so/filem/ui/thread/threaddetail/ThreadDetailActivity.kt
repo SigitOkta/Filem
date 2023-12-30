@@ -38,7 +38,7 @@ class ThreadDetailActivity :
     private val adapter: MessageAdapter by lazy {
         MessageAdapter(
             viewModel.getSubThread(),
-            viewModel.parentThread?.creator,
+            viewModel.getCurrentUser(),
             onDataExist = {
                 showData()
             },
