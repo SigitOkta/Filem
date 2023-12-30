@@ -10,6 +10,7 @@ interface ThreadRepository {
         parentThreadId: String,
         subThreadItem: SubThreadItem
     ): Boolean
-    fun getThreadByMovieId(movieId: String): FirebaseRecyclerOptions<ThreadItem>
+
+    fun getThreadById(movieId: String, mediaType: Int): FirebaseRecyclerOptions<ThreadItem>
     fun getSubThread(parentThreadId: String): FirebaseRecyclerOptions<SubThreadItem>
 }

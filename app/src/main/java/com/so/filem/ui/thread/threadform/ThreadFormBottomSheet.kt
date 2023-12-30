@@ -15,16 +15,21 @@ class ThreadFormBottomSheet :
     ) {
     override val viewModel: ThreadFormViewModel by viewModels()
     companion object {
-        fun newInstance(data: String) = ThreadFormBottomSheet().apply {
+        fun newInstance(id: String, mediaType: Int) = ThreadFormBottomSheet().apply {
             arguments = Bundle().apply {
-                putString("MOVIE_ID", data)
+                putString("ID", id)
+                putInt("MEDIA_TYPE", mediaType)
             }
         }
     }
 
-    private val movieId: String by lazy {
+    private val id: String by lazy {
         // Ambil data dari `Bundle`
-        arguments?.getString("MOVIE_ID") ?: ""
+        arguments?.getString("ID") ?: ""
+    }
+
+    private val mediaType: Int by lazy {
+        arguments?.getInt("MEDIA_TYPE") ?: 0
     }
     override fun initView() {
         super.initView()
@@ -59,7 +64,7 @@ class ThreadFormBottomSheet :
         if (checkFormValidation()) {
             val title = binding.etThreadTitle.text.toString()
             val body = binding.etThreadBody.text.toString()
-            viewModel.createThread(movieId,title,body)
+            viewModel.createThread(id, mediaType, title,body)
             dismiss()
         }
     }

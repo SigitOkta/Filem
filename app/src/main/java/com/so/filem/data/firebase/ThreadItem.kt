@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ThreadItem(
     var id: String = "",
-    val movieId: String = "",
+    val idMediaType: String = "",
     val creator: User? = null,
     val title: String = "",
     val content: String = "",

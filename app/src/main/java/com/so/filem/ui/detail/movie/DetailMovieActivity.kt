@@ -22,6 +22,7 @@ import com.so.filem.ui.adapter.CastAdapter
 import com.so.filem.ui.adapter.GenreAdapter
 import com.so.filem.ui.adapter.TrailerAdapter
 import com.so.filem.base.BaseViewModelActivity
+import com.so.filem.domain.model.MediaType
 import com.so.filem.ui.custom.Converter
 import com.so.filem.ui.custom.LoadingDialog
 import com.so.filem.ui.thread.ThreadActivity
@@ -56,7 +57,7 @@ class DetailMovieActivity :
         }
         binding.btnThread.setOnClickListener {
             val movieId = intent.getLongExtra(EXTRAS_ID,0)
-            ThreadActivity.startActivity(this@DetailMovieActivity,movieId.toString())
+            ThreadActivity.startActivity(this@DetailMovieActivity,movieId.toString(), MediaType.MOVIE.ordinal)
         }
 }
 

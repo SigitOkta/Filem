@@ -20,20 +20,34 @@ class ThreadFormViewModel @Inject constructor(
 
     val createThreadResult = MutableLiveData<Resource<Boolean>>()
 
-    fun createThread(movieId: String, title: String, content: String) {
+    fun createThread(id: String, mediaType: Int, title: String, content: String) {
         createThreadResult.postValue(Resource.Loading())
         viewModelScope.launch(Dispatchers.IO) {
             createThreadResult.postValue(
-                Resource.Success(threadRepository.createThread(generateThreadItem(movieId,title,content)))
+                Resource.Success(
+                    threadRepository.createThread(
+                        generateThreadItem(
+                            id,
+                            mediaType,
+                            title,
+                            content
+                        )
+                    )
+                )
             )
         }
     }
 
-    private fun generateThreadItem(movieId: String,title: String, content: String) : ThreadItem {
+    private fun generateThreadItem(
+        id: String,
+        mediaType: Int,
+        title: String,
+        content: String
+    ): ThreadItem {
         return ThreadItem(
             creator = userRepository.getCurrentUser(),
             title = title,
-            movieId = movieId,
+            idMediaType = mediaType.toString()+"_"+ id,
             content = content,
             members = mutableListOf(userRepository.getCurrentUser()),
             isMember = true

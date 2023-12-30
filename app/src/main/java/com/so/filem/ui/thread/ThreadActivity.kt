@@ -101,18 +101,21 @@ class ThreadActivity :
 
     companion object {
         const val EXTRAS_PARENT_THREAD = "EXTRAS_PARENT_THREAD"
-        fun startActivity(context: Context, movieId: String) {
+        const val EXTRAS_TYPE_THREAD = "EXTRAS_TYPE_THREAD"
+        fun startActivity(context: Context, id: String, mediaType: Int) {
             context.startActivity(Intent(context, ThreadActivity::class.java).apply {
-                putExtra(EXTRAS_PARENT_THREAD, movieId)
+                putExtra(EXTRAS_PARENT_THREAD, id)
+                putExtra(EXTRAS_TYPE_THREAD, mediaType)
             })
         }
     }
 
 
     private fun openCreateThreadBottomSheet() {
-        val movieId = intent.getStringExtra("EXTRAS_PARENT_THREAD")
-        if (movieId != null) {
-            val bottomSheetDialogFragment = ThreadFormBottomSheet.newInstance(movieId)
+        val id = intent.getStringExtra("EXTRAS_PARENT_THREAD")
+        val mediaType = intent.getIntExtra("EXTRAS_TYPE_THREAD",0)
+        if (id != null) {
+            val bottomSheetDialogFragment = ThreadFormBottomSheet.newInstance(id, mediaType)
             bottomSheetDialogFragment.show(supportFragmentManager, null)
         }
     }

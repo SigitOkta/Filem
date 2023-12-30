@@ -26,8 +26,12 @@ class ThreadDataSourceImpl(private val firebaseDatabase: FirebaseDatabase) : Thr
             }
     }
 
-    override fun getThreadByMovieId(movieId:String): FirebaseRecyclerOptions<ThreadItem> {
-        val query = getParentChild().orderByChild("movieId").equalTo(movieId)
+    override fun getThreadById(
+        id: String,
+        mediaType: Int
+    ): FirebaseRecyclerOptions<ThreadItem> {
+        val query =
+            getParentChild().orderByChild("idMediaType").equalTo(mediaType.toString()+"_"+ id)
         return FirebaseRecyclerOptions.Builder<ThreadItem>()
             .setQuery(query, ThreadItem::class.java)
             .build()

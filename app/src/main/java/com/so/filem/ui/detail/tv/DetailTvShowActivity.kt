@@ -20,9 +20,11 @@ import com.so.filem.domain.utils.Resource
 import com.so.filem.domain.utils.setResizableText
 import com.so.filem.ui.adapter.GenreAdapter
 import com.so.filem.base.BaseViewModelActivity
+import com.so.filem.domain.model.MediaType
 import com.so.filem.ui.custom.Converter
 import com.so.filem.ui.custom.LoadingDialog
 import com.so.filem.ui.detail.movie.DetailMovieActivity
+import com.so.filem.ui.thread.ThreadActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -35,7 +37,7 @@ class DetailTvShowActivity :
     ) {
     override val viewModel: DetailTvViewModel by viewModels()
 
-    private lateinit var bundle : Bundle
+    private lateinit var bundle: Bundle
     private lateinit var viewPager2: ViewPager2
 
     companion object {
@@ -46,6 +48,7 @@ class DetailTvShowActivity :
                 putExtra(EXTRAS_ID, id)
             })
         }
+
         @StringRes
         private val TAB_TITLES = intArrayOf(
             R.string.tab_detail_tv_1,
@@ -61,11 +64,19 @@ class DetailTvShowActivity :
         binding.includeHeaderPoster.ivFavorite.setOnClickListener {
             viewModel.onFavoriteClicked()
         }
+        binding.btnThread.setOnClickListener {
+            val id = intent.getLongExtra(EXTRAS_ID, 0)
+            ThreadActivity.startActivity(
+                this@DetailTvShowActivity,
+                id.toString(),
+                MediaType.TV_SHOW.ordinal
+            )
+        }
     }
 
     override fun initView() {
         super.initView()
-        val movieId = intent.getLongExtra(DetailMovieActivity.EXTRAS_ID,0)
+        val movieId = intent.getLongExtra(DetailMovieActivity.EXTRAS_ID, 0)
         Timber.tag("activity").d(movieId.toString())
         viewModel.getMovieId(movieId)
         binding.includeHeaderPoster.ivArrowBack.setOnClickListener {
@@ -105,7 +116,7 @@ class DetailTvShowActivity :
         binding.apply {
             //overview
             if (data.tvShow.overview != null) {
-                tvDesciption.setResizableText(data.tvShow.overview, 4 , true)
+                tvDesciption.setResizableText(data.tvShow.overview, 4, true)
             } else {
                 tvDesciption.text = "No overview"
             }
@@ -149,7 +160,7 @@ class DetailTvShowActivity :
                 }
             }
         }
-        lifecycleScope.launch(){
+        lifecycleScope.launch() {
             viewModel.isFavorite.collectLatest {
                 updateFavoriteUi(it)
                 Timber.tag("viewModel-detail").d(it.toString())
@@ -164,12 +175,12 @@ class DetailTvShowActivity :
                 favoriteIcon(R.drawable.ic_favorite)
                 Timber.d("Film ini adalah favorit")
             }
+
             else -> {
                 favoriteIcon(R.drawable.ic_favorite_border)
                 Timber.d("Film ini adalah unfavorite")
             }
         }
-
 
 
     }

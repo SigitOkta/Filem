@@ -30,6 +30,10 @@ class ThreadViewModel @AssistedInject constructor(
     val movieId: String? by lazy {
         intentData.getString(ThreadActivity.EXTRAS_PARENT_THREAD)
     }
-    fun getThreadStreamData() = repository.getThreadByMovieId(movieId ?: "")
+
+    val mediaType: Int? by lazy {
+        intentData.getInt(ThreadActivity.EXTRAS_TYPE_THREAD)
+    }
+    fun getThreadStreamData() = repository.getThreadById(movieId ?: "", mediaType ?: 0)
 }
 

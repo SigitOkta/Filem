@@ -7,6 +7,6 @@ import com.so.filem.data.firebase.ThreadItem
 interface ThreadDataSource {
     suspend fun createThread(threadItem: ThreadItem): Boolean
     suspend fun createSubThread(parentThreadId: String, subThreadItem: SubThreadItem) : Boolean
-    fun getThreadByMovieId(movieId: String): FirebaseRecyclerOptions<ThreadItem>
+    fun getThreadById(id: String, mediaType:Int): FirebaseRecyclerOptions<ThreadItem>
     fun getSubThread(parentThreadId: String) : FirebaseRecyclerOptions<SubThreadItem>
 }
