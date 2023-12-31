@@ -1,6 +1,7 @@
 package com.so.filem.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -10,11 +11,13 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseError
 import com.so.filem.R
 import com.so.filem.data.firebase.ThreadItem
+import com.so.filem.data.firebase.User
 import com.so.filem.databinding.ItemThreadBinding
 import com.so.filem.ui.thread.threaddetail.ThreadDetailActivity
 
 class ThreadListAdapter(
     dataStream: FirebaseRecyclerOptions<ThreadItem>,
+    private val user: User?,
     private val onDataExist: () -> Unit,
     private val onLoading: (isLoading: Boolean) -> Unit,
     private val onDataEmpty: () -> Unit,
@@ -28,7 +31,16 @@ class ThreadListAdapter(
     class ThreadItemViewHolder(private val binding: ItemThreadBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ThreadItem) {
+        fun bind(item: ThreadItem, user: User?) {
+            val memberList = item.members
+            for (i in 0 until memberList.size) {
+                if (!user?.email.isNullOrEmpty() && memberList[i]?.email == user?.email) {
+                    binding.llJoinButton.visibility = View.GONE
+                } else {
+                    binding.llJoinButton.visibility = View.VISIBLE
+                }
+            }
+
             binding.ivProfilePict.load(item.creator?.photoProfileUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_person)
@@ -58,7 +70,7 @@ class ThreadListAdapter(
     }
 
     override fun onBindViewHolder(holder: ThreadItemViewHolder, position: Int, model: ThreadItem) {
-        holder.bind(model)
+        holder.bind(model,user)
     }
 
     override fun onDataChanged() {

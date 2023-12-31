@@ -3,6 +3,7 @@ package com.so.filem.ui.thread
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -13,6 +14,7 @@ import com.so.filem.domain.utils.WrapContentLinearLayoutManager
 import com.so.filem.ui.adapter.ThreadListAdapter
 import com.so.filem.ui.thread.threadform.ThreadFormBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,7 +31,9 @@ class ThreadActivity :
     }
 
     private val adapter: ThreadListAdapter by lazy {
-        ThreadListAdapter(viewModel.getThreadStreamData(),
+        ThreadListAdapter(
+            viewModel.getThreadStreamData(),
+            viewModel.getCurrentUser(),
             onDataExist = {
                 showData()
             },
@@ -45,8 +49,8 @@ class ThreadActivity :
             })
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initView() {
+        super.initView()
         binding.fabAdd.setOnClickListener {
             openCreateThreadBottomSheet()
         }

@@ -1,15 +1,21 @@
 package com.so.filem.ui.thread
 
 import android.os.Bundle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.so.filem.data.repository.UserRepository
 import com.so.filem.domain.repository.ThreadRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ThreadViewModel @AssistedInject constructor(
     private val repository: ThreadRepository,
+    private val userRepository: UserRepository,
     @Assisted private val intentData: Bundle
 ) : ViewModel() {
 
@@ -35,5 +41,7 @@ class ThreadViewModel @AssistedInject constructor(
         intentData.getInt(ThreadActivity.EXTRAS_TYPE_THREAD)
     }
     fun getThreadStreamData() = repository.getThreadById(movieId ?: "", mediaType ?: 0)
+
+    fun getCurrentUser()= userRepository.getCurrentUser()
 }
 
