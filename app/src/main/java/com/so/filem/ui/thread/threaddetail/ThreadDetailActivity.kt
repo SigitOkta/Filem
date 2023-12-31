@@ -2,6 +2,7 @@ package com.so.filem.ui.thread.threaddetail
 
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
@@ -18,6 +19,7 @@ import com.so.filem.domain.utils.OnReplyScrollObserver
 import com.so.filem.domain.utils.Resource
 import com.so.filem.ui.adapter.MessageAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -92,9 +94,14 @@ class ThreadDetailActivity :
     }
     override fun initView() {
         super.initView()
+        checkIfCurrentUserInList()
         setParentThreadData(item = viewModel.parentThread)
         setupReply()
         setupRecyclerView()
+    }
+
+    private fun checkIfCurrentUserInList() {
+        viewModel.checkIfCurrentUserInList()
     }
 
     private fun setupRecyclerView() {
@@ -132,6 +139,19 @@ class ThreadDetailActivity :
                     binding.etSubThread.isEnabled = true
                     binding.etSubThread.setText("")
                     Toast.makeText(this, "Reply Success", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        viewModel.isCurrentUserInList.observe(this){
+            Timber.tag("ThreadDetail").d(it.toString())
+            when (it){
+                true ->{
+                    binding.llAddSubthread.visibility = View.VISIBLE
+                    binding.llAddMember.visibility = View.GONE
+                }
+                false -> {
+                    binding.llAddSubthread.visibility = View.GONE
+                    binding.llAddMember.visibility = View.VISIBLE
                 }
             }
         }

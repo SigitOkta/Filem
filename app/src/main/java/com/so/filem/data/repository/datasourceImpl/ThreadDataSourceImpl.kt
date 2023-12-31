@@ -4,8 +4,10 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.FirebaseDatabase
 import com.so.filem.data.firebase.SubThreadItem
 import com.so.filem.data.firebase.ThreadItem
+import com.so.filem.data.firebase.User
 import com.so.filem.data.repository.datasource.ThreadDataSource
 import com.so.filem.domain.utils.setValueAppendId
+import kotlinx.coroutines.tasks.await
 
 class ThreadDataSourceImpl(private val firebaseDatabase: FirebaseDatabase) : ThreadDataSource {
     override suspend fun createThread(threadItem: ThreadItem): Boolean {
@@ -41,6 +43,20 @@ class ThreadDataSourceImpl(private val firebaseDatabase: FirebaseDatabase) : Thr
         return FirebaseRecyclerOptions.Builder<SubThreadItem>()
             .setQuery(getThreadReplyChild(parentThreadId), SubThreadItem::class.java)
             .build()
+    }
+
+    override suspend fun isCurrentUserInList(parentThreadId: String, currentUser: User?): Boolean {
+        val threadSnapshot = getParentChild().child(parentThreadId).get().await()
+        val thread = threadSnapshot.getValue(ThreadItem::class.java)
+        if (thread != null) {
+            val memberList = thread.members
+            for (i in 0 until memberList.size) {
+                if (memberList[i]?.email == currentUser?.email) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     private fun getParentChild() =

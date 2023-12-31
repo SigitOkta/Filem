@@ -43,6 +43,8 @@ class ThreadDetailViewModel @AssistedInject constructor(
 
     val replyThreadResult = MutableLiveData<Resource<Boolean>>()
 
+    val isCurrentUserInList = MutableLiveData<Boolean>()
+
     fun replyThread(content: String) {
         replyThreadResult.postValue(Resource.Loading())
         viewModelScope.launch(Dispatchers.IO) {
@@ -64,4 +66,16 @@ class ThreadDetailViewModel @AssistedInject constructor(
     fun getCurrentUser() = userRepository.getCurrentUser()
 
     fun getSubThread() = threadRepository.getSubThread(parentThread?.id.orEmpty())
+
+    fun checkIfCurrentUserInList(){
+        viewModelScope.launch(Dispatchers.IO) {
+            isCurrentUserInList.postValue(
+                threadRepository.isCurrentUserInList(
+                    parentThread?.id.orEmpty(),
+                    getCurrentUser()
+                )
+            )
+        }
+    }
+
 }

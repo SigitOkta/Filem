@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_6sdp"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_8ssp"
                     android:textColor="@color/off_white_400"
                     app:layout_constraintLeft_toRightOf="@+id/iv_profile_pict"
                     app:layout_constraintTop_toBottomOf="@id/tv_title_thread"
@@ -127,23 +127,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="visible"
+            android:visibility="gone"
             android:background="@color/dark_blue"
             android:paddingHorizontal="@dimen/_3sdp">
 
             <EditText
                 android:id="@+id/et_sub_thread"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_37sdp"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/_6sdp"
+                android:layout_margin="@dimen/_8sdp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_edit_text_shadow"
                 android:hint="Say something..."
                 android:textColorHint="@color/off_white_400"
                 android:textColor="@color/off_white_400"
                 android:inputType="textMultiLine"
-                android:padding="@dimen/_7sdp" />
+                android:padding="@dimen/_8sdp" />
 
             <ImageView
                 android:id="@+id/btn_send_sub_thread"
@@ -170,7 +170,7 @@
             <ImageView
                 android:id="@+id/bt_add_join"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_38sdp"
                 android:layout_gravity="center"
                 android:enabled="false"
                 android:padding="@dimen/_6sdp"

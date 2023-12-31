@@ -3,6 +3,7 @@ package com.so.filem.data.repository
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.so.filem.data.firebase.SubThreadItem
 import com.so.filem.data.firebase.ThreadItem
+import com.so.filem.data.firebase.User
 import com.so.filem.data.repository.datasource.ThreadDataSource
 import com.so.filem.domain.repository.ThreadRepository
 
@@ -25,5 +26,9 @@ class ThreadRepositoryImpl(private val dataSource: ThreadDataSource) :
 
     override fun getSubThread(parentThreadId: String): FirebaseRecyclerOptions<SubThreadItem> {
         return dataSource.getSubThread(parentThreadId)
+    }
+
+    override suspend fun isCurrentUserInList(parentThreadId: String, currentUser: User?): Boolean {
+        return dataSource.isCurrentUserInList(parentThreadId, currentUser)
     }
 }

@@ -50,7 +50,6 @@ class ThreadFormViewModel @Inject constructor(
             idMediaType = mediaType.toString()+"_"+ id,
             content = content,
             members = mutableListOf(userRepository.getCurrentUser()),
-            isMember = true
         )
     }
 

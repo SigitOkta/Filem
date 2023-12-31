@@ -3,6 +3,7 @@ package com.so.filem.domain.repository
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.so.filem.data.firebase.SubThreadItem
 import com.so.filem.data.firebase.ThreadItem
+import com.so.filem.data.firebase.User
 
 interface ThreadRepository {
     suspend fun createThread(threadItem: ThreadItem): Boolean
@@ -13,4 +14,6 @@ interface ThreadRepository {
 
     fun getThreadById(movieId: String, mediaType: Int): FirebaseRecyclerOptions<ThreadItem>
     fun getSubThread(parentThreadId: String): FirebaseRecyclerOptions<SubThreadItem>
+
+    suspend fun isCurrentUserInList(parentThreadId: String, currentUser: User?) : Boolean
 }

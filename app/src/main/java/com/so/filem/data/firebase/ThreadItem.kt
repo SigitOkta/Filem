@@ -13,5 +13,4 @@ data class ThreadItem(
     val title: String = "",
     val content: String = "",
     var members: MutableList<User?> = mutableListOf(),
-    val isMember: Boolean = false
 ) : Parcelable
