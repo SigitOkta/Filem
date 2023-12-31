@@ -66,5 +66,6 @@
     <string name="text_error_empty_title">Please input thread title !</string>
     <string name="text_error_empty_body">Please Input Thread !</string>
     <string name="text_empty_data_subthread">No chat available</string>
+    <string name="en_text_join">Join</string>
 
 </resources>

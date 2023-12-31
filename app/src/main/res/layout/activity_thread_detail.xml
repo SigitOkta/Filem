@@ -119,6 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
         android:elevation="@dimen/_3sdp"
+        app:cardCornerRadius="@dimen/_7sdp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
@@ -126,6 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:visibility="visible"
             android:background="@color/dark_blue"
             android:paddingHorizontal="@dimen/_3sdp">
 
@@ -153,6 +155,39 @@
                 android:src="@drawable/ic_send"
                 app:tint="@color/light_blue" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_add_member"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:gravity="center_horizontal"
+            android:background="@color/light_green"
+            android:paddingHorizontal="@dimen/_3sdp">
+
+            <ImageView
+                android:id="@+id/bt_add_join"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:enabled="false"
+                android:padding="@dimen/_6sdp"
+                android:src="@drawable/ic_add"
+                android:layout_margin="@dimen/_6sdp"
+                app:tint="@color/dark_blue" />
+
+            <TextView
+                android:id="@+id/tv_join"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_13ssp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/dark_blue"
+                android:text="@string/en_text_join" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
