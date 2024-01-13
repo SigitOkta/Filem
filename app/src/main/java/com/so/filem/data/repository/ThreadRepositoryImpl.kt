@@ -20,6 +20,10 @@ class ThreadRepositoryImpl(private val dataSource: ThreadDataSource) :
         return dataSource.createSubThread(parentThreadId, subThreadItem)
     }
 
+    override suspend fun createMember(parentThreadId: String,user: User): Boolean {
+        return dataSource.createMember(parentThreadId,user)
+    }
+
     override fun getThreadById(movieId: String, mediaType: Int): FirebaseRecyclerOptions<ThreadItem> {
         return dataSource.getThreadById(movieId, mediaType)
     }
@@ -28,7 +32,14 @@ class ThreadRepositoryImpl(private val dataSource: ThreadDataSource) :
         return dataSource.getSubThread(parentThreadId)
     }
 
-    override suspend fun isCurrentUserInList(parentThreadId: String, currentUser: User?): Boolean {
-        return dataSource.isCurrentUserInList(parentThreadId, currentUser)
+    override suspend fun isCurrentUserInMember(parentThreadId: String, currentUser: User?): Boolean {
+        return dataSource.isCurrentUserInMember(parentThreadId, currentUser)
+    }
+
+    override suspend fun isCurrentUserInCreator(
+        parentThreadId: String,
+        currentUser: User?
+    ): Boolean {
+        return dataSource.isCurrentUserInCreator(parentThreadId, currentUser)
     }
 }

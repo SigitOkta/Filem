@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.so.filem.data.firebase.SubThreadItem
 import com.so.filem.data.firebase.ThreadItem
+import com.so.filem.data.firebase.User
 import com.so.filem.data.repository.UserRepository
 import com.so.filem.domain.repository.ThreadRepository
 import com.so.filem.domain.utils.Resource
@@ -43,7 +44,9 @@ class ThreadDetailViewModel @AssistedInject constructor(
 
     val replyThreadResult = MutableLiveData<Resource<Boolean>>()
 
-    val isCurrentUserInList = MutableLiveData<Boolean>()
+    val isCurrentUserInMember = MutableLiveData<Boolean>()
+    val isCurrentUserInCreator = MutableLiveData<Boolean>()
+    val addMemberResult = MutableLiveData<Boolean>()
 
     fun replyThread(content: String) {
         replyThreadResult.postValue(Resource.Loading())
@@ -59,6 +62,22 @@ class ThreadDetailViewModel @AssistedInject constructor(
         }
     }
 
+    fun addMember(){
+        viewModelScope.launch(Dispatchers.IO) {
+            addMemberResult.postValue(
+                threadRepository.createMember(
+                    parentThread?.id.orEmpty(),
+                    User(
+                        id = userRepository.getCurrentUser()?.id ?: "",
+                        displayName = userRepository.getCurrentUser()?.displayName ?: "",
+                        email = userRepository.getCurrentUser()?.email ?: "",
+                        photoProfileUrl = userRepository.getCurrentUser()?.photoProfileUrl ?: "",
+                    )
+                )
+            )
+        }
+    }
+
     private fun generateSubThread(content: String): SubThreadItem {
         return SubThreadItem(message = content, sender = userRepository.getCurrentUser())
     }
@@ -67,10 +86,21 @@ class ThreadDetailViewModel @AssistedInject constructor(
 
     fun getSubThread() = threadRepository.getSubThread(parentThread?.id.orEmpty())
 
-    fun checkIfCurrentUserInList(){
+    fun checkIfCurrentUserIsMember(){
         viewModelScope.launch(Dispatchers.IO) {
-            isCurrentUserInList.postValue(
-                threadRepository.isCurrentUserInList(
+            isCurrentUserInMember.postValue(
+                threadRepository.isCurrentUserInMember(
+                    parentThread?.id.orEmpty(),
+                    getCurrentUser()
+                )
+            )
+        }
+    }
+
+    fun checkIfCurrentUserIsCreator(){
+        viewModelScope.launch(Dispatchers.IO) {
+            isCurrentUserInCreator.postValue(
+                threadRepository.isCurrentUserInCreator(
                     parentThread?.id.orEmpty(),
                     getCurrentUser()
                 )

@@ -94,14 +94,24 @@ class ThreadDetailActivity :
     }
     override fun initView() {
         super.initView()
+        checkIfCurrentUserIsCreator()
         checkIfCurrentUserInList()
         setParentThreadData(item = viewModel.parentThread)
         setupReply()
         setupRecyclerView()
+        binding.llAddMember.setOnClickListener {
+            viewModel.addMember()
+            binding.llAddSubthread.visibility = View.VISIBLE
+            binding.llAddMember.visibility = View.GONE
+        }
+    }
+
+    private fun checkIfCurrentUserIsCreator() {
+        viewModel.checkIfCurrentUserIsCreator()
     }
 
     private fun checkIfCurrentUserInList() {
-        viewModel.checkIfCurrentUserInList()
+        viewModel.checkIfCurrentUserIsMember()
     }
 
     private fun setupRecyclerView() {
@@ -142,19 +152,33 @@ class ThreadDetailActivity :
                 }
             }
         }
-        viewModel.isCurrentUserInList.observe(this){
+        viewModel.isCurrentUserInCreator.observe(this){
             Timber.tag("ThreadDetail").d(it.toString())
             when (it){
                 true ->{
                     binding.llAddSubthread.visibility = View.VISIBLE
                     binding.llAddMember.visibility = View.GONE
+                    viewModel.isCurrentUserInMember.observe(this){ member ->
+                       if(!member) viewModel.addMember()
+                    }
                 }
                 false -> {
-                    binding.llAddSubthread.visibility = View.GONE
-                    binding.llAddMember.visibility = View.VISIBLE
+                    viewModel.isCurrentUserInMember.observe(this){ member ->
+                        when (member){
+                            true ->{
+                                binding.llAddSubthread.visibility = View.VISIBLE
+                                binding.llAddMember.visibility = View.GONE
+                            }
+                            false -> {
+                                binding.llAddSubthread.visibility = View.GONE
+                                binding.llAddMember.visibility = View.VISIBLE
+                            }
+                        }
+                    }
                 }
             }
         }
+
     }
 
     private fun setupReply() {

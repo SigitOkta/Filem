@@ -29,6 +29,7 @@ class FirebaseUserAuthDataSourceImpl(private val firebaseAuth: FirebaseAuth) : U
 
 fun FirebaseUser.toUserObject():User {
     return User(
+        uid,
         displayName.orEmpty(),
         email.orEmpty(),
         photoUrl.toString()

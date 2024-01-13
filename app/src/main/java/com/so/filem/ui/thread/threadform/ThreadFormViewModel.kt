@@ -37,7 +37,6 @@ class ThreadFormViewModel @Inject constructor(
             )
         }
     }
-
     private fun generateThreadItem(
         id: String,
         mediaType: Int,
@@ -49,7 +48,6 @@ class ThreadFormViewModel @Inject constructor(
             title = title,
             idMediaType = mediaType.toString()+"_"+ id,
             content = content,
-            members = mutableListOf(userRepository.getCurrentUser()),
         )
     }
 

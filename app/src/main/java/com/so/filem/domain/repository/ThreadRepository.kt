@@ -12,8 +12,14 @@ interface ThreadRepository {
         subThreadItem: SubThreadItem
     ): Boolean
 
+    suspend fun createMember(
+        parentThreadId: String,
+        user: User
+    ): Boolean
+
     fun getThreadById(movieId: String, mediaType: Int): FirebaseRecyclerOptions<ThreadItem>
     fun getSubThread(parentThreadId: String): FirebaseRecyclerOptions<SubThreadItem>
 
-    suspend fun isCurrentUserInList(parentThreadId: String, currentUser: User?) : Boolean
+    suspend fun isCurrentUserInMember(parentThreadId: String, currentUser: User?) : Boolean
+    suspend fun isCurrentUserInCreator(parentThreadId: String, currentUser: User?) : Boolean
 }
