@@ -23,11 +23,14 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_black"
+        android:background="@color/dark_gray"
         android:layout_alignParentBottom="true"
+        app:itemIconTint="@drawable/bg_bottom_nav_color"
+        app:itemTextColor="@drawable/bg_bottom_nav_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
         app:menu="@menu/menu_bottom"
         android:scrollIndicators="left"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
