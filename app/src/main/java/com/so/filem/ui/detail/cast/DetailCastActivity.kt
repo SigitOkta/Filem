@@ -46,13 +46,6 @@ class DetailCastActivity : BaseViewModelActivity<ActivityDetailCastBinding, Deta
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewPager2 = binding.vpCastImage
-        handler = Handler(Looper.myLooper()!!)
-        bundle = Bundle()
-    }
-
     private fun setupToolbar(name : String){
         binding.collapsingToolbar.isTitleEnabled = false
         binding.tbCast.title = name
@@ -86,6 +79,9 @@ class DetailCastActivity : BaseViewModelActivity<ActivityDetailCastBinding, Deta
 
     override fun initView() {
         super.initView()
+        viewPager2 = binding.vpCastImage
+        handler = Handler(Looper.myLooper()!!)
+        bundle = Bundle()
         val castId = intent.getLongExtra(EXTRAS_ID, 0)
         viewModel.setCastId(castId)
 

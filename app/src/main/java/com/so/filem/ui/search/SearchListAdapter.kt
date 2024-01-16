@@ -9,7 +9,9 @@ import coil.load
 import com.so.filem.R
 import com.so.filem.databinding.ItemPosterBinding
 import com.so.filem.domain.model.Search
+import com.so.filem.ui.detail.cast.DetailCastActivity
 import com.so.filem.ui.detail.movie.DetailMovieActivity
+import com.so.filem.ui.detail.tv.DetailTvShowActivity
 import timber.log.Timber
 
 class SearchListAdapter(
@@ -41,6 +43,9 @@ class SearchListAdapter(
                         placeholder(R.drawable.ic_placeholder_poster)
                     }
                     binding.tvPoster.text = data.title
+                    itemView.setOnClickListener {
+                        DetailMovieActivity.startActivity(itemView.context,data.id)
+                    }
                 }
                 "tv" -> {
                     binding.ivPoster.load(data.posterUrl) {
@@ -48,6 +53,9 @@ class SearchListAdapter(
                         placeholder(R.drawable.ic_placeholder_poster)
                     }
                     binding.tvPoster.text = data.name
+                    itemView.setOnClickListener {
+                        DetailTvShowActivity.startActivity(itemView.context,data.id)
+                    }
                 }
 
                 "person" -> {
@@ -56,12 +64,12 @@ class SearchListAdapter(
                         placeholder(R.drawable.ic_placeholder_poster)
                     }
                     binding.tvPoster.text = data.name
+                    itemView.setOnClickListener{
+                        DetailCastActivity.startActivity(itemView.context, data.id)
+                    }
                 }
             }
-            itemView.setOnClickListener {
-                DetailMovieActivity.startActivity(itemView.context,data.id)
-                Timber.tag("adapter").d(data.title)
-            }
+
         }
     }
 
