@@ -14,6 +14,7 @@ import com.so.filem.domain.usecase.tv.GetDiscoverTvUseCase
 import com.so.filem.domain.usecase.movie.GetPopularPeopleUseCase
 import com.so.filem.domain.usecase.movie.GetTrendingMovieUseCase
 import com.so.filem.domain.usecase.tv.GetTrendingTvUseCase
+import com.so.filem.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -37,8 +38,8 @@ class HomeViewModel @Inject constructor(
     private val _trendingTv = MutableLiveData<Tvs>()
     val trendingTv: LiveData<Tvs> = _trendingTv
 
-    private val _parentData = MutableLiveData<List<HomeItem>>()
-    val parentData: LiveData<List<HomeItem>> = _parentData
+    private val _parentData = MutableLiveData<Resource<List<HomeItem>>>()
+    val parentData: LiveData<Resource<List<HomeItem>>> = _parentData
 
     val currentUserLiveData = MutableLiveData<User?>()
 
@@ -82,6 +83,7 @@ class HomeViewModel @Inject constructor(
 
     fun getParentData() {
         viewModelScope.launch {
+            _parentData.postValue(Resource.Loading())
             try {
                 val titleTabTrendingMovie = listOf("day", "week")
                 val titleTabTrendingTv = listOf("day", "week")
@@ -99,7 +101,12 @@ class HomeViewModel @Inject constructor(
                     add(HomeItem.HomePopularPeopleItem(R.drawable.ic_people,
                         R.string.en_text_popular_people, people))
                 }
-                _parentData.value = homeItems
+                if (homeItems.isNotEmpty()) {
+                    _parentData.postValue(Resource.Success(homeItems))
+                } else {
+                    _parentData.postValue(Resource.Empty())
+                }
+
             } catch (e: Exception) {
                 Timber.e(e)
             }
