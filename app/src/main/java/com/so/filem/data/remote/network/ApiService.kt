@@ -72,6 +72,21 @@ interface ApiService {
         @Query("page") page: Int
     ): SearchMultiResponse
 
+    @GET(Constants.SEARCH_MOVIE)
+    suspend fun getSearchMovie(
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): SearchMultiResponse
+    @GET(Constants.SEARCH_TV)
+    suspend fun getSearchTv(
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): SearchMultiResponse
+    @GET(Constants.SEARCH_PERSON)
+    suspend fun getSearchPerson(
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): SearchMultiResponse
     @GET(Constants.DISCOVER_MOVIE)
     suspend fun getDiscoverMovie(
         @Query("language") language: String = "en-US"

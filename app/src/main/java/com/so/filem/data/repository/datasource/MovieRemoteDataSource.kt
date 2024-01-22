@@ -1,5 +1,6 @@
 package com.so.filem.data.repository.datasource
 
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import com.so.filem.domain.model.CastDetails
 import com.so.filem.domain.model.Casts
@@ -11,7 +12,8 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRemoteDataSource {
 
     //SearchMulti
-    fun getSearchMultiPaging(query: String): Flow<PagingData<Search>>
+    /*fun getSearchMultiPaging(query: String)*/
+    fun getSearch(query: String, type: Int) : LiveData<PagingData<Search>>
 
 
     suspend fun getMovieDetails(movieId: Long) : MovieDetails

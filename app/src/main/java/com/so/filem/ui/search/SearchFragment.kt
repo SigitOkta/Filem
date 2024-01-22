@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -16,6 +17,7 @@ import com.so.filem.ui.adapter.LoadingStateAdapter
 import com.so.filem.base.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.observeOn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -24,21 +26,56 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
     FragmentSearchBinding::inflate
 ) {
     override val viewModel: SearchViewModel by viewModels()
-    private val searchAdapter by lazy { SearchListAdapter() }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.hide()
+    private val searchAdapter by lazy {
+        SearchListAdapter(
+            viewBinding().includeSearchBar.spinner.selectedItemPosition
+        )
     }
 
     override fun initView() {
         super.initView()
-        setupSpinner()
+        (activity as AppCompatActivity).supportActionBar?.hide()
         setupRecyclerView()
+        setupSpinner()
         inputSearch()
+        observeLoadState()
+    }
+
+    private fun observeLoadState() {
+        searchAdapter.addLoadStateListener { loadState ->
+            viewBinding().loadingProgressBar.isVisible =
+                loadState.source.refresh is LoadState.Loading
+            viewBinding().includeRecyclerView.root.isVisible =
+                loadState.source.refresh is LoadState.NotLoading
+            viewBinding().tvErrorHome.isVisible = loadState.source.refresh is LoadState.Error
+
+            // search failed to return any matching results
+            if (loadState.source.refresh is LoadState.NotLoading &&
+                loadState.append.endOfPaginationReached &&
+                searchAdapter.itemCount < 1
+            ) {
+                viewBinding().includeRecyclerView.root.isVisible = false
+                viewBinding().tvErrorHome.isVisible = true
+                    .also {
+                        viewBinding().tvErrorHome.text = getString(R.string.en_text_not_found)
+                    }
+            }
+
+            val error = when {
+                loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                else -> null
+            }
+
+            if (error != null) {
+                viewBinding().tvErrorHome.text = error.error.localizedMessage
+            }
+        }
     }
 
     private fun setupSpinner() {
-        val spinnerValues = listOf("Movie", "Tv", "Person")
+        val spinnerValues = listOf("Movie", "TV", "Person")
         val spinner = viewBinding().includeSearchBar.spinner
         val adapter = ArrayAdapter(requireContext(), R.layout.item_custom_spinner, spinnerValues)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -47,22 +84,25 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
 
         spinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>,
-                                        view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?, position: Int, id: Long
+            ) {
                 fetchData()
+                searchAdapter.updateType(position)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                // write code to perform some action
+                fetchData()
             }
         }
     }
 
     private fun fetchData() {
         val query = viewBinding().includeSearchBar.svMovie.query.toString()
-        val selectedSpinnerItem = viewBinding().includeSearchBar.spinner.selectedItem.toString()
+        val selectedSpinnerItem = viewBinding().includeSearchBar.spinner.selectedItemPosition
         Timber.tag("Search, SearchFragment").d("$query, $selectedSpinnerItem")
-        viewModel.fetchSearch(query, selectedSpinnerItem)
+        viewModel.searchMovies(query, selectedSpinnerItem)
     }
 
     private fun inputSearch() {
@@ -71,25 +111,22 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
         searchView.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let {
+                if (!query.isNullOrEmpty()) {
+                    viewBinding().includeRecyclerView.rvSearchItem.scrollToPosition(0)
                     fetchData()
+                    searchView.clearFocus()
                 }
-                searchView.clearFocus()
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText.isNullOrEmpty()) {
-                    searchView.isIconified = false
-                    searchView.isIconified = true
-                }
-                return false
+                return true
             }
         })
 
         searchView.setOnCloseListener {
             Timber.tag("search-init-query").d("click")
-            viewBinding().includeNotFound.root.visibility = View.GONE
+            viewBinding().tvErrorHome.isVisible = false
             viewBinding().includeRecyclerView.root.visibility = View.GONE
             true
         }
@@ -97,63 +134,50 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
 
     private fun setupRecyclerView() {
         val recyclerView = viewBinding().includeRecyclerView.rvSearchItem
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        recyclerView.adapter = searchAdapter.withLoadStateFooter(
+        recyclerView.adapter = searchAdapter.withLoadStateHeaderAndFooter(
+            header = LoadingStateAdapter {
+                searchAdapter.retry()
+            },
             footer = LoadingStateAdapter {
                 searchAdapter.retry()
             }
         )
-        searchAdapter.addLoadStateListener { loadState ->
-            val isListEmpty = loadState.refresh is LoadState.Error
-            if (isListEmpty) {
-                viewBinding().includeNotFound.root.visibility = View.VISIBLE
-                viewBinding().includeRecyclerView.root.visibility = View.GONE
-            } else {
-                viewBinding().includeNotFound.root.visibility = View.GONE
-                viewBinding().includeRecyclerView.root.visibility = View.VISIBLE
-            }
-        }
+        /* searchAdapter.addLoadStateListener { loadState ->
+             if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && searchAdapter.itemCount < 1) {
+                 showError()
+                 setErrorMessage(getText(R.string.text_empty_data).toString())
+             } else {
+                 viewBinding().tvErrorHome.isVisible = false
+                 viewBinding().includeRecyclerView.root.isVisible = true
+             }
+         }*/
     }
 
     override fun observeData() {
         super.observeData()
-        lifecycleScope.launch {
-            viewModel.searchResults.collectLatest { result ->
-                when (result) {
-                    //...
-                    is Resource.Loading -> {
-                        // Menampilkan ProgressBar saat pencarian sedang berlangsung
-                        viewBinding().loadingProgressBar.visibility = View.VISIBLE
-                    }
+        viewModel.movies.observe(viewLifecycleOwner) { result ->
+            searchAdapter.submitData(viewLifecycleOwner.lifecycle,result)
+        }
 
-                    is Resource.Success -> {
-                        // Menampilkan hasil pencarian jika berhasil
-                        viewBinding().loadingProgressBar.visibility = View.GONE
-                        result.payload?.let { search ->
-                            val rv = viewBinding().includeRecyclerView.rvSearchItem
-                            rv.adapter = searchAdapter
-                            searchAdapter.submitData(search)
-                            rv.setHasFixedSize(true)
-                        }
-                        viewBinding().includeNotFound.root.visibility = View.GONE
-                        viewBinding().includeRecyclerView.root.visibility = View.VISIBLE
-                    }
+    }
 
-                    is Resource.Error -> {
-                        // Menampilkan pesan kesalahan jika terjadi kesalahan
-                        viewBinding().loadingProgressBar.visibility = View.GONE
-                    }
+    private fun setErrorMessage(msg: String) {
+        viewBinding().tvErrorHome.text = msg
+    }
 
-                    is Resource.Empty -> {
-                        /* viewBinding().loadingProgressBar.visibility = View.GONE*/
-                    }
+    private fun showError() {
+        viewBinding().apply {
+            includeRecyclerView.rvSearchItem.isVisible = false
+            loadingProgressBar.isVisible = false
+            tvErrorHome.isVisible = true
+        }
+    }
 
-                    else -> {
-                        /* viewBinding().loadingProgressBar.visibility = View.GONE*/
-                    }
-                }
-
-            }
+    private fun showLoading() {
+        viewBinding().apply {
+            includeRecyclerView.root.isVisible = false
+            tvErrorHome.isVisible = false
+            loadingProgressBar.isVisible = true
         }
     }
 }

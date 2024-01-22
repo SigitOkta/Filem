@@ -8,15 +8,21 @@ import com.so.filem.domain.model.Search
 import timber.log.Timber
 
 private const val STARTING_PAGE_INDEX = 1
-class SearchMultiPagingSource(
+class SearchPagingSource(
     private val query: String,
     private val api: ApiService,
+    private val type: Int,
 ) : PagingSource<Int, Search>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Search> {
         val page = params.key ?: STARTING_PAGE_INDEX
 
         return try {
-            val response = api.getSearchMulti(query, page).asSearchMulti()
+            val response = when (type) {
+                0 -> api.getSearchMovie(query, page).asSearchMulti()
+                1 -> api.getSearchTv(query, page).asSearchMulti()
+                2 -> api.getSearchPerson(query, page).asSearchMulti()
+                else -> throw IllegalArgumentException("Invalid type: $type") // Handle invalid types
+            }
             if (response.results.isEmpty()){
                 LoadResult.Error(Exception("No results found"))
             } else {
@@ -27,6 +33,7 @@ class SearchMultiPagingSource(
                     nextKey = if (page == response.totalPages || response.totalPages == 0) null else page + 1
                 )
             }
+
         } catch (e: Exception) {
             Timber.e(e)
             LoadResult.Error(e)
@@ -34,7 +41,10 @@ class SearchMultiPagingSource(
     }
 
     override fun getRefreshKey(state: PagingState<Int, Search>): Int? {
-        return state.anchorPosition
+        return state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+        }
     }
 
 }

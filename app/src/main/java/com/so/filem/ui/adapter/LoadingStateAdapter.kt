@@ -8,7 +8,8 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.so.filem.databinding.ItemLoadingBinding
 
-class LoadingStateAdapter(private val retry: () -> Unit) : LoadStateAdapter<LoadingStateAdapter.LoadingStateViewHolder>() {
+class LoadingStateAdapter(private val retry: () -> Unit) :
+    LoadStateAdapter<LoadingStateAdapter.LoadingStateViewHolder>() {
     class LoadingStateViewHolder(private val binding: ItemLoadingBinding, retry: () -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 

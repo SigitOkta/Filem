@@ -15,7 +15,13 @@ import com.so.filem.ui.detail.tv.DetailTvShowActivity
 import timber.log.Timber
 
 class SearchListAdapter(
+    private var type: Int
 ) : PagingDataAdapter<Search, SearchListAdapter.MyViewHolder>(DIFF_CALLBACK) {
+
+    fun updateType(newType: Int) {
+        this.type = newType
+        notifyDataSetChanged() // or you can use notifyItemRangeChanged() if needed
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
@@ -26,7 +32,7 @@ class SearchListAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = getItem(position)
         if (item != null) {
-            holder.bind(item)
+            holder.bind(item, type)
         }
     }
 
@@ -34,10 +40,10 @@ class SearchListAdapter(
         private val binding: ItemPosterBinding,
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Search) {
-            Timber.tag("searchListAdapter").d(data.toString())
-            when (data.mediaType) {
-                "movie" -> {
+        fun bind(data: Search, type: Int) {
+            Timber.tag("searchListAdapter").d(type.toString())
+            when (type) {
+                0 -> {
                     binding.ivPoster.load(data.posterUrl) {
                         crossfade(true)
                         placeholder(R.drawable.ic_placeholder_poster)
@@ -47,7 +53,7 @@ class SearchListAdapter(
                         DetailMovieActivity.startActivity(itemView.context,data.id)
                     }
                 }
-                "tv" -> {
+                1 -> {
                     binding.ivPoster.load(data.posterUrl) {
                         crossfade(true)
                         placeholder(R.drawable.ic_placeholder_poster)
@@ -58,29 +64,29 @@ class SearchListAdapter(
                     }
                 }
 
-                "person" -> {
+                2 -> {
                     binding.ivPoster.load(data.profileUrl) {
                         crossfade(true)
                         placeholder(R.drawable.ic_placeholder_poster)
                     }
-                    binding.tvPoster.text = data.name
+                    binding.tvPoster.text = data.originalName
                     itemView.setOnClickListener{
                         DetailCastActivity.startActivity(itemView.context, data.id)
                     }
                 }
             }
-
         }
     }
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Search>() {
             override fun areItemsTheSame(oldItem: Search, newItem: Search): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id
+
             }
 
             override fun areContentsTheSame(oldItem: Search, newItem: Search): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem == newItem
             }
         }
     }

@@ -23,6 +23,9 @@ object Constants {
     const val TV_DETAIL = "tv/{id}?append_to_response=videos,credits"
 
     const val SEARCH_MULTI = "search/multi"
+    const val SEARCH_MOVIE = "search/movie"
+    const val SEARCH_TV = "search/tv"
+    const val SEARCH_PERSON = "search/person"
 
     const val CAST_DETAIL = "person/{person_id}?append_to_response=images,combined_credits"
 
