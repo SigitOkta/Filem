@@ -1,6 +1,5 @@
 package com.so.filem.data.repository
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.data.local.dao.movie.entity.MoviesEntity
@@ -81,7 +80,7 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun movieExists(movieId: Long): Boolean {
         return movieLocalDataSource.movieExists(movieId)
     }
-    override fun getSearch(query: String, type: Int) : LiveData<PagingData<Search>> {
+    override fun getSearch(query: String, type: Int) : Flow<PagingData<Search>> {
         return movieRemoteDataSource.getSearch(query, type)
     }
     /* override fun getSearchMultiForPaging(query: String) =

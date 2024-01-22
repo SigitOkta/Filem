@@ -1,10 +1,8 @@
 package com.so.filem.data.repository.datasourceImpl
 
-import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.liveData
 import com.so.filem.data.paging.SearchPagingSource
 import com.so.filem.data.remote.asCastDetails
 import com.so.filem.data.remote.asCasts
@@ -38,10 +36,10 @@ class MovieRemoteDataSourceImpl @Inject constructor(
             }
         ).flow
     }*/
-    override fun getSearch(query: String, type: Int): LiveData<PagingData<Search>> {
+    override fun getSearch(query: String, type: Int): Flow<PagingData<Search>> {
         return getSearchPagingSource(query,type)
     }
-    private fun getSearchPagingSource(query: String,type: Int) : LiveData<PagingData<Search>> {
+    private fun getSearchPagingSource(query: String,type: Int) : Flow<PagingData<Search>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = 20),
             pagingSourceFactory = {
@@ -51,7 +49,7 @@ class MovieRemoteDataSourceImpl @Inject constructor(
                     type = type
                 )
             }
-        ).liveData
+        ).flow
     }
 
     override suspend fun getDiscoverMovie(): Movies {

@@ -47,6 +47,7 @@ class SearchListAdapter(
                     binding.ivPoster.load(data.posterUrl) {
                         crossfade(true)
                         placeholder(R.drawable.ic_placeholder_poster)
+                        error(R.drawable.ic_placeholder_poster)
                     }
                     binding.tvPoster.text = data.title
                     itemView.setOnClickListener {
@@ -57,6 +58,7 @@ class SearchListAdapter(
                     binding.ivPoster.load(data.posterUrl) {
                         crossfade(true)
                         placeholder(R.drawable.ic_placeholder_poster)
+                        error(R.drawable.ic_placeholder_poster)
                     }
                     binding.tvPoster.text = data.name
                     itemView.setOnClickListener {
@@ -67,7 +69,8 @@ class SearchListAdapter(
                 2 -> {
                     binding.ivPoster.load(data.profileUrl) {
                         crossfade(true)
-                        placeholder(R.drawable.ic_placeholder_poster)
+                        placeholder(R.drawable.ic_placeholder_user)
+                        error(R.drawable.ic_placeholder_user)
                     }
                     binding.tvPoster.text = data.originalName
                     itemView.setOnClickListener{

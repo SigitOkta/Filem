@@ -1,6 +1,5 @@
 package com.so.filem.ui.search
 
-import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -9,15 +8,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.GridLayoutManager
 import com.so.filem.R
-import com.so.filem.databinding.FragmentSearchBinding
-import com.so.filem.domain.utils.Resource
-import com.so.filem.ui.adapter.LoadingStateAdapter
 import com.so.filem.base.BaseViewModelFragment
+import com.so.filem.databinding.FragmentSearchBinding
+import com.so.filem.ui.adapter.LoadingStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.observeOn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -155,10 +151,11 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
 
     override fun observeData() {
         super.observeData()
-        viewModel.movies.observe(viewLifecycleOwner) { result ->
-            searchAdapter.submitData(viewLifecycleOwner.lifecycle,result)
+        lifecycleScope.launch {
+            viewModel.movies.collectLatest{ result ->
+                searchAdapter.submitData(result)
+            }
         }
-
     }
 
     private fun setErrorMessage(msg: String) {

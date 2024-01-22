@@ -1,6 +1,5 @@
 package com.so.filem.domain.repository
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.domain.model.CastDetails
@@ -28,7 +27,7 @@ interface MovieRepository {
     suspend fun movieExists(movieId: Long): Boolean
 
    /* fun getSearchMultiForPaging(query: String)*/
-    fun getSearch(query: String, type: Int) : LiveData<PagingData<Search>>
+    fun getSearch(query: String, type: Int) : Flow<PagingData<Search>>
 
     suspend fun discoverMovie(): Movies
 
