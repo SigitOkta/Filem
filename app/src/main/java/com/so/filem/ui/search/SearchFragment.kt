@@ -138,15 +138,6 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
                 searchAdapter.retry()
             }
         )
-        /* searchAdapter.addLoadStateListener { loadState ->
-             if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && searchAdapter.itemCount < 1) {
-                 showError()
-                 setErrorMessage(getText(R.string.text_empty_data).toString())
-             } else {
-                 viewBinding().tvErrorHome.isVisible = false
-                 viewBinding().includeRecyclerView.root.isVisible = true
-             }
-         }*/
     }
 
     override fun observeData() {
@@ -155,26 +146,6 @@ class SearchFragment : BaseViewModelFragment<FragmentSearchBinding, SearchViewMo
             viewModel.movies.collectLatest{ result ->
                 searchAdapter.submitData(result)
             }
-        }
-    }
-
-    private fun setErrorMessage(msg: String) {
-        viewBinding().tvErrorHome.text = msg
-    }
-
-    private fun showError() {
-        viewBinding().apply {
-            includeRecyclerView.rvSearchItem.isVisible = false
-            loadingProgressBar.isVisible = false
-            tvErrorHome.isVisible = true
-        }
-    }
-
-    private fun showLoading() {
-        viewBinding().apply {
-            includeRecyclerView.root.isVisible = false
-            tvErrorHome.isVisible = false
-            loadingProgressBar.isVisible = true
         }
     }
 }
