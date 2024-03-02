@@ -23,14 +23,111 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_gray"
         android:layout_alignParentBottom="true"
+        android:background="@color/dark_gray"
+        android:scrollIndicators="left"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemIconTint="@drawable/bg_bottom_nav_color"
         app:itemTextColor="@drawable/bg_bottom_nav_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:itemActiveIndicatorStyle="@android:color/transparent"
-        app:menu="@menu/menu_bottom"
-        android:scrollIndicators="left"/>
+        app:menu="@menu/menu_bottom" />
+
+    <View
+        android:id="@+id/transparentBg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#000000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fabConstraint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="32dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/mainFabBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:tint="@color/light_blue"
+            app:backgroundTint="@color/light_blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_add"
+            app:tint="@color/dark_blue" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/favFabBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:tint="@color/light_blue"
+            android:visibility="invisible"
+            app:backgroundTint="@color/light_blue"
+            app:layout_constraintBottom_toTopOf="@id/mainFabBtn"
+            app:layout_constraintEnd_toEndOf="@id/mainFabBtn"
+            app:srcCompat="@drawable/ic_favorite"
+            app:tint="@color/dark_blue" />
+
+        <TextView
+            android:id="@+id/tv_fab_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_fab_text"
+            android:elevation="8dp"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="8dp"
+            android:text="@string/en_text_favorite"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/favFabBtn"
+            app:layout_constraintEnd_toStartOf="@id/favFabBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/favFabBtn" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/forumFabBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="@color/light_blue"
+            android:tint="@color/light_blue"
+            android:visibility="invisible"
+            app:backgroundTint="@color/light_blue"
+            app:layout_constraintBottom_toTopOf="@id/favFabBtn"
+            app:layout_constraintEnd_toEndOf="@id/favFabBtn"
+            app:srcCompat="@drawable/ic_forum"
+            app:tint="@color/dark_blue" />
+
+        <TextView
+            android:id="@+id/tv_fab_forum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_fab_text"
+            android:elevation="8dp"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="8dp"
+            android:text="@string/en_text_discussion"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/forumFabBtn"
+            app:layout_constraintEnd_toStartOf="@id/forumFabBtn"
+            app:layout_constraintTop_toTopOf="@id/forumFabBtn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
