@@ -69,4 +69,8 @@
     <string name="en_text_join">Join</string>
     <string name="en_text_discussion">Discussion</string>
 
+    <!-- || Favorite Activity || -->
+    <string name="en_text_no_favorite_tv">No Favorite Tv</string>
+    <string name="en_text_no_favorite_movie">No Favorite Movie</string>
+
 </resources>

@@ -17,7 +17,6 @@ import com.so.filem.ui.detail.movie.DetailMovieActivity
 import com.so.filem.ui.detail.tv.DetailTvShowActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class FavoriteActivity :
@@ -77,18 +76,15 @@ class FavoriteActivity :
             viewModel.movies.collect { movies ->
                 val emptyView = binding.tvNoFavorite
                 if (movies.isNullOrEmpty()) {
-                    // Tampilkan empty layout
-                    emptyView.text = "No Favorite Movie"
+                    emptyView.text = getString(R.string.en_text_no_favorite_movie)
                     emptyView.visibility = View.VISIBLE
                     recyclerView.visibility = View.GONE
                 } else {
-                    // Tampilkan RecyclerView
                     emptyView.visibility = View.GONE
                     recyclerView.visibility = View.VISIBLE
 
                     val adapter = FavoriteAdapter(object : FavoriteRecyclerBindingInterface<Movie> {
                         override fun bindData(item: Movie, binding: ItemPosterMovieGridBinding) {
-                            // Implement your data binding logic here
                             binding.apply {
                                 ivPoster.load(item.posterUrl) {
                                     crossfade(true)
@@ -117,25 +113,19 @@ class FavoriteActivity :
         lifecycleScope.launch {
             viewModel.tvs.collect { tvs ->
                 val emptyView = binding.tvNoFavorite
-                Timber.tag("fragFav2").d(tvs.toString())
                 if (tvs.isNullOrEmpty()) {
-                    // Tampilkan empty layout
-                    emptyView.text = "No Favorite Tv"
+                    emptyView.text = getString(R.string.en_text_no_favorite_tv)
                     emptyView.visibility = View.VISIBLE
                     recyclerView.visibility = View.GONE
                 } else {
-                    // Tampilkan RecyclerView
                     emptyView.visibility = View.GONE
                     recyclerView.visibility = View.VISIBLE
-
-                    // Inisialisasi dan atur adapter RecyclerView Anda di sini
                     val adapter =
                         FavoriteAdapter(object : FavoriteRecyclerBindingInterface<TvShow> {
                             override fun bindData(
                                 item: TvShow,
                                 binding: ItemPosterMovieGridBinding
                             ) {
-                                // Implement your data binding logic here
                                 binding.apply {
                                     ivPoster.load(item.posterUrl) {
                                         crossfade(true)

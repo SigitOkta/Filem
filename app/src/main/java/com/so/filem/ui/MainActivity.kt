@@ -28,12 +28,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         binding.bottomNav.setupWithNavController(navController)
         binding.mainFabBtn.setOnClickListener {
 
-            if (isExpanded) {
+            isExpanded = if (isExpanded) {
                 fabManager.shrinkFab(binding)
-                isExpanded = !isExpanded
+                !isExpanded
             } else {
                 fabManager.expandFab(binding)
-                isExpanded = !isExpanded
+                !isExpanded
             }
 
         }
@@ -70,7 +70,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             isExpanded = !isExpanded
         } else {
             super.onBackPressed()
-
         }
     }
 }
