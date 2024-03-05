@@ -38,6 +38,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         }
 
+        binding.favFabBtn.setOnClickListener {
+            fabManager.onFavoriteClicked(this)
+            fabManager.shrinkFab(binding)
+            isExpanded = !isExpanded
+        }
+
     }
 
 

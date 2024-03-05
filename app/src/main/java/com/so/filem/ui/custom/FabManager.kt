@@ -7,15 +7,13 @@
 package com.so.filem.ui.custom
 
 import android.content.Context
+import android.content.Intent
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.core.content.ContextCompat.startActivity
 import com.so.filem.R
 import com.so.filem.databinding.ActivityMainBinding
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import com.so.filem.ui.favorite.FavoriteActivity
 
 
 class FabManager(context : Context) {
@@ -38,8 +36,9 @@ class FabManager(context : Context) {
         AnimationUtils.loadAnimation(context, R.anim.to_bottom_anim)
     }
 
-    private fun onGalleryClicked(context: Context) {
-        Toast.makeText(context, "Gallery Clicked", Toast.LENGTH_SHORT).show()
+    fun onFavoriteClicked(context: Context) {
+        val intent = Intent(context, FavoriteActivity::class.java)
+        startActivity(context,intent,null)
     }
 
     fun shrinkFab(binding: ActivityMainBinding) {
