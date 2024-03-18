@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace 'com.so.filem'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.so.filem"
@@ -89,7 +89,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
 
     //coil image loader
-    implementation 'io.coil-kt:coil:2.2.2'
+    implementation 'io.coil-kt:coil:2.6.0'
 
     //chucker
     debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"

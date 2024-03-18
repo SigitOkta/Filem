@@ -5,6 +5,7 @@
     <string name="en_text_greeting">Discover, Discuss, Delight</string>
     <string name="en_text_movie">Movie</string>
     <string name="en_text_tv">TV Show</string>
+    <string name="en_text_profile">Profile</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="en_text_search">Search</string>
     <string name="en_text_retry">Retry\n</string>
@@ -71,5 +72,16 @@
     <!-- || Favorite Activity || -->
     <string name="en_text_no_favorite_tv">No Favorite Tv</string>
     <string name="en_text_no_favorite_movie">No Favorite Movie</string>
+
+    <!-- || Profile Fragment || -->
+    <string name="en_text_preferences">Preferences</string>
+    <string name="en_text_language">Language</string>
+    <string name="en_text_dark_mode">Dark Mode</string>
+    <string name="en_text_adult_mode">Adult Mode</string>
+    <string name="en_text_logout">Log Out</string>
+    <string-array name="spinner_language">
+        <item>English</item>
+        <item>Indonesia</item>
+    </string-array>
 
 </resources>

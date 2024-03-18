@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_tv"
         android:title="@string/en_text_tv" />
 
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_person"
+        android:title="@string/en_text_profile" />
+
 </menu>
