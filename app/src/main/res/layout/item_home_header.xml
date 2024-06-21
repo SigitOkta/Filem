@@ -8,8 +8,7 @@
     android:layout_marginEnd="@dimen/_6sdp"
     android:layout_marginTop="@dimen/_9sdp"
     android:layout_marginBottom="@dimen/_9sdp"
-    app:cardElevation="0dp"
-    android:backgroundTint="@color/dark_gray"
+    app:cardElevation="10dp"
     app:cardCornerRadius="@dimen/_7sdp">
 
     <LinearLayout
@@ -20,6 +19,7 @@
         <ImageView
             android:id="@+id/iv_home_header_poster"
             android:layout_width="@dimen/_85sdp"
+            android:scaleType="centerCrop"
             android:layout_height="match_parent"
             android:src="@drawable/ic_placeholder_poster"/>
 
@@ -35,7 +35,6 @@
                 android:layout_marginStart="@dimen/_6sdp"
                 android:layout_marginEnd="@dimen/_6sdp"
                 android:fontFamily="@font/inter_regular"
-                android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
                 android:maxLines="1"
                 android:ellipsize="end"
@@ -105,7 +104,6 @@
                 android:layout_marginStart="@dimen/_6sdp"
                 android:layout_marginEnd="@dimen/_6sdp"
                 android:fontFamily="@font/inter_regular"
-                android:textColor="@color/off_white_400"
                 android:textSize="@dimen/_11ssp"
                 android:maxLines="4"
                 android:ellipsize="end"

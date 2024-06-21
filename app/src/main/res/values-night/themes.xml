@@ -1,7 +1,36 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Filem" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/color_primary_dark</item>
+        <item name="colorPrimaryVariant">@color/color_primary_variant_dark</item>
+        <item name="colorOnPrimary">@color/color_on_primary_dark</item>
+
+        <!-- Background and text colors for light mode. -->
+        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="android:textColorPrimary">@color/color_primary_dark</item>
+        <item name="android:textColorSecondary">@color/color_primary_dark</item>
+        <!-- Customize the SearchView -->
+        <!-- <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>-->
+    </style>
+
+    <!--<style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_filter</item>
+    </style>-->
+
+    <style name="Theme.Filem" parent="Base.Theme.Filem" />
+
+    <style name="MyTheme.SearchView" parent="">
+        <!-- Text color -->
+        <item name="android:editTextColor">@color/color_primary_dark</item>
+        <!-- Hint text color -->
+        <item name="android:textColorHint">@color/color_primary_dark</item>
+    </style>
+
+    <style name="CustomSearchView" parent="Widget.AppCompat.SearchView">
+        <!-- Customize SearchView attributes here -->
+        <item name="android:textColorHint">@color/color_primary_dark</item>
+        <!-- Add more customizations as needed -->
     </style>
 </resources>

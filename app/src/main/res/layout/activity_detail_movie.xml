@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_black"
     android:fillViewport="true"
     android:overScrollMode="never">
 
@@ -44,7 +43,6 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:fontFamily="@font/inter_regular"
-            android:textColor="@color/off_white_400"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

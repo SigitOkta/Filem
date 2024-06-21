@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/dark_black"
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_margin="@dimen/_2sdp">
@@ -33,7 +32,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/en_text_title"
-                android:textColor="@color/off_white_400"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
             <LinearLayout
@@ -96,7 +94,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/en_text_year"
                     android:layout_gravity="center"
-                    android:textColor="#666666"
                     android:textSize="@dimen/_10ssp" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -105,7 +102,6 @@
                     android:layout_marginStart="@dimen/_2sdp"
                     android:layout_marginEnd="@dimen/_2sdp"
                     android:layout_gravity="center"
-                    android:textColor="#666666"
                     android:textSize="@dimen/_11ssp" />
                 <TextView
                     android:id="@+id/tv_episode"
@@ -114,7 +110,6 @@
                     android:text="@string/en_text_number"
                     android:layout_marginEnd="@dimen/_2sdp"
                     android:layout_gravity="center"
-                    android:textColor="#666666"
                     android:textSize="@dimen/_10ssp" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -122,7 +117,6 @@
                     android:text="@string/en_text_episodes"
                     android:layout_marginStart="@dimen/_2sdp"
                     android:layout_gravity="center"
-                    android:textColor="#666666"
                     android:textSize="@dimen/_10ssp" />
             </LinearLayout>
 
@@ -131,7 +125,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:textColor="@color/off_white_400"
                 android:textSize="@dimen/_11ssp"
                 android:maxLines="2"
                 tools:text="lorem"/>

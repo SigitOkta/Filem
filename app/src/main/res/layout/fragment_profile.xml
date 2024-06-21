@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_black"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.profile.ProfileFragment">
 
@@ -36,7 +35,7 @@
                 android:padding="@dimen/_8sdp"
                 tools:text="username"
                 android:textSize="@dimen/_18ssp"
-                android:textColor="@color/light_blue"
+
                 app:layout_constraintStart_toEndOf="@+id/ci_image"
                 app:layout_constraintTop_toTopOf="@+id/ci_image" />
 
@@ -71,7 +70,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/en_text_preferences"
                 android:paddingBottom="@dimen/_6sdp"
-                android:textColor="@color/off_white_400"
                 android:textSize="@dimen/_17ssp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -80,7 +78,7 @@
                 android:id="@+id/cv_language"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/dark_gray"
+                android:layout_margin="@dimen/_8sdp"
                 app:cardCornerRadius="@dimen/_20sdp"
                 app:layout_constraintTop_toBottomOf="@+id/tv_preferences"
                 >
@@ -103,7 +101,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textColor="@color/off_white_400"
                         android:text="@string/en_text_language"
                         android:textSize="@dimen/_12ssp"
                         android:layout_weight="3"
@@ -125,18 +122,18 @@
                 android:id="@+id/cv_dark_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                app:cardBackgroundColor="@color/dark_gray"
+                android:layout_margin="@dimen/_8sdp"
                 app:cardCornerRadius="@dimen/_20sdp"
-                app:layout_constraintTop_toBottomOf="@+id/cv_language"
-                >
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_language">
+
                 <LinearLayout
-                    android:layout_margin="@dimen/_10sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
                     android:orientation="horizontal"
-                    android:weightSum="3"
-                    >
+                    android:weightSum="3">
+
                     <ImageView
                         android:id="@+id/iv_dark_mode"
                         android:layout_width="wrap_content"
@@ -149,66 +146,20 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textColor="@color/off_white_400"
-                        android:text="@string/en_text_dark_mode"
-                        android:layout_weight="3"
-                        android:textSize="@dimen/_12ssp"
                         android:layout_marginStart="@dimen/_5sdp"
-                        />
+                        android:layout_weight="3"
+                        android:text="@string/en_text_dark_mode"
+                        android:textSize="@dimen/_12ssp" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/sw_dark_mode"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_adult_mode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                app:cardBackgroundColor="@color/dark_gray"
-                app:cardCornerRadius="@dimen/_20sdp"
-                app:layout_constraintTop_toBottomOf="@+id/cv_dark_mode"
-                >
-                <LinearLayout
-                    android:layout_margin="@dimen/_10sdp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="3"
-                    >
-                    <ImageView
-                        android:id="@+id/iv_adult_mode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_adult_mode" />
-
-                    <TextView
-                        android:id="@+id/tv_adult_mode"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textColor="@color/off_white_400"
-                        android:text="@string/en_text_adult_mode"
-                        android:layout_weight="3"
-                        android:textSize="@dimen/_12ssp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        />
-
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/sw_adult_mode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

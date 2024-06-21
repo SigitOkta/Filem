@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
     android:layout_marginTop="10dp"
-    android:background="@color/dark_black">
+   >
 
     <ImageView
         android:id="@+id/iv_chat_photo"

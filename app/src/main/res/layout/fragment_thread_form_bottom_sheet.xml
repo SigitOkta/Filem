@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/_11sdp"
-    android:background="@color/dark_black"
     tools:context=".ui.thread.threadform.ThreadFormBottomSheet">
 
     <TextView
@@ -14,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create a thread"
-        android:textColor="@color/off_white_400"
         app:layout_constraintBottom_toTopOf="@+id/til_thread_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
-        android:backgroundTint="@color/light_blue"
+        android:backgroundTint="@color/dark_blue"
         android:text="Create Thread"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_thread_body" />

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_black"
     tools:context=".ui.detail.cast.CastOverviewFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -25,7 +24,6 @@
                 android:layout_marginEnd="@dimen/_13sdp"
                 android:fontFamily="@font/inter_regular"
                 android:text="@string/en_text_biography"
-                android:textColor="@color/off_white_400"
                 android:textSize="@dimen/_10ssp" />
 
             <TextView
@@ -36,7 +34,6 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:fontFamily="@font/inter_regular"
-                android:textColor="@color/off_white_400"
                 android:textSize="@dimen/_9ssp"
                 tools:text="Lorem" />
 

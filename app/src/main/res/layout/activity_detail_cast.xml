@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_black"
     tools:context=".ui.detail.cast.DetailCastActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_black"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true">
 
@@ -46,9 +44,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="bottom"
-                android:background="@color/dark_black"
-                app:tabIndicatorColor="@color/grey_200"
-                app:tabTextColor="@color/off_white_400"
                 app:tabGravity="fill"
                 app:tabMode="fixed"/>
 
