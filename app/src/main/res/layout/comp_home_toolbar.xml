@@ -34,13 +34,6 @@
                 android:textColor="@color/off_white_400"
                 android:text="@string/en_text_username"/>
 
-            <ImageView
-                android:id="@+id/iv_logout"
-                android:layout_width="@dimen/_12sdp"
-                android:layout_height="@dimen/_12sdp"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_3sdp"
-                android:src="@drawable/ic_logout" />
         </LinearLayout>
 
         <TextView

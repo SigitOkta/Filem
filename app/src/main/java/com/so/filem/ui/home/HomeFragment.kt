@@ -24,29 +24,9 @@ class HomeFragment : BaseViewModelFragment<FragmentHomeBinding, HomeViewModel>(
 ) {
     private val TAG = HomeFragment::class.java.simpleName
     override val viewModel: HomeViewModel by viewModels()
-    private val dialogLogout by lazy {
-        MaterialAlertDialogBuilder(requireContext())
-            .setMessage(getString(R.string.logout_text))
-            .setNegativeButton(getString(R.string.lbl_no)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setPositiveButton(R.string.lbl_yes) { dialog, _ ->
-                logout()
-                dialog.dismiss()
-            }
-    }
 
-    private fun logout() {
-        viewModel.doLogout()
-        navigateToLogin()
 
-    }
 
-    private fun navigateToLogin() {
-        startActivity(Intent(requireContext(), AuthActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        })
-    }
 
     override fun observeData() {
         super.observeData()
@@ -115,11 +95,6 @@ class HomeFragment : BaseViewModelFragment<FragmentHomeBinding, HomeViewModel>(
     override fun initView() {
         super.initView()
         viewModel.getParentData()
-        viewBinding().includeToolbar.apply {
-            ivLogout.setOnClickListener {
-                dialogLogout.show()
-            }
-        }
         viewModel.getCurrentUser()
     }
 

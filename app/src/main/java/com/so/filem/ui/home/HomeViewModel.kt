@@ -52,9 +52,6 @@ class HomeViewModel @Inject constructor(
     fun getCurrentUser() {
         currentUserLiveData.postValue(userRepository.getCurrentUser())
     }
-    fun doLogout() {
-        userRepository.logoutUser()
-    }
     fun setTrendingMovie(timeWindow: String) {
         time = timeWindow
         getTrendingMovie()
