@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Created by SigitO
+  ~ Copyright (c) 2024 . All rights reserved.
+  ~ Last modified 6/21/24, 4:21 PM
+  -->
+
+<resources>
+    <string name="en_text_welcome">Selamat Datang</string>
+    <string name="en_text_username">username </string>
+    <string name="en_text_greeting">Discover, Discuss, Delight</string>
+    <string name="en_text_movie">Film</string>
+    <string name="en_text_tv">Acara TV</string>
+    <string name="en_text_profile">Profil</string>
+    <string name="en_text_search">Cari</string>
+    <string name="en_text_retry">Ulangi</string>
+    <string name="en_text_filter_now_playing">Sedang Tayang</string>
+    <string name="en_text_filter_upcoming">Mendatang</string>
+    <string name="en_text_filter_airing_today">Tayang di Tv</string>
+    <string name="en_text_filter_on_the_air">Sedang Tayang</string>
+    <string name="en_text_loading">Loading..</string>
+    <string name="en_text_filter_popular">Populer</string>
+    <string name="en_text_filter_top_rated">Top Rating</string>
+    <string name="en_text_title_cast">Orang</string>
+    <string name="en_text_title_video">Video</string>
+    <string name="en_text_search_here">Cari disini</string>
+    <string name="en_text_not_found">Tidak Ditemukan</string>
+    <string name="en_text_title">Judul</string>
+    <string name="en_text_year">2023</string>
+    <string name="en_text_discover">Discover</string>
+    <string name="en_text_favorite">Favorit</string>
+    <string name="en_text_biography">Biografi</string>
+    <string name="resizable_text_read_more">... baca selengkapnya</string>
+    <string name="resizable_text_read_less">" membaca lebih sedikit"</string>
+    <string name="en_text_no_bio">" Kami belum memiliki biografi %1$s."</string>
+    <string name="tab_cast_1">Ringkasan</string>
+    <string name="tab_cast_2">Info Pesonal</string>
+    <string name="en_text_female">Wanita</string>
+    <string name="en_text_male">Pria</string>
+    <string name="en_text_no_binary">Non binary</string>
+    <string name="en_text_home">Home</string>
+    <string name="en_text_trending">Trending</string>
+    <string name="en_text_trending_movies">Film Trending</string>
+    <string name="en_text_trending_tvs">TV Trending</string>
+    <string name="en_text_popular_people">Orang Populer</string>
+    <string name="tab_detail_tv_1">Ringkasan</string>
+    <string name="tab_detail_tv_2">Info Musim</string>
+    <string name="en_text_symbol">•</string>
+    <string name="en_text_number">8</string>
+    <string name="en_text_episodes">Episode</string>
+    <string name="en_text_fav_movie">Film Favorit</string>
+    <string name="en_text_fav_tv">Tv Favorit</string>
+    <string-array name="spinner_values">
+        <item>Film</item>
+        <item>Acara Tv</item>
+        <item>Orang</item>
+    </string-array>
+
+    <!-- || SPLASH & ONBOARDING ACTIVITY || -->
+    <string name="text_onboard_desc_1">Satu klik saja dari film dan acara TV favorit Anda</string>
+    <string name="text_onboard_desc_2">Hibur diri Anda tidak seperti sebelumnya dalam hidup Anda</string>
+
+    <!-- || HOME FRAGMENT || -->
+    <string name="logout_text">" Apakah Anda yakin ingin keluar?"</string>
+    <string name="lbl_yes">Ya</string>
+    <string name="lbl_no">Tidak</string>
+    <string name="en_text_thread_title">"Judul Thread "</string>
+    <string name="what_do_you_want_to_discuss">" Apa yang ingin Anda diskusikan?"</string>
+    <string name="text_container_display_creator_thread">Dibuat oleh %s</string>
+    <string name="text_empty_data">No Data</string>
+    <string name="text_error_empty_title">Silakan masukkan judul thread!</string>
+    <string name="text_error_empty_body">" Silakan Masukkan Topiknya!"</string>
+    <string name="text_empty_data_subthread">" Tidak ada obrolan yang tersedia"</string>
+    <string name="en_text_join">Masuk</string>
+    <string name="en_text_discussion">Diskusi</string>
+
+    <!-- || Favorite Activity || -->
+    <string name="en_text_no_favorite_tv">"Tidak Ada "</string>
+    <string name="en_text_no_favorite_movie">Tidak Ada</string>
+
+    <!-- || Profile Fragment || -->
+    <string name="en_text_preferences">Preferensi</string>
+    <string name="en_text_language">Bahasa</string>
+    <string name="en_text_dark_mode">Mode Gelap</string>
+    <string name="en_text_adult_mode">Adult Mode</string>
+    <string name="en_text_logout">Keluar</string>
+    <string-array name="spinner_language">
+        <item>English</item>
+        <item>Indonesia</item>
+    </string-array>
+    <string name="text_day">Hari ini</string>
+    <string name="text_day">Har</string>
+    <string name="text_week">Minggu ini</string>
+    <string name="text_week">M</string>
+
+</resources>

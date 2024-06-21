@@ -36,7 +36,7 @@ class MovieFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity?)?.supportActionBar?.show()
-        setActionBarTitle(viewModel.getFilterTitle(MovieFilter.NOW_PLAYING))
+        setActionBarTitle(viewModel.getFilterTitle(requireContext(),MovieFilter.NOW_PLAYING))
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -46,25 +46,25 @@ class MovieFragment :
             override fun onMenuItemSelected(item: MenuItem): Boolean {
                 return when (item.itemId) {
                     R.id.menu_now_playing -> {
-                        setActionBarTitle(viewModel.getFilterTitle(MovieFilter.NOW_PLAYING))
+                        setActionBarTitle(viewModel.getFilterTitle(requireContext(),MovieFilter.NOW_PLAYING))
                         initData(MovieFilter.NOW_PLAYING)
                         true
                     }
 
                     R.id.menu_upcoming -> {
-                        setActionBarTitle(viewModel.getFilterTitle(MovieFilter.UPCOMING))
+                        setActionBarTitle(viewModel.getFilterTitle(requireContext(),MovieFilter.UPCOMING))
                         initData(MovieFilter.UPCOMING)
                         true
                     }
 
                     R.id.menu_popular -> {
-                        setActionBarTitle(viewModel.getFilterTitle(MovieFilter.POPULAR))
+                        setActionBarTitle(viewModel.getFilterTitle(requireContext(),MovieFilter.POPULAR))
                         initData(MovieFilter.POPULAR)
                         true
                     }
 
                     R.id.menu_top_rated -> {
-                        setActionBarTitle(viewModel.getFilterTitle(MovieFilter.TOP_RATED))
+                        setActionBarTitle(viewModel.getFilterTitle(requireContext(),MovieFilter.TOP_RATED))
                         initData(MovieFilter.TOP_RATED)
                         true
                     }

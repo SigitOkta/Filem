@@ -6,9 +6,13 @@
 
 package com.so.filem.ui.filter.movie
 
+
+import android.content.Context
+import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import com.so.filem.R
 import com.so.filem.data.local.dao.movie.entity.MoviePaging
 import com.so.filem.domain.model.MovieFilter
 import com.so.filem.domain.usecase.movie.GetMovieUseCase
@@ -49,12 +53,20 @@ class MovieViewModel @Inject constructor(
         }
     }
 
-    fun getFilterTitle(filter: MovieFilter): String {
+    fun getFilterTitle(context: Context ,filter: MovieFilter): String {
         return when (filter) {
-            MovieFilter.NOW_PLAYING -> "Now Playing"
-            MovieFilter.UPCOMING -> "Up Coming"
-            MovieFilter.POPULAR -> "Popular"
-            MovieFilter.TOP_RATED -> "Top Rated"
+            MovieFilter.NOW_PLAYING -> {
+                getString(context ,R.string.en_text_filter_now_playing)
+            }
+            MovieFilter.UPCOMING -> {
+                getString(context ,R.string.en_text_filter_upcoming)
+            }
+            MovieFilter.POPULAR -> {
+                getString(context ,R.string.en_text_filter_popular)
+            }
+            MovieFilter.TOP_RATED -> {
+                getString(context ,R.string.en_text_filter_top_rated)
+            }
         }
     }
     /*private val _movieResult = MutableStateFlow<Resource<PagingData<MoviePaging>>?>(null)

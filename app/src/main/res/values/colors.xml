@@ -33,7 +33,7 @@
     <color name="color_on_primary_dark">#01B4E4</color>
 
     <!--    Background colors -->
-    <color name="background_dark">#2A2A35</color>
+    <color name="background_dark">#21212B</color>
     <color name="background_light">#FFFFFF</color>
 
     <!--    Text colors -->

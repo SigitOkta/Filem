@@ -1,12 +1,10 @@
 <resources>
-    <string name="app_name">Filem</string>
     <string name="en_text_welcome">Welcome </string>
     <string name="en_text_username">username </string>
     <string name="en_text_greeting">Discover, Discuss, Delight</string>
     <string name="en_text_movie">Movie</string>
     <string name="en_text_tv">TV Show</string>
     <string name="en_text_profile">Profile</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="en_text_search">Search</string>
     <string name="en_text_retry">Retry\n</string>
     <string name="en_text_filter_now_playing">Now Playing</string>
@@ -60,7 +58,7 @@
     <string name="lbl_yes">Yes</string>
     <string name="lbl_no">No</string>
     <string name="en_text_thread_title">Thread Title</string>
-    <string name="what_do_you_want_to_discuss">What do you want to discuss</string>
+    <string name="what_do_you_want_to_discuss">What do you want to discuss?</string>
     <string name="text_container_display_creator_thread">Created by %s</string>
     <string name="text_empty_data">No Data</string>
     <string name="text_error_empty_title">Please input thread title !</string>
@@ -83,5 +81,7 @@
         <item>English</item>
         <item>Indonesia</item>
     </string-array>
+    <string name="text_day">Day</string>
+    <string name="text_week">Week</string>
 
 </resources>

@@ -36,7 +36,7 @@ class TvShowFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity?)?.supportActionBar?.show()
-        setActionBarTitle(viewModel.getFilterTitle(TvFilter.AIRING_TODAY))
+        setActionBarTitle(viewModel.getFilterTitle(requireContext(),TvFilter.AIRING_TODAY))
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -46,25 +46,25 @@ class TvShowFragment :
             override fun onMenuItemSelected(item: MenuItem): Boolean {
                 return when (item.itemId) {
                     R.id.menu_airing_today -> {
-                        setActionBarTitle(viewModel.getFilterTitle(TvFilter.AIRING_TODAY))
+                        setActionBarTitle(viewModel.getFilterTitle(requireContext(),TvFilter.AIRING_TODAY))
                         initData(TvFilter.AIRING_TODAY)
                         true
                     }
 
                     R.id.menu_on_the_air -> {
-                        setActionBarTitle(viewModel.getFilterTitle(TvFilter.ON_THE_AIR))
+                        setActionBarTitle(viewModel.getFilterTitle(requireContext(),TvFilter.ON_THE_AIR))
                         initData(TvFilter.ON_THE_AIR)
                         true
                     }
 
                     R.id.menu_popular_tv -> {
-                        setActionBarTitle(viewModel.getFilterTitle(TvFilter.POPULAR))
+                        setActionBarTitle(viewModel.getFilterTitle(requireContext(),TvFilter.POPULAR))
                         initData(TvFilter.POPULAR)
                         true
                     }
 
                     R.id.menu_top_rated_tv -> {
-                        setActionBarTitle(viewModel.getFilterTitle(TvFilter.TOP_RATED))
+                        setActionBarTitle(viewModel.getFilterTitle(requireContext(),TvFilter.TOP_RATED))
                         initData(TvFilter.TOP_RATED)
                         true
                     }

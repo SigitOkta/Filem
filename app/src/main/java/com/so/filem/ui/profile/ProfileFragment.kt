@@ -1,6 +1,7 @@
 package com.so.filem.ui.profile
 
 import android.content.Intent
+import android.provider.Settings
 import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -50,6 +51,9 @@ class ProfileFragment : BaseViewModelFragment<FragmentProfileBinding, ProfileVie
         viewModel.getCurrentUser()
         viewBinding().btnLogout.setOnClickListener {
             dialogLogout.show()
+        }
+        viewBinding().cvLanguage.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
         }
         viewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {

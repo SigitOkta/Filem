@@ -6,9 +6,12 @@
 
 package com.so.filem.ui.filter.tv
 
+import android.content.Context
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import com.so.filem.R
 import com.so.filem.data.local.dao.tvShow.entity.TvPaging
 import com.so.filem.domain.model.TvFilter
 import com.so.filem.domain.usecase.movie.GetFilterTvUseCase
@@ -48,12 +51,20 @@ class TvShowViewModel @Inject constructor(
         }
     }
 
-    fun getFilterTitle(filter: TvFilter): String {
+    fun getFilterTitle(context: Context, filter: TvFilter): String {
         return when (filter) {
-            TvFilter.AIRING_TODAY -> "Airing Today"
-            TvFilter.ON_THE_AIR -> "On The Air"
-            TvFilter.POPULAR -> "Popular Tv Show"
-            TvFilter.TOP_RATED -> "Top Rated Tv Show"
+            TvFilter.AIRING_TODAY -> {
+                ContextCompat.getString(context, R.string.en_text_filter_airing_today)
+            }
+            TvFilter.ON_THE_AIR -> {
+                ContextCompat.getString(context, R.string.en_text_filter_on_the_air)
+            }
+            TvFilter.POPULAR -> {
+                ContextCompat.getString(context, R.string.en_text_filter_popular)
+            }
+            TvFilter.TOP_RATED -> {
+                ContextCompat.getString(context, R.string.en_text_filter_top_rated)
+            }
         }
     }
 }

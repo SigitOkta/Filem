@@ -107,12 +107,10 @@
                         android:layout_marginStart="@dimen/_5sdp"
                         />
 
-                    <Spinner
-                        android:id="@+id/spinner_language"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:entries="@array/spinner_language"
-                        tools:listitem="@layout/support_simple_spinner_dropdown_item"/>
+                        android:src="@drawable/ic_arrow_down"
                         />
                 </LinearLayout>
 
