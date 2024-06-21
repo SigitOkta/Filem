@@ -90,8 +90,6 @@
         <item>Indonesia</item>
     </string-array>
     <string name="text_day">Hari ini</string>
-    <string name="text_day">Har</string>
     <string name="text_week">Minggu ini</string>
-    <string name="text_week">M</string>
 
 </resources>
